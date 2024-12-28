@@ -1,0 +1,5 @@
+-- Form-group class in some issue
+-- Chart pages in card-body issue
+-- Timelinechart in date and icon issue 
+-- registerwizard in formgroup class issue
+

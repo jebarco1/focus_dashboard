@@ -1,0 +1,1 @@
+export const cartTableHeader  = ["Product", "Prdouct Name", "Price", "Quantity", "Action", "Total"];
