@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-
+import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
 // Props definition
 interface PowerballNumberSelectorProps {
-    numberPickHotCold: { number: number; temp: string }[];
     selectedRegularNumbers: number[]; // Array of selected numbers
     setSelectedRegularNumbers: React.Dispatch<React.SetStateAction<number[]>>; // State setter for selected numbers
     selectedPowerball: number; // Single selected Powerball number
@@ -12,7 +11,6 @@ interface PowerballNumberSelectorProps {
 
 
   const PowerballNumberSelector: React.FC<PowerballNumberSelectorProps> = ({
-    numberPickHotCold,
     selectedRegularNumbers,
     setSelectedRegularNumbers,
     selectedPowerball,
@@ -21,7 +19,7 @@ interface PowerballNumberSelectorProps {
 
 
 
- 
+ const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
 
   const handleRegularNumberClick = (number: number) => {
 

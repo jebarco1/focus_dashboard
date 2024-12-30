@@ -1,4 +1,6 @@
 import React, { useState,useEffect } from "react";
+import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+
 
 /*
 
@@ -21,13 +23,7 @@ How It Works:
     */
 
 // Example Powerball data (last 30 draws)
-const mockPowerballData = [
-  { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10 },
-  { drawDate: "2024-12-19", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-  { drawDate: "2024-12-18", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-  { drawDate: "2024-12-17", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-  // Add 26 more draws to make it 30 total
-];
+
 
 interface PowerballPatternPredictorProps {
   selectedRegularNumbers: number[]; // Array of selected numbers
@@ -36,6 +32,7 @@ interface PowerballPatternPredictorProps {
 
 const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = ({setNumberPicks}) => {
 
+  const last30Drawings  = useAppSelector((state) => state.last30Drawings.value);
    useEffect(() => {analyzePatterns();});
     
 
@@ -51,7 +48,7 @@ const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = ({se
     const differences: { [key: number]: { [key: number]: number } } = {};
 
     // Calculate number and Powerball frequencies
-    mockPowerballData.forEach((draw, index) => {
+    last30Drawings.forEach((draw, index) => {
       draw.numbers.forEach((num) => {
         numberFrequencies[num] = (numberFrequencies[num] || 0) + 1;
       });
@@ -60,7 +57,7 @@ const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = ({se
 
       // Calculate differences between consecutive draws
       if (index > 0) {
-        const prevDraw = mockPowerballData[index - 1];
+        const prevDraw = last30Drawings[index - 1];
         draw.numbers.forEach((num, pos) => {
           const diff = num - prevDraw.numbers[pos];
           if (!differences[pos]) differences[pos] = {};

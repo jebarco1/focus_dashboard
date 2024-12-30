@@ -5,15 +5,9 @@ import React, { useState, useEffect } from 'react';
 import ProbabilityTextGenerator from "./probilityByNumbers"
 import  PowerballPatternAnalyzer from "./PowerballPatternAnalyzer";
 
+import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
-const last30Drawings = [
-  { numbers: [3, 18, 21, 25, 42], powerball: 10 },
-  { numbers: [6, 15, 22, 30, 50], powerball: 3 },
-  { numbers: [3, 7, 18, 21, 35], powerball: 18 },
-  { numbers: [2, 12, 18, 21, 36], powerball: 3 },
-  { numbers: [8, 19, 23, 27, 41], powerball: 15 },
-  // Add more draws to make 30 total
-];
+
 
 
 
@@ -21,15 +15,17 @@ interface ProductDetailsProps {
   selectedRegularNumbers: number[]; // Array of selected numbers
   selectedPowerball: number; // Single selected Powerball number
   setSelectedPowerball: React.Dispatch<React.SetStateAction<number>>; // State setter for Powerball number
-  numberPickHotCold: { number: number; temp: string }[]; // Hot and cold numbers
   setNumberPicks: React.Dispatch<React.SetStateAction<{ rnumber: string; pnumber: number }[]>>;
 }
 
-const ProductDetails: React.FC<ProductDetailsProps> = ({ selectedRegularNumbers,selectedPowerball, setSelectedPowerball,numberPickHotCold, setNumberPicks }) => {
+const ProductDetails: React.FC<ProductDetailsProps> = ({ selectedRegularNumbers,selectedPowerball, setSelectedPowerball, setNumberPicks }) => {
  const [generatedNumbers, setGeneratedNumbers] = useState<
     { numbers: number[]; powerball: number }[]
   >([]);
   const [generationMethod, setGenerationMethod] = useState<string>("");
+ const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+ const last30Drawings  = useAppSelector((state) => state.last30Drawings.value);
+
 
   const hotColdStatus = (inputNumber : number) => {
     let hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);

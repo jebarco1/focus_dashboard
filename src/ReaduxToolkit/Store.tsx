@@ -11,6 +11,8 @@ import ChatSlice from "./Reducer/ChatSlice";
 import ContactSlice from "./Reducer/ContactSlice";
 import BookmarkSlice from "./Reducer/BookmarkSlice";
 import ToDoSlice from "./Reducer/ToDoSlice";
+import hotColdSlice from "./Reducer/numberPickHotCold";
+import last30DrawingsSlice from "./Reducer/last30Drawings";
 
 const Store = configureStore({
 reducer:{
@@ -26,6 +28,8 @@ reducer:{
     chatData: ChatSlice,
     contact:ContactSlice,
     bookmark: BookmarkSlice,
+    hotCold : hotColdSlice,
+    last30Drawings : last30DrawingsSlice
 }
 });
 

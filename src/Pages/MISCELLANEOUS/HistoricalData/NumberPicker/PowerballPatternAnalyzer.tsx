@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 /*
 
 How It Works:
@@ -24,12 +25,7 @@ interface PowerballPatternAnalyzerProps {
 
 const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = ({selectedRegularNumbers,setNumberPicks}) => {
 
-  const powerballData = [
-    { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10 },
-    { drawDate: "2024-12-19", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    { drawDate: "2024-12-18", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-    { drawDate: "2024-12-17", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-  ];
+  const powerballData =  useAppSelector((state) => state.last30Drawings.value);
 
   const [targetNumbers, setTargetNumbers] = useState<string>("");
   const [filteredDraws, setFilteredDraws] = useState<typeof powerballData>([]);
