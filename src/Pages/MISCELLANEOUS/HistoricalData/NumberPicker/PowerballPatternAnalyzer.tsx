@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from "react";
-import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+import { useAppSelector, useAppDispatch  } from "../../../../ReaduxToolkit/Hooks";
+import { addNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
+
 /*
 
 How It Works:
@@ -25,7 +27,9 @@ interface PowerballPatternAnalyzerProps {
 
 const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = ({selectedRegularNumbers,setNumberPicks}) => {
 
+
   const powerballData =  useAppSelector((state) => state.last30Drawings.value);
+  const dispatch = useAppDispatch();
 
   const [targetNumbers, setTargetNumbers] = useState<string>("");
   const [filteredDraws, setFilteredDraws] = useState<typeof powerballData>([]);
@@ -54,19 +58,7 @@ const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = ({sele
       const rnumber = event.currentTarget.getAttribute("data-rnumber") || "";
       const pnumber = Number(event.currentTarget.getAttribute("data-pnumber")) || 0;
     
-      // Update the state only if the value does not already exist
-      setNumberPicks((prev) => {
-        // Check if the combination already exists
-        const exists = prev.some((pick) => pick.rnumber === rnumber && pick.pnumber === pnumber);
-    
-        // If it does not exist, add it to the state
-        if (!exists) {
-          return [...prev, { rnumber, pnumber }];
-        }
-    
-        // If it exists, return the previous state unchanged
-        return prev;
-      });
+      dispatch(addNumberPick({ rnumber, pnumber })); // Dispatch the Redux action
     };
 
   const analyzePatterns = () => {

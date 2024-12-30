@@ -13,7 +13,7 @@ const PatternPredictor: React.FC<PatternPredictorProps> = ({ selectedRegularNumb
     <Card>
       <CardBody>
         <div className="collection-filter-block">
-         <PowerballPatternPredictor setNumberPicks={setNumberPicks} selectedRegularNumbers={selectedRegularNumbers}/>
+         <PowerballPatternPredictor  selectedRegularNumbers={selectedRegularNumbers}/>
         </div>
       </CardBody>
     </Card>

@@ -1,5 +1,5 @@
 import { Card, CardBody } from "reactstrap";
-import { H3, LI, UL } from "../../../../AbstractElements";
+import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
 
 // Props definition
@@ -9,12 +9,11 @@ interface numberPickDetailProps {
   }
 
 
-  const numberPickDetail: React.FC<numberPickDetailProps> = ({
-    numberPicks,
+  const NumberPickDetail: React.FC<numberPickDetailProps> = ({
     setNumberPicks
   }) => {
 
-
+    const numberPicks =  useAppSelector((state) => state.numberPicks.value);
     const handleRemove = (index: number) => {
         setNumberPicks((prev) => prev.filter((_, i) => i !== index));
       };
@@ -62,4 +61,4 @@ interface numberPickDetailProps {
   );
 };
 
-export default numberPickDetail;
+export default NumberPickDetail;

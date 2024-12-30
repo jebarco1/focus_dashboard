@@ -3,15 +3,27 @@ import { H3, LI, UL } from "../../../../AbstractElements";
 import { Brand } from "../../../../utils/Constant";
 
 
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+import { fetchHotColdData } from "../../../../ReaduxToolkit/Reducer/numberPickHotCold";
+
+
 // Props definition
 interface numberPickDetailProps {
     numberPicks: { number: number; temp: string }[];
   }
 
 
-  const numberPickDetail: React.FC<numberPickDetailProps> = ({
-    numberPicks
-  }) => {
+  const numberPickDetail: React.FC<numberPickDetailProps> = ({numberPicks}) => {
+
+    const dispatch = useAppDispatch();
+    const { value, loading, error } = useAppSelector((state) => state.hotCold);
+  
+    // Dispatch the thunk on page load
+    useEffect(() => {
+      dispatch(fetchHotColdData());
+    }, [dispatch]);
+  
 
   return (
     <Card>

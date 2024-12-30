@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+import React, { useState,useEffect } from "react";
+import { useAppSelector,useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
+import { fetchHotColdData } from "../../../../ReaduxToolkit/Reducer/numberPickHotCold"
 
 // Props definition
 interface PowerballNumberSelectorProps {
@@ -18,6 +19,11 @@ interface PowerballNumberSelectorProps {
   }) => {
 
 
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+      dispatch(fetchHotColdData());
+    }, [dispatch]);
+  
 
  const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
 

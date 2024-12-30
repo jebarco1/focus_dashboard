@@ -13,6 +13,7 @@ import BookmarkSlice from "./Reducer/BookmarkSlice";
 import ToDoSlice from "./Reducer/ToDoSlice";
 import hotColdSlice from "./Reducer/numberPickHotCold";
 import last30DrawingsSlice from "./Reducer/last30Drawings";
+import numberPicksSlice from "./Reducer/numberPicks";
 
 const Store = configureStore({
 reducer:{
@@ -29,7 +30,8 @@ reducer:{
     contact:ContactSlice,
     bookmark: BookmarkSlice,
     hotCold : hotColdSlice,
-    last30Drawings : last30DrawingsSlice
+    last30Drawings : last30DrawingsSlice,
+    numberPicks: numberPicksSlice
 }
 });
 
