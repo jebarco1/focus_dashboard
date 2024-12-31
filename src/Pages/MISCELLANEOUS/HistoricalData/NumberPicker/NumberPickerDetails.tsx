@@ -19,6 +19,7 @@ interface ProductDetailsProps {}
   const [generatedNumbers, setGeneratedNumbers] = useState<{ numbers: number[]; powerball: number }[]>([]);
   const [generationMethod, setGenerationMethod] = useState<string>("");
   const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+   const numberPickHotColdYellow = useAppSelector((state) => state.hotColdYellow.value);
   const last30Drawings  = useAppSelector((state) => state.last30Drawings.value);
   const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
   const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
@@ -40,6 +41,16 @@ interface ProductDetailsProps {}
         return hotColdCss;
     }
     
+  };
+
+
+  
+  const hotColdYellowStatus = (inputNumber: number) => {
+    const hotCold =   numberPickHotColdYellow.find(({ number }) => number === inputNumber);
+    if (hotCold) {
+      return `hotCold ${hotCold.temp}`;
+    }
+    return "";
   };
 
   const [showComponent, setShowComponent] = useState(false);
@@ -254,7 +265,7 @@ interface ProductDetailsProps {}
               : selectedPowerball !== 0 && (
                   <button className="btn btn-secondary m-1">
                     {selectedPowerball}
-                    <span className={hotColdStatus(selectedPowerball)}></span>
+                    <span className={hotColdYellowStatus(selectedPowerball)}></span>
                   </button>
                 )}
           </div>

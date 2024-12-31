@@ -10,6 +10,8 @@ import NumberPickDetail from "./NumberPicker/numberPickDetail";
 import PatternPredictor from "./NumberPicker/PatternPredictor";
 import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
+import { fetchhotColdYellowData } from "../../../ReaduxToolkit/Reducer/numberPickHotColdYellow";
+
 import { fetchLast30Drawings } from '../../../ReaduxToolkit/Reducer/last30Drawings';
 
 const NumberPicker = () => {
@@ -17,6 +19,7 @@ const NumberPicker = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchHotColdData());
+    dispatch(fetchhotColdYellowData());
     dispatch(fetchLast30Drawings());
   }, [dispatch]);
 

@@ -29,7 +29,7 @@ interface numberPickDetailProps {}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
             <span>
-            {pick.rnumber}, Powerball: {pick.pnumber}
+            {pick.rnumber} - [ {pick.pnumber} ]
             </span>
             <div className="numberPickerActions">
               <button

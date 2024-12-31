@@ -12,6 +12,7 @@ import ContactSlice from "./Reducer/ContactSlice";
 import BookmarkSlice from "./Reducer/BookmarkSlice";
 import ToDoSlice from "./Reducer/ToDoSlice";
 import hotColdSlice from "./Reducer/numberPickHotCold";
+import hotColdYellowSlice from "./Reducer/numberPickHotColdYellow";
 import last30DrawingsSlice from "./Reducer/last30Drawings";
 import numberPicksSlice from "./Reducer/numberPicks";
 import selectedRegularNumbersReducer from './Reducer/selectedRegularNumbers';
@@ -37,6 +38,7 @@ reducer:{
     contact:ContactSlice,
     bookmark: BookmarkSlice,
     hotCold : hotColdSlice,
+    hotColdYellow : hotColdYellowSlice,
     last30Drawings : last30DrawingsSlice,
     numberPicks: numberPicksSlice,
     selectedRegularNumbers: selectedRegularNumbersReducer,

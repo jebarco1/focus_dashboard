@@ -6,6 +6,7 @@ import { setSelectedPowerball } from "../../../../ReaduxToolkit/Reducer/selected
 const PowerballNumberSelector: React.FC = () => {
   const dispatch = useAppDispatch();
   const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+  const numberPickHotColdYellow = useAppSelector((state) => state.hotColdYellow.value);
   const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
   const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
 
@@ -28,6 +29,15 @@ const PowerballNumberSelector: React.FC = () => {
     }
     return "";
   };
+
+  const hotColdYellowStatus = (inputNumber: number) => {
+    const hotCold =   numberPickHotColdYellow.find(({ number }) => number === inputNumber);
+    if (hotCold) {
+      return `hotCold ${hotCold.temp}`;
+    }
+    return "";
+  };
+
 
   return (
     <div className="container">
@@ -64,7 +74,7 @@ const PowerballNumberSelector: React.FC = () => {
                 onClick={() => handlePowerballNumberClick(number)}
               >
                 {number}
-                <span className={hotColdStatus(number)}></span>
+                <span className={hotColdYellowStatus(number)}></span>
               </button>
             ))}
           </div>
