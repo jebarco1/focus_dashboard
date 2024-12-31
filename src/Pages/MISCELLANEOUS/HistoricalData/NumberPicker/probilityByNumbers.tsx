@@ -1,9 +1,8 @@
 import React, { useState,useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 
 
-interface ProbabilityTextGeneratorProps {
-  selectedRegularNumbers: number[]; // Array of selected numbers
-}
+interface ProbabilityTextGeneratorProps {};
 
 
 /*
@@ -59,13 +58,17 @@ Example:
   */
 
 
-const ProbabilityTextGenerator: React.FC<ProbabilityTextGeneratorProps> = ({ selectedRegularNumbers }) => {
+const ProbabilityTextGenerator: React.FC<ProbabilityTextGeneratorProps> = () => {
 
   const [numberString, setNumberString] = useState<string>("");
   const [numberArray, setNumberArray] = useState<string>(""); // Target numbers
   const [totalNumbers, setTotalNumbers] = useState<number>(69); // Total numbers in the pool (N)
   const [drawCount, setDrawCount] = useState<number>(30); // Numbers drawn (K)
   const [resultText, setResultText] = useState<string>("");
+
+
+    const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
+    const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
 
   useEffect(() => {
     if (selectedRegularNumbers && selectedRegularNumbers.length > 0) {

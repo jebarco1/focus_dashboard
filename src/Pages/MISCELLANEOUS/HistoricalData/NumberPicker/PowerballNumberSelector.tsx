@@ -1,60 +1,33 @@
-import React, { useState,useEffect } from "react";
-import { useAppSelector,useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
-import { fetchHotColdData } from "../../../../ReaduxToolkit/Reducer/numberPickHotCold"
+import React from "react";
+import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
+import { addNumber, removeNumber } from "../../../../ReaduxToolkit/Reducer/selectedRegularNumbers";
+import { setSelectedPowerball } from "../../../../ReaduxToolkit/Reducer/selectedPowerball";
 
-// Props definition
-interface PowerballNumberSelectorProps {
-    selectedRegularNumbers: number[]; // Array of selected numbers
-    setSelectedRegularNumbers: React.Dispatch<React.SetStateAction<number[]>>; // State setter for selected numbers
-    selectedPowerball: number; // Single selected Powerball number
-    setSelectedPowerball: React.Dispatch<React.SetStateAction<number>>; // State setter for Powerball number
-  }
-
-
-  const PowerballNumberSelector: React.FC<PowerballNumberSelectorProps> = ({
-    selectedRegularNumbers,
-    setSelectedRegularNumbers,
-    selectedPowerball,
-    setSelectedPowerball
-  }) => {
-
-
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-      dispatch(fetchHotColdData());
-    }, [dispatch]);
-  
-
- const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+const PowerballNumberSelector: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+  const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
+  const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
 
   const handleRegularNumberClick = (number: number) => {
-
-    setSelectedRegularNumbers((prev) =>
-      prev.includes(number)
-        ? prev.filter((n) => n !== number)
-        : prev.length < 5
-        ? [...prev, number]
-        : prev
-    );
+    if (selectedRegularNumbers.includes(number)) {
+      dispatch(removeNumber(number));
+    } else {
+      dispatch(addNumber(number));
+    }
   };
 
   const handlePowerballNumberClick = (number: number) => {
-    setSelectedPowerball(number);
+    dispatch(setSelectedPowerball(number));
   };
 
-    const hotColdStatus = (inputNumber : number) => {
-        let hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
-        console.log(hotCold);
-        if(hotCold)
-        {
-            const hotColdCss = 'hotCold ' + hotCold.temp;
-            return hotColdCss;
-        }
-        
-      };
- 
-
-
+  const hotColdStatus = (inputNumber: number) => {
+    const hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
+    if (hotCold) {
+      return `hotCold ${hotCold.temp}`;
+    }
+    return "";
+  };
 
   return (
     <div className="container">
@@ -62,19 +35,18 @@ interface PowerballNumberSelectorProps {
       <div className="row">
         <div className="col">
           <h4 className="ballSelectorText">Select Regular Numbers (5 total):</h4>
-          <div className="d-flex flex-wrap selectNumber ">
+          <div className="d-flex flex-wrap selectNumber">
             {Array.from({ length: 69 }, (_, i) => i + 1).map((number) => (
-            
-                    
-                    <button
-                    key={number}
-                    className={`btn btn-sm ${
-                      selectedRegularNumbers.includes(number) ? "btn-success" : ""
-                    } m-1`}
-                    onClick={() => handleRegularNumberClick(number)}
-                  >
-                    {number}
-                    <span className={hotColdStatus(number)}></span></button>
+              <button
+                key={number}
+                className={`btn btn-sm ${
+                  selectedRegularNumbers.includes(number) ? "btn-success" : ""
+                } m-1`}
+                onClick={() => handleRegularNumberClick(number)}
+              >
+                {number}
+                <span className={hotColdStatus(number)}></span>
+              </button>
             ))}
           </div>
         </div>
@@ -84,21 +56,21 @@ interface PowerballNumberSelectorProps {
           <h4 className="ballSelectorText">Select Powerball Number (1 total):</h4>
           <div className="d-flex flex-wrap selectNumber">
             {Array.from({ length: 26 }, (_, i) => i + 1).map((number) => (
-                <button
+              <button
                 key={number}
-                className={`btn ${selectedPowerball === number ? "btn-secondary" : "btn-danger1" } m-1`}
+                className={`btn ${
+                  selectedPowerball === number ? "btn-secondary" : "btn-danger1"
+                } m-1`}
                 onClick={() => handlePowerballNumberClick(number)}
               >
                 {number}
-                <span className={hotColdStatus(number)}></span></button>
-    
+                <span className={hotColdStatus(number)}></span>
+              </button>
             ))}
           </div>
         </div>
       </div>
-      </div>
-
-      
+    </div>
   );
 };
 

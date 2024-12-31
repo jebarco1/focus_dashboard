@@ -6,7 +6,7 @@ import { Brand } from "../../../../utils/Constant";
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 import { fetchHotColdData } from "../../../../ReaduxToolkit/Reducer/numberPickHotCold";
-
+import { fetchLast30Drawings } from "../../../../ReaduxToolkit/Reducer/last30Drawings";
 
 // Props definition
 interface numberPickDetailProps {
@@ -19,10 +19,6 @@ interface numberPickDetailProps {
     const dispatch = useAppDispatch();
     const { value, loading, error } = useAppSelector((state) => state.hotCold);
   
-    // Dispatch the thunk on page load
-    useEffect(() => {
-      dispatch(fetchHotColdData());
-    }, [dispatch]);
   
 
   return (

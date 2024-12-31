@@ -19,18 +19,17 @@ How It Works:
         */
 
 
-interface PowerballPatternAnalyzerProps {
-  selectedRegularNumbers: number[]; // Array of selected numbers
-  setNumberPicks: React.Dispatch<React.SetStateAction<{ rnumber: string; pnumber: number }[]>>;
-}
+interface PowerballPatternAnalyzerProps {}
 
 
-const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = ({selectedRegularNumbers,setNumberPicks}) => {
+const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = () => {
 
 
-  const powerballData =  useAppSelector((state) => state.last30Drawings.value);
   const dispatch = useAppDispatch();
 
+  const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
+  const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
+  const powerballData =  useAppSelector((state) => state.last30Drawings.value);
   const [targetNumbers, setTargetNumbers] = useState<string>("");
   const [filteredDraws, setFilteredDraws] = useState<typeof powerballData>([]);
   const [suggestedSets, setSuggestedSets] = useState<

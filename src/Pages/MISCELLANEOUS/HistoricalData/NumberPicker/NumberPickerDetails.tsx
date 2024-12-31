@@ -2,7 +2,7 @@ import { Card, CardBody } from "reactstrap";
 import { H3, P } from "../../../../AbstractElements";
 
 import React, { useState, useEffect } from 'react';
-import ProbabilityTextGenerator from "./probilityByNumbers"
+import ProbilityByNumbers from "./probilityByNumbers";
 import  PowerballPatternAnalyzer from "./PowerballPatternAnalyzer";
 
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
@@ -10,25 +10,19 @@ import { addNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
 
 
 
+interface ProductDetailsProps {}
 
-
-
-interface ProductDetailsProps {
-  selectedRegularNumbers: number[]; // Array of selected numbers
-  selectedPowerball: number; // Single selected Powerball number
-  setSelectedPowerball: React.Dispatch<React.SetStateAction<number>>; // State setter for Powerball number
-  setNumberPicks: React.Dispatch<React.SetStateAction<{ rnumber: string; pnumber: number }[]>>;
-}
-
-const ProductDetails: React.FC<ProductDetailsProps> = ({ selectedRegularNumbers,selectedPowerball, setSelectedPowerball, setNumberPicks }) => {
- const [generatedNumbers, setGeneratedNumbers] = useState<
-    { numbers: number[]; powerball: number }[]
-  >([]);
+  const ProductDetails: React.FC<ProductDetailsProps> = () => {
+  const [generatedNumbers, setGeneratedNumbers] = useState<{ numbers: number[]; powerball: number }[]>([]);
   const [generationMethod, setGenerationMethod] = useState<string>("");
- const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
- const last30Drawings  = useAppSelector((state) => state.last30Drawings.value);
+  const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+  const last30Drawings  = useAppSelector((state) => state.last30Drawings.value);
+  const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
+  const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
+
 
   const dispatch = useAppDispatch();
+
     
   const hotColdStatus = (inputNumber : number) => {
     let hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
@@ -289,8 +283,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ selectedRegularNumbers,
         </div>
       </div>
 
-      {showComponent &&  <ProbabilityTextGenerator selectedRegularNumbers={selectedRegularNumbers}/>}
-       {showComponent && <PowerballPatternAnalyzer setNumberPicks={setNumberPicks} selectedRegularNumbers={selectedRegularNumbers} />}
+      {showComponent &&  <ProbilityByNumbers />}
+       {showComponent && <PowerballPatternAnalyzer />}
             
         </div>
        

@@ -10,7 +10,7 @@ interface NumberPicksState {
 }
 
 const initialState: NumberPicksState = {
-  value: [],
+    value: [],
 };
 
 const numberPicksSlice = createSlice({
@@ -18,20 +18,19 @@ const numberPicksSlice = createSlice({
   initialState,
   reducers: {
     addNumberPick: (state, action: PayloadAction<NumberPick>) => {
+      // Prevent duplicates
       const exists = state.value.some(
         (pick) =>
           pick.rnumber === action.payload.rnumber &&
           pick.pnumber === action.payload.pnumber
       );
+
       if (!exists) {
         state.value.push(action.payload);
       }
     },
-    removeNumberPick: (state, action: PayloadAction<number>) => {
-      state.value.splice(action.payload, 1); // Remove the item by index
-    },
   },
 });
 
-export const { addNumberPick, removeNumberPick } = numberPicksSlice.actions;
+export const { addNumberPick } = numberPicksSlice.actions;
 export default numberPicksSlice.reducer;

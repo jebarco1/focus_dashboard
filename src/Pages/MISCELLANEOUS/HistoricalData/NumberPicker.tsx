@@ -5,45 +5,27 @@ import { HistoricalHeading } from "../../../utils/Constant";
 
 import React, { useState, useEffect } from 'react';
 
-import ProductDetails from "./NumberPicker/NumberPickerDetails"
+import NumberPickerDetails from "./NumberPicker/NumberPickerDetails"
 import NumberPickDetail from "./NumberPicker/numberPickDetail";
 import PatternPredictor from "./NumberPicker/PatternPredictor";
-
-
 import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
-import { useAppSelector } from "../../../ReaduxToolkit/Hooks";
+import { useAppDispatch, useAppSelector } from "../../../ReaduxToolkit/Hooks";
+
+
+import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
+import { fetchLast30Drawings } from '../../../ReaduxToolkit/Reducer/last30Drawings';
+
+
+
 
 const NumberPicker = () => {
 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchHotColdData());
+    dispatch(fetchLast30Drawings());
+  }, [dispatch]);
 
-    let regNumbers = Array.from(Array(70).keys());
-    let regMainNumbers = Array.from(Array(27).keys());
-  
-
-     const [numberPicks, setNumberPicks] = useState<{ rnumber: string , pnumber: number}[]>([]);
-     const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
-
-    
-        const [selectedRegularNumbers, setSelectedRegularNumbers] = useState<number[]>([]);
-        const [selectedPowerball, setSelectedPowerball] = useState<number>(0);
-          const [generatedNumbers, setGeneratedNumbers] = useState<
-            { numbers: number[]; powerball: number }[]
-          >([]);
-          const [generationMethod, setGenerationMethod] = useState<string>("");
-        
-          const handleRegularNumberClick = (number: number) => {
-        
-            setSelectedRegularNumbers((prev) =>
-              prev.includes(number)
-                ? prev.filter((n) => n !== number)
-                : prev.length < 5
-                ? [...prev, number]
-                : prev
-            );
-
-          };
-        
-   
 
   return (
     <>
@@ -59,17 +41,17 @@ const NumberPicker = () => {
             <Col>
                         <Card >
                         <CardBody>
-                        <PowerballNumberSelector selectedRegularNumbers={selectedRegularNumbers}  setSelectedRegularNumbers={setSelectedRegularNumbers} selectedPowerball={selectedPowerball} setSelectedPowerball={setSelectedPowerball}/>
+                        <PowerballNumberSelector />
                         </CardBody>
                         </Card>
                     </Col>
             </Col>
             <Col xxl="5" className="box-col-6 order-xxl-0 order-1">
-              <ProductDetails setNumberPicks={setNumberPicks} selectedRegularNumbers={selectedRegularNumbers} setSelectedPowerball={setSelectedPowerball} selectedPowerball={selectedPowerball} />
+              <NumberPickerDetails/>
             </Col>
             <Col xxl="3" md="6" className="box-col-6">
-            <NumberPickDetail setNumberPicks= {setNumberPicks} numberPicks={numberPicks} />
-            <PatternPredictor setNumberPicks={setNumberPicks} selectedRegularNumbers={selectedRegularNumbers}/>
+            <NumberPickDetail />
+            <PatternPredictor/>
             </Col>
           </Row>
         </div>

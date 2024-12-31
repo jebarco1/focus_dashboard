@@ -14,6 +14,8 @@ import ToDoSlice from "./Reducer/ToDoSlice";
 import hotColdSlice from "./Reducer/numberPickHotCold";
 import last30DrawingsSlice from "./Reducer/last30Drawings";
 import numberPicksSlice from "./Reducer/numberPicks";
+import selectedRegularNumbersReducer from './Reducer/selectedRegularNumbers';
+import selectedPowerballReducer from './Reducer/selectedPowerball';
 
 const Store = configureStore({
 reducer:{
@@ -31,7 +33,9 @@ reducer:{
     bookmark: BookmarkSlice,
     hotCold : hotColdSlice,
     last30Drawings : last30DrawingsSlice,
-    numberPicks: numberPicksSlice
+    numberPicks: numberPicksSlice,
+    selectedRegularNumbers: selectedRegularNumbersReducer,
+    selectedPowerball: selectedPowerballReducer,
 }
 });
 

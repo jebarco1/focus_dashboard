@@ -1,51 +1,56 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { AnyCnameRecord } from 'node:dns';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-interface last30DrawingsState {
-  value: { drawDate: string; numbers: [number,number,number,number,number]; powerball: number }[];
+interface Last30DrawingsState {
+  value: { drawDate: string; numbers: [number, number, number, number, number]; powerball: number }[];
+  loading: boolean;
+  error: string | null;
 }
 
-const initialState: last30DrawingsState = {
-  value: [
-    { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10},
-    { drawDate: "2024-12-20", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10 },
-    { drawDate: "2024-12-20", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10 },
-    { drawDate: "2024-12-20", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    { drawDate: "2024-12-20", numbers: [3, 18, 21, 25, 42], powerball: 10 },
-    { drawDate: "2024-12-20", numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [3, 7, 18, 21, 35], powerball: 18 },
-    { drawDate: "2024-12-20", numbers: [2, 12, 18, 21, 36], powerball: 3 },
-    { drawDate: "2024-12-20", numbers: [8, 19, 23, 27, 41], powerball: 15 },
-    
-    
-    // Add more draws to make 30 total
-  ],
+// Define the initial state
+const initialState: Last30DrawingsState = {
+  value: [],
+  loading: false,
+  error: null,
 };
+
+// Async thunk to fetch data from the API
+export const fetchLast30Drawings = createAsyncThunk(
+  'last30Drawings/fetchLast30Drawings',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get('http://localhost:8080/jankgo/metricController/get30DayDrawings/[%22powerball%22]'); // Replace with your API URL
+      return response.data; // Ensure the response matches the expected structure
+    } catch (error: any) {
+      return rejectWithValue(error.response?.data || 'Failed to fetch data');
+    }
+  }
+);
 
 const last30DrawingsSlice = createSlice({
   name: 'last30Drawings',
   initialState,
   reducers: {
-    setlast30Drawings: (state, action) => {
+    setLast30Drawings: (state, action) => {
       state.value = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchLast30Drawings.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchLast30Drawings.fulfilled, (state, action) => {
+        state.loading = false;
+        state.value = action.payload;
+      })
+      .addCase(fetchLast30Drawings.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+  },
 });
 
-export const { setlast30Drawings } = last30DrawingsSlice.actions;
+export const { setLast30Drawings } = last30DrawingsSlice.actions;
 export default last30DrawingsSlice.reducer;

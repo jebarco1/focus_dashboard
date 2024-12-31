@@ -2,18 +2,15 @@ import { Card, CardBody } from "reactstrap";
 import PowerballPatternPredictor from "./PowerballPatternPredictor";
 
 
-interface PatternPredictorProps {
-  selectedRegularNumbers: number[]; // Array of selected numbers
-  setNumberPicks: React.Dispatch<React.SetStateAction<{ rnumber: string; pnumber: number }[]>>;
-}
+interface PatternPredictorProps {}
 
-const PatternPredictor: React.FC<PatternPredictorProps> = ({ selectedRegularNumbers, setNumberPicks }) => {
+const PatternPredictor: React.FC<PatternPredictorProps> = () => {
 
   return (
     <Card>
       <CardBody>
         <div className="collection-filter-block">
-         <PowerballPatternPredictor  selectedRegularNumbers={selectedRegularNumbers}/>
+         <PowerballPatternPredictor />
         </div>
       </CardBody>
     </Card>

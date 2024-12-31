@@ -1,21 +1,18 @@
 import { Card, CardBody } from "reactstrap";
-import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
-
-
+import { useAppSelector, useAppDispatch  } from "../../../../ReaduxToolkit/Hooks";
+import { removeNumberPick  } from '../../../../ReaduxToolkit/Reducer/numberPicks';
 // Props definition
-interface numberPickDetailProps {
-    numberPicks: { rnumber: string; pnumber: number }[];
-    setNumberPicks: React.Dispatch<React.SetStateAction<{ rnumber: string; pnumber: number }[]>>;
-  }
+interface numberPickDetailProps {}
 
 
-  const NumberPickDetail: React.FC<numberPickDetailProps> = ({
-    setNumberPicks
-  }) => {
+  const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
+
+
+    const dispatch = useAppDispatch();
 
     const numberPicks =  useAppSelector((state) => state.numberPicks.value);
     const handleRemove = (index: number) => {
-        setNumberPicks((prev) => prev.filter((_, i) => i !== index));
+      dispatch(removeNumberPick(index)); // Dispatch the Redux action
       };
     
       const handleDetails = (pick: { rnumber: string; pnumber: number }) => {

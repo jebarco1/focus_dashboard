@@ -27,7 +27,6 @@ How It Works:
 
 
 interface PowerballPatternPredictorProps {
-  selectedRegularNumbers: number[]; // Array of selected numbers
 }
 
 const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = () => {
