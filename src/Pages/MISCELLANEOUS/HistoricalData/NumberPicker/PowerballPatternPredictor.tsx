@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 import { addNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
+import NewGeneratedSet from './newGenerateSet';
 
 
 /*
@@ -127,29 +128,9 @@ const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = () =
         and predict numbers for the next drawing.
       </p>
 
+    
+      <NewGeneratedSet generatedNumbers={predictedSets} />
 
-      <div className="row mt-5">
-      <div className="col">
-        <h4>Predicted Sets:</h4>
-        {predictedSets.length > 0 ? (
-          <ul className="listGeneratedNumbers list-group">
-            {predictedSets.map((set, index) => (
-              <li key={index} className="list-group-item">
-                {set.numbers.join(", ")}{" "}
-               - [ {set.powerball} ]
-                <button  data-rnumber={set.numbers.join(", ")}
-                    data-pnumber={set.powerball}
-                    onClick={handleAddNumberPick}
-                    className="numberSave btn btn-primary">save
-                  </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No predictions yet. Click the button to analyze.</p>
-        )}
-      </div>
-      </div>
       <div className="patternResults" style={{ marginTop: "20px" }}>
         <h2>Patterns Found:</h2>
         <pre>{patternText}</pre>
@@ -163,3 +144,5 @@ const PowerballPatternPredictor: React.FC<PowerballPatternPredictorProps> = () =
 };
 
 export default PowerballPatternPredictor;
+
+

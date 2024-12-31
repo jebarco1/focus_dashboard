@@ -11,6 +11,7 @@ import { addNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
 import { fetchPatterns } from '../../../../ReaduxToolkit/Reducer/patternsBetweenNum'; // Adjust path as needed
 import { hotBetweenNumPatterns } from '../../../../ReaduxToolkit/Reducer/hotBetweenNum';
 import { coldBetweenNumPatterns } from '../../../../ReaduxToolkit/Reducer/coldBetweenNum';
+import NewGeneratedSet from './newGenerateSet';
 
 interface ProductDetailsProps {}
 
@@ -338,30 +339,7 @@ interface ProductDetailsProps {}
       </div>
 
 
-      
-
-      <div className="row mt-5">
-        <div className="col">
-          <h4>Generated Numbers:</h4>
-          {generatedNumbers.length > 0 ? (
-            <ul className="listGeneratedNumbers list-group">
-              {generatedNumbers.map((set, index) => (
-                <li key={index} className="list-group-item">
-                   {set.numbers.join(", ")}{" "}
-                  - [ {set.powerball} ]
-                  <button  data-rnumber={set.numbers.join(", ")}
-                    data-pnumber={set.powerball}
-                    onClick={handleAddNumberPick}
-                    className="numberSave btn btn-primary">save
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No numbers generated yet. Select an option and generate.</p>
-          )}
-        </div>
-      </div>
+      <NewGeneratedSet generatedNumbers={generatedNumbers} />
 
       {showComponentStay && (
         <PowerballPatternAnalyzer onComplete={handleAnalysisComplete} />

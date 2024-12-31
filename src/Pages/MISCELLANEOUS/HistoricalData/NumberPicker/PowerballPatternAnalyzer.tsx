@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 import { addNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
 import { getPatternsBetweenDrawingPatterns } from "../../../../ReaduxToolkit/Reducer/getPatternsBetweenDrawing";
+import NewGeneratedSet from './newGenerateSet';
 
 interface PowerballPatternAnalyzerProps {
   onComplete: () => void; // Callback to signal completion
@@ -46,40 +47,13 @@ const PowerballPatternAnalyzer: React.FC<PowerballPatternAnalyzerProps> = ({ onC
   };
  
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Number Pattern Analyzer</h1>
+    <div style={{ marginTop : "20px" }}>
+      <h3>Number Pattern Analyzer</h3>
 
-      {loading ? (
-        <p>Loading patterns...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : patterns.length > 0 ? (
-        <>
-        <div style={{ marginTop: "20px" }}>
-          <h4>Predicted Sets based on Patterns:</h4>
-          <ul className="listGeneratedNumbers list-group">
-            {patterns.map((pattern, index) => (
-              <li key={index}>
-                <strong>Numbers:</strong> {pattern.numbers.join(", ")} <br />
-                <strong>Powerball:</strong> {pattern.powerball}
-                <button
-                  data-rnumber={pattern.numbers.join(", ")}
-                  data-pnumber={pattern.powerball}
-                  onClick={handleAddNumberPick}
-                  className="btn btn-primary ms-2"
-                >
-                  Save
-                </button>
-              </li>
-            ))}
-          </ul>
-          </div>
-        </>
-      ) : (
-        <p>No patterns found.</p>
-      )}
-    </div>
+      <NewGeneratedSet generatedNumbers={patterns} />
+
       
+    </div>
   );
 };
 
