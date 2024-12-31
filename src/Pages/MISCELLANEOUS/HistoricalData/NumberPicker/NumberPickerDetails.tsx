@@ -30,6 +30,7 @@ interface ProductDetailsProps {}
 
     
   const hotColdStatus = (inputNumber : number) => {
+
     let hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
 
     if(hotCold)
@@ -41,12 +42,19 @@ interface ProductDetailsProps {}
   };
 
   const [showComponent, setShowComponent] = useState(false);
+  const [showComponentStay, setShowComponentStay] = useState(false);
+
+
+  const handleAnalysisComplete = () => {
+    setShowComponent(false); // Reset the analyzer after it's done
+  };
 
 
   const generateNumbers = async () => {
     let methodDescription = "";
     let predictions: { numbers: number[]; powerball: number }[] = [];
     setShowComponent(true);
+    setShowComponentStay(true);
 
     switch (generationMethod) {
       case "patterns":
@@ -75,7 +83,7 @@ interface ProductDetailsProps {}
     }
 
     setGeneratedNumbers(predictions);
-   // alert(methodDescription);
+  
   };
 
   const generatePatternBasedNumbers = async (): Promise<{ numbers: number[]; powerball: number }[]> => {
@@ -355,8 +363,9 @@ interface ProductDetailsProps {}
         </div>
       </div>
 
-      {showComponent &&  <ProbilityByNumbers />}
-       {showComponent && <PowerballPatternAnalyzer />}
+      {showComponentStay && (
+        <PowerballPatternAnalyzer onComplete={handleAnalysisComplete} />
+      )}
             
         </div>
        

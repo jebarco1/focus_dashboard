@@ -20,7 +20,7 @@ import patternsBetweenNumReducer from './Reducer/patternsBetweenNum';
 import coldBetweenNumReducer from './Reducer/coldBetweenNum';
 import hotBetweenNumReducer from './Reducer/hotBetweenNum';
 import last30dayDrawingReducer from './Reducer/last30dayDrawingBetweenNum';
-
+import getPatternsBetweenReducer from './Reducer/getPatternsBetweenDrawing';
 
 const Store = configureStore({
 reducer:{
@@ -44,7 +44,8 @@ reducer:{
     patternsBetweenNum: patternsBetweenNumReducer,
     hotBetweenNum : hotBetweenNumReducer,
     coldBetweenNum : coldBetweenNumReducer,
-    last30dayDrawing : last30dayDrawingReducer
+    last30dayDrawing : last30dayDrawingReducer,
+    getPatternsBetween : getPatternsBetweenReducer,
 }
 });
 
