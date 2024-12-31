@@ -16,6 +16,11 @@ import last30DrawingsSlice from "./Reducer/last30Drawings";
 import numberPicksSlice from "./Reducer/numberPicks";
 import selectedRegularNumbersReducer from './Reducer/selectedRegularNumbers';
 import selectedPowerballReducer from './Reducer/selectedPowerball';
+import patternsBetweenNumReducer from './Reducer/patternsBetweenNum';
+import coldBetweenNumReducer from './Reducer/coldBetweenNum';
+import hotBetweenNumReducer from './Reducer/hotBetweenNum';
+import last30dayDrawingReducer from './Reducer/last30dayDrawingBetweenNum';
+
 
 const Store = configureStore({
 reducer:{
@@ -36,6 +41,10 @@ reducer:{
     numberPicks: numberPicksSlice,
     selectedRegularNumbers: selectedRegularNumbersReducer,
     selectedPowerball: selectedPowerballReducer,
+    patternsBetweenNum: patternsBetweenNumReducer,
+    hotBetweenNum : hotBetweenNumReducer,
+    coldBetweenNum : coldBetweenNumReducer,
+    last30dayDrawing : last30dayDrawingReducer
 }
 });
 

@@ -8,7 +8,9 @@ import  PowerballPatternAnalyzer from "./PowerballPatternAnalyzer";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 import { addNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
 
-
+import { fetchPatterns } from '../../../../ReaduxToolkit/Reducer/patternsBetweenNum'; // Adjust path as needed
+import { hotBetweenNumPatterns } from '../../../../ReaduxToolkit/Reducer/hotBetweenNum';
+import { coldBetweenNumPatterns } from '../../../../ReaduxToolkit/Reducer/coldBetweenNum';
 
 interface ProductDetailsProps {}
 
@@ -22,11 +24,14 @@ interface ProductDetailsProps {}
 
 
   const dispatch = useAppDispatch();
+  const patterns = useAppSelector((state) => state.patternsBetweenNum.value);
+  const loading = useAppSelector((state) => state.patternsBetweenNum.loading);
+  const error = useAppSelector((state) => state.patternsBetweenNum.error);
 
     
   const hotColdStatus = (inputNumber : number) => {
     let hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
-    console.log(hotCold);
+
     if(hotCold)
     {
         const hotColdCss = 'hotCold ' + hotCold.temp;
@@ -38,7 +43,7 @@ interface ProductDetailsProps {}
   const [showComponent, setShowComponent] = useState(false);
 
 
-  const generateNumbers = () => {
+  const generateNumbers = async () => {
     let methodDescription = "";
     let predictions: { numbers: number[]; powerball: number }[] = [];
     setShowComponent(true);
@@ -46,15 +51,15 @@ interface ProductDetailsProps {}
     switch (generationMethod) {
       case "patterns":
         methodDescription = "Generated based on patterns found between numbers.";
-        predictions = generatePatternBasedNumbers();
+        predictions = await generatePatternBasedNumbers(); // Await the promise
         break;
       case "hot":
         methodDescription = "Generated using hot numbers (frequent in recent draws).";
-        predictions = generateHotNumbers();
+        predictions =  await generateHotNumbers();
         break;
       case "cool":
         methodDescription = "Generated using cool numbers (rare in recent draws).";
-        predictions = generateCoolNumbers();
+        predictions = await generateCoolNumbers();
         break;
       case "last30":
         methodDescription = "Generated using the last 30 days of drawings.";
@@ -73,25 +78,92 @@ interface ProductDetailsProps {}
    // alert(methodDescription);
   };
 
-  const generatePatternBasedNumbers = (): { numbers: number[]; powerball: number }[] => {
-    return [
-      { numbers: [3, 18, 21, 25, 42], powerball: 10 },
-      { numbers: [6, 15, 22, 30, 50], powerball: 3 },
-    ];
+  const generatePatternBasedNumbers = async (): Promise<{ numbers: number[]; powerball: number }[]> => {
+   
+  
+    try {
+      // Dispatch the fetchPatterns thunk with the required payload
+      const response = await dispatch(
+        fetchPatterns({
+          numbers: selectedRegularNumbers,
+          power: selectedPowerball,
+        })
+      ).unwrap(); // Use unwrap to handle the fulfilled/rejected action result
+  
+      // The response will be the payload returned from the API
+      console.log("Dispatch Response:", response);
+
+      if (response && Array.isArray(response)) {
+
+       return response;
+        
+      } else {
+        console.error("Unexpected response:", response);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching pattern-based numbers:', error);
+      alert('Failed to generate numbers. Please try again.');
+      return [];
+    }
   };
 
-  const generateHotNumbers = (): { numbers: number[]; powerball: number }[] => {
-    return [
-      { numbers: [8, 19, 27, 34, 45], powerball: 12 },
-      { numbers: [2, 13, 25, 31, 40], powerball: 7 },
-    ];
+  const generateHotNumbers = async (): Promise<{ numbers: number[]; powerball: number }[]> => {
+   
+    try {
+      // Dispatch the fetchPatterns thunk with the required payload
+      const response = await dispatch(
+        hotBetweenNumPatterns({
+          numbers: selectedRegularNumbers,
+          power: selectedPowerball,
+        })
+      ).unwrap(); // Use unwrap to handle the fulfilled/rejected action result
+  
+      // The response will be the payload returned from the API
+      console.log("Dispatch Response:", response);
+
+      if (response && Array.isArray(response)) {
+
+       return response;
+        
+      } else {
+        console.error("Unexpected response:", response);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching pattern-based numbers:', error);
+      alert('Failed to generate numbers. Please try again.');
+      return [];
+    }
   };
 
-  const generateCoolNumbers = (): { numbers: number[]; powerball: number }[] => {
-    return [
-      { numbers: [5, 14, 20, 28, 33], powerball: 9 },
-      { numbers: [7, 11, 17, 23, 38], powerball: 4 },
-    ];
+  const generateCoolNumbers = async (): Promise<{ numbers: number[]; powerball: number }[]> => {
+   
+    try {
+      // Dispatch the fetchPatterns thunk with the required payload
+      const response = await dispatch(
+        coldBetweenNumPatterns({
+          numbers: selectedRegularNumbers,
+          power: selectedPowerball,
+        })
+      ).unwrap(); // Use unwrap to handle the fulfilled/rejected action result
+  
+      // The response will be the payload returned from the API
+      console.log("Dispatch Response:", response);
+
+      if (response && Array.isArray(response)) {
+
+       return response;
+        
+      } else {
+        console.error("Unexpected response:", response);
+        return [];
+      }
+    } catch (error) {
+      console.error('Error fetching pattern-based numbers:', error);
+      alert('Failed to generate numbers. Please try again.');
+      return [];
+    }
   };
 
   const generateNumbersFromLast30Days = (): { numbers: number[]; powerball: number }[] => {
