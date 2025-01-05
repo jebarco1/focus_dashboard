@@ -5,12 +5,10 @@ const HoverableRowsTableHead = () => {
     <thead>
       <tr>
         <th scope="col">Drawing Date</th>
-        <th scope="col">Numbers Drawn</th>
-        <th scope="col">PowerBall Number</th>
-        <th scope="col">Day of the Week</th>
-        <th scope="col">Hot/Cold</th>
-        <th scope="col">weight</th>
-        <th scope="col">Controls</th>
+        <th scope="col">Numbers</th>
+        <th scope="col">PowerBall</th>
+        <th scope="col">JackPot</th>
+        <th scope="col">Probability</th>
       </tr>
     </thead>
   )

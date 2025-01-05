@@ -5,7 +5,7 @@ import { numberDetailsapexAreaChart } from '../../../../Data/Charts/ApexChartsDa
 
 const BasicAreaChartClass = () => {
   return (
-    <Col sm={12} xl={6} className='box-col-6 numberDetailsCol'>
+    <Col className='box-col-6 numberDetailsCol'>
         <Card>
           <CommonHeader title="Number Area Chart" headClass='pb-0'/>
           <CardBody>

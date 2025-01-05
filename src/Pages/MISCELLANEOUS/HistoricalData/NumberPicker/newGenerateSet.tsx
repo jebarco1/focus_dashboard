@@ -13,6 +13,8 @@ interface NewGeneratedSetProps {
 }
 
 const NewGeneratedSet: React.FC<NewGeneratedSetProps> = ({ generatedNumbers }) => {
+
+  console.log(generatedNumbers);
   const dispatch = useAppDispatch();
 
   const handleAddNumberPick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,13 +23,19 @@ const NewGeneratedSet: React.FC<NewGeneratedSetProps> = ({ generatedNumbers }) =
 
     // Dispatch the Redux action
     dispatch(addNumberPick({ rnumber, pnumber }));
+
+    
   };
 
   return (
+
+    
     <div className="row mt-5">
       <div className="col">
         <h4>Generated Numbers:</h4>
         {generatedNumbers && generatedNumbers.length > 0 ? (
+
+          
           <ul className="listGeneratedNumbers list-group">
             {generatedNumbers.map((set, index) => (
               <li key={index} className="list-group-item">
@@ -47,6 +55,8 @@ const NewGeneratedSet: React.FC<NewGeneratedSetProps> = ({ generatedNumbers }) =
         ) : (
           <p>No numbers generated yet. Select an option and generate.</p>
         )}
+
+       
       </div>
     </div>
   );

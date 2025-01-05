@@ -21,7 +21,7 @@ export const fetchPatterns = createAsyncThunk(
   async (payload: { numbers: number[]; power: number }, { rejectWithValue }) => {
     try {
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/patternsBetweenNum/[${numbersString},${payload.power}]`;
+      const url = "http://localhost:8080/jankgo/metricController/patternsBetweenNum/['powerball',"+numbersString+","+payload.power+"]";
       const response = await axios.get(url);
       return response.data;
 

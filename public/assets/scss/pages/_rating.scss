@@ -104,6 +104,15 @@
     }
 }
 
+.balance-profile {width:48%;}
+.balance-profile .NumberBall {text-align:center;}
+.balance-profile .patterns p {text-align:left;position:relative;padding: 15px;}
+.balance-profile button {max-width: 92px;
+    position: absolute;
+    right: 0px;
+    font-size: 10px;
+  }
+
 .feedback {
     display: flex;
     gap: 10px;

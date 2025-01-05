@@ -21,7 +21,7 @@ export const hotBetweenNumPatterns = createAsyncThunk(
   async (payload: { numbers: number[]; power: number }, { rejectWithValue }) => {
     try {
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/[${numbersString},${payload.power}]`;
+      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/['powerball']`;
       const response = await axios.get(url);
       return response.data;
 

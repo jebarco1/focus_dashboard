@@ -21,7 +21,7 @@ export const coldBetweenNumPatterns = createAsyncThunk(
   async (payload: { numbers: number[]; power: number }, { rejectWithValue }) => {
     try {
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/coldBetweenNum/[${numbersString},${payload.power}]`;
+      const url = `http://localhost:8080/jankgo/metricController/coldBetweenNum/['powerball']`;
       const response = await axios.get(url);
       return response.data;
 

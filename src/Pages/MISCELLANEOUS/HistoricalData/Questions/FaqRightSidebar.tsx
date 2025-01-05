@@ -8,7 +8,7 @@ const FaqRightSidebar = () => {
     <Col xl={4}  lg={6} md={5} className=" xl-40 box-col-40">
       <Row>
         <SearchArticle />
-        <AskQuestions />
+  
         <LatestUpdate />
       </Row>
     </Col>
