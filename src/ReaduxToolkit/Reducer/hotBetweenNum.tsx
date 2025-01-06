@@ -25,7 +25,7 @@ export const hotBetweenNumPatterns = createAsyncThunk(
       const state = getState() as RootState; // Access the Redux state
       const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/['${lotterySelect}']`;
+      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/[%22${lotterySelect}%22]`;
       const response = await axios.get(url);
       return response.data;
 
