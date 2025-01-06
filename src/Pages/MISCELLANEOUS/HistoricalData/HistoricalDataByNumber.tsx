@@ -7,6 +7,7 @@ import Historical from "./Historical/HistoricalNumber";
 import ArticeVideo from "./ArticeVideo/ArticeVideo";
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 import { fetchNumberDetailsTableData } from "../../../ReaduxToolkit/Reducer/numberDetailsTable";
+import { useAppSelector} from "../../../ReaduxToolkit/Hooks";
 
 const HistoricalDataByNumber = () => {
   const dispatch = useAppDispatch();
@@ -26,12 +27,19 @@ const HistoricalDataByNumber = () => {
     }
   }, [dispatch, location]);
 
+
+  const selectedlotteryRaw = useAppSelector((state) => state.lotterySelect.value);
+    const selectedlottery =
+      selectedlotteryRaw === "mega" ? "Mega Millions" : selectedlotteryRaw;
+    
+    const historicalheading = HistoricalHeading + " - " + selectedlottery;
+
   return (
     <>
       <Breadcrumbs
-        mainTitle={HistoricalHeading}
-        parent={HistoricalHeading}
-        title={HistoricalHeading}
+        mainTitle={historicalheading}
+        parent={historicalheading}
+        title={historicalheading}
       />
       <Container fluid>
         <div className="faq-wrap">

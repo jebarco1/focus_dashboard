@@ -11,8 +11,8 @@ import PatternPredictor from "./NumberPicker/PatternPredictor";
 import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
 import { fetchhotColdYellowData } from "../../../ReaduxToolkit/Reducer/numberPickHotColdYellow";
-
 import { fetchLast30Drawings } from '../../../ReaduxToolkit/Reducer/last30Drawings';
+import { useAppSelector} from "../../../ReaduxToolkit/Hooks";
 
 const NumberPicker = () => {
 
@@ -23,13 +23,18 @@ const NumberPicker = () => {
     dispatch(fetchLast30Drawings());
   }, [dispatch]);
 
-
+  const selectedlotteryRaw = useAppSelector((state) => state.lotterySelect.value);
+  const selectedlottery =
+    selectedlotteryRaw === "mega" ? "Mega Millions" : selectedlotteryRaw;
+  
+  const historicalheading = HistoricalHeading + " - " + selectedlottery;
+  
   return (
     <>
       <Breadcrumbs
-        mainTitle={HistoricalHeading}
-        parent={HistoricalHeading}
-        title={HistoricalHeading}
+        mainTitle={historicalheading}
+        parent={historicalheading}
+        title={historicalheading}
       />
      <Container fluid>
         <div>
