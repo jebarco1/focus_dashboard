@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { RootState } from "../Store" // Import your RootState type
 
 // Define the shape of a single data entry
 interface NumberDetail {
@@ -40,10 +41,12 @@ const initialState: NumberDetailsTableState = {
 // Thunk to fetch data from the API
 export const fetchNumberDetailsTableData = createAsyncThunk(
   'hotCold/fetchNumberDetailsTableData',
-  async (id: number, { rejectWithValue }) => {
+  async (id: number, {getState, rejectWithValue  }) => {
     try {
+            const state = getState() as RootState; // Access the Redux state
+            const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       const response = await axios.get(
-        `http://localhost:8080/jankgo/metricController/getNumberDetailsTable/[${id},'powerball']`
+        `http://localhost:8080/jankgo/metricController/getNumberDetailsTable/[${id},'${lotterySelect}']`
       );
       return response.data; // Ensure this matches your state structure
     } catch (error: any) {

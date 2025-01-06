@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { RootState } from "../Store" // Import your RootState type
 
 // Define the interface for the state
 interface PatternsState {
@@ -18,10 +19,13 @@ const initialState: PatternsState = {
 // Define an async thunk for the API call
 export const hotBetweenNumPatterns = createAsyncThunk(
   'hotBetweenNum/HotBetweenNumPatterns',
-  async (payload: { numbers: number[]; power: number }, { rejectWithValue }) => {
+  async (payload: { numbers: number[]; power: number }, {  getState, rejectWithValue}) => {
     try {
+
+      const state = getState() as RootState; // Access the Redux state
+      const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/['powerball']`;
+      const url = `http://localhost:8080/jankgo/metricController/HotBetweenNum/['${lotterySelect}']`;
       const response = await axios.get(url);
       return response.data;
 

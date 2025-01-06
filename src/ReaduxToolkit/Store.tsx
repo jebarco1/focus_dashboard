@@ -24,6 +24,9 @@ import last30dayDrawingReducer from './Reducer/last30dayDrawingBetweenNum';
 import getPatternsBetweenReducer from './Reducer/getPatternsBetweenDrawing';
 import numberDetailsTableReducer from './Reducer/numberDetailsTable';
 import getNumberByMonthReducer from './Reducer/getNumberByMonth';
+import lotterySelectReducer from './Reducer/lotterySelectSlice';
+import listenerMiddleware from "./listenerMiddleware";
+
 
 const Store = configureStore({
 reducer:{
@@ -51,8 +54,11 @@ reducer:{
     last30dayDrawing : last30dayDrawingReducer,
     getPatternsBetween : getPatternsBetweenReducer,
     numberDetailsTable: numberDetailsTableReducer,
-    getNumberByMonth : getNumberByMonthReducer
-}
+    getNumberByMonth : getNumberByMonthReducer,
+    lotterySelect : lotterySelectReducer
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
 export default Store;

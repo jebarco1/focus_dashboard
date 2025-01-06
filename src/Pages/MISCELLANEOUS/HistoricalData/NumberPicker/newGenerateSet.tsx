@@ -14,7 +14,6 @@ interface NewGeneratedSetProps {
 
 const NewGeneratedSet: React.FC<NewGeneratedSetProps> = ({ generatedNumbers }) => {
 
-  console.log(generatedNumbers);
   const dispatch = useAppDispatch();
 
   const handleAddNumberPick = (event: React.MouseEvent<HTMLButtonElement>) => {

@@ -9,6 +9,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import ThemeCustomizer from "./ThemeCustomizer/ThemeCustomizer";
 import { setToggleSidebar } from "../ReaduxToolkit/Reducer/LayoutSlice";
 import { addSidebarLayouts } from "../ReaduxToolkit/Reducer/ThemeCustomizerSlice";
+import SelectLottery from "./SelectLottery";
 
 const Layout = () => {
   const [open,setOpen] = useState<boolean>(false)
@@ -52,6 +53,7 @@ const Layout = () => {
         <div className="page-body-wrapper">
           <Sidebar setOpen={setOpen} open={open} />
           <div className="page-body">
+            <SelectLottery />
             <Outlet />
           </div>
           <Footer />
