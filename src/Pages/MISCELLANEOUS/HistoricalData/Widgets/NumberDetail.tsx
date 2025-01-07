@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, Col, Badge } from "reactstrap";
 import { H5, LI, UL } from "../../../../AbstractElements";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+
+import RegularNumbers from './NumberDetailsTabRegular';
+import PowerballNumbers from './NumberDetailsTabPowerBall';
 
 // Define the Pattern and NumberDetails interfaces
 interface Pattern {
@@ -36,6 +39,7 @@ const YourBalance: React.FC = () => {
 
   // Convert patterns object to entries
   const patternEntries = Object.entries(patterns) as [string, Pattern][];
+ 
 
   return (
     <Col className="numberDetailsCol">
@@ -44,7 +48,13 @@ const YourBalance: React.FC = () => {
           <h3 className="mb-0">Number Details</h3>
         </div>
         <CardBody className="d-flex">
+
+
+    
+
+
           <div className="balance-profile">
+          <h4>Main Number Details</h4>
             {/* Display the main number */}
             <div className="NumberBall">
               <p>{numberValue}</p>
@@ -74,8 +84,42 @@ const YourBalance: React.FC = () => {
             </div>
           </div>
 
+
+          <div className="balance-profile">
+            {/* Display the main number */}
+            <h4>Powerball Number Details</h4>
+            <div className="NumberBall">
+              <p>{numberValue}</p>
+            </div>
+            <span className="f-light d-block">Temperature</span>
+            <H5 className="mt-1">{temperature}</H5>
+
+            {/* Display frequency and badge */}
+            <div>
+              <UL className="simple-list flex-row">
+                <LI>
+                  <div className={`balance-item ${classData}`}>
+                    <div>
+                      <span className="f-14 f-light">Frequency</span>
+                      <H5>{amountData}</H5>
+                      <Badge
+                        pill
+                        className={`badge-light-${classData}`}
+                        color="transparent"
+                      >
+                        {badgeData}
+                      </Badge>
+                    </div>
+                  </div>
+                </LI>
+              </UL>
+            </div>
+          </div>
+
+
+
             {/* Display patterns */}
-            <div  className="balance-profile">
+            <div  className="balance-profile balance-pattern">
                 <h3>Patterns</h3>
                 {patternEntries.length > 0 ? (
                   patternEntries.map(([key, pattern], index) => (
@@ -91,7 +135,14 @@ const YourBalance: React.FC = () => {
                   <p>No patterns available</p>
                 )}
               </div>
+              
         </CardBody>
+      </Card>
+      <Card>
+        <RegularNumbers />
+      </Card>
+      <Card>
+        <PowerballNumbers />
       </Card>
     </Col>
   );

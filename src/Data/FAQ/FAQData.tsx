@@ -229,11 +229,21 @@ export const articlesData = [
       time: "45 minutes ago",
     },
     {
-      iconClass: <Check className="font-primary" />,
-      val: "Victoria Wilson",
-      title: "Ticket #43683 has been closed by",
-      time: "Dec 7, 11:48",
+      iconClass: <Link2 className="font-primary" />,
+      name: "UserChristopher",
+      val: "Wallace",
+      title: "is on hold and awaiting for staff reply",
+      time: "45 minutes ago",
     },
+    {
+      iconClass: <Link2 className="font-primary" />,
+      name: "UserChristopher",
+      val: "Wallace",
+      title: "is on hold and awaiting for staff reply",
+      time: "45 minutes ago",
+    },
+    
+    
 
   ];
 

@@ -4,7 +4,6 @@ import { Container, Row } from "reactstrap";
 import Breadcrumbs from "../../../CommonElements/Breadcrumbs/Breadcrumbs";
 import { HistoricalHeading } from "../../../utils/Constant";
 import Historical from "./Historical/HistoricalNumber";
-import ArticeVideo from "./ArticeVideo/ArticeVideo";
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 import { fetchNumberDetailsTableData } from "../../../ReaduxToolkit/Reducer/numberDetailsTable";
 import { useAppSelector} from "../../../ReaduxToolkit/Hooks";
@@ -45,7 +44,6 @@ const HistoricalDataByNumber = () => {
         <div className="faq-wrap">
           <Row>
             <Historical />
-            <ArticeVideo />
           </Row>
         </div>
       </Container>
