@@ -18,6 +18,7 @@ $badge-light-color in (primary, $primary-color),
     &.bg-transparent{
       background-color: lighten($badge-light-color, 38%);
       color: $badge-light-color !important;
+      font-size: 23px;
     }
   }
 }

@@ -9,7 +9,7 @@ const PowerballNumbers = () => {
       title: "Powerball Number Details",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Attribute</th>
@@ -38,7 +38,7 @@ const PowerballNumbers = () => {
       title: "Pairings with Other Numbers",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Number</th>
@@ -71,7 +71,7 @@ const PowerballNumbers = () => {
       title: "Frequency in Specific Months",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Month</th>
@@ -100,7 +100,7 @@ const PowerballNumbers = () => {
       title: "Repetitions",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Draw Dates</th>
@@ -125,7 +125,7 @@ const PowerballNumbers = () => {
       title: "Positioning",
   content: (
     <>
-      <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+      <table className="table table-bordered" >
         <thead>
           <tr>
             <th>Position</th>
@@ -153,7 +153,7 @@ const PowerballNumbers = () => {
   ];
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5" style={{ marginBottom: 10 }}>
       <h2 className="text-center mb-4">Powerball Numbers - Historical Patterns</h2>
       <ul className="nav nav-tabs">
         {tabs.map((tab, index) => (

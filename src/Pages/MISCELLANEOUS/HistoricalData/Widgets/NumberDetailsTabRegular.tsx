@@ -9,7 +9,7 @@ const RegularNumbers = () => {
       title: "Main Number Details",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Attribute</th>
@@ -38,7 +38,7 @@ const RegularNumbers = () => {
       title: "Pairings with Other Numbers",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Number</th>
@@ -71,7 +71,7 @@ const RegularNumbers = () => {
       title: "Frequency in Specific Months",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Month</th>
@@ -100,7 +100,7 @@ const RegularNumbers = () => {
       title: "Repetitions",
       content: (
         <>
-          <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+          <table className="table table-bordered" >
             <thead>
               <tr>
                 <th>Draw Dates</th>
@@ -125,7 +125,7 @@ const RegularNumbers = () => {
         title: "Positioning",
         content: (
           <>
-            <table className="table table-bordered" style={{ color: '#000', fontFamily: 'cursive' }}>
+            <table className="table table-bordered" >
               <thead>
                 <tr>
                   <th>Position</th>
@@ -168,7 +168,7 @@ const RegularNumbers = () => {
           </li>
         ))}
       </ul>
-      <div className="tab-content border p-3 mt-3">
+      <div className="tab-content border p-3 mt-3" style={{ marginBottom: 10 }}>
         {tabs[activeTab].content}
       </div>
     </div>

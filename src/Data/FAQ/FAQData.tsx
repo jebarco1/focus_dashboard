@@ -234,17 +234,8 @@ export const articlesData = [
       val: "Wallace",
       title: "is on hold and awaiting for staff reply",
       time: "45 minutes ago",
-    },
-    {
-      iconClass: <Link2 className="font-primary" />,
-      name: "UserChristopher",
-      val: "Wallace",
-      title: "is on hold and awaiting for staff reply",
-      time: "45 minutes ago",
-    },
-    
-    
-
+    }
+   
   ];
 
   export const featuredData = [
