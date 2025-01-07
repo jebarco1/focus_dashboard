@@ -30,10 +30,12 @@ const PatternList = ({ patterns }: { patterns: Record<string, Pattern> }) => {
     style={{
       flex: "0 0 31%",
       maxWidth: "31%",
-      margin: "0 auto",
+      margin: "10px",
+      minWidth: "345px",
       border: "1px solid #646464",
       borderRadius: "8px",
-      padding: "16px",
+      padding: "16px"
+      
     }}>
       <h3>Patterns</h3>
       {patternEntries.length > 0 ? (
@@ -84,7 +86,8 @@ const NumberDetailsCard = ({
     style={{
       flex: "0 0 31%",
       maxWidth: "31%",
-      margin: "0 auto",
+      minWidth: "345px",
+      margin: "10px",
       border: "1px solid #646464",
       borderRadius: "8px",
       padding: "16px",
@@ -135,7 +138,7 @@ const NumberDetailComponent: React.FC = () => {
 
   return (
     <Col className="number-details-col">
-      <Card className="number-details-box height-equal-2" style={{ marginBottom: "20px" }}>
+      <Card className="number-details-box height-equal-2" style={{ marginBottom: "20px",paddingTop: "20px" }}>
         <div className="pb-0 card-header text-center">
           <h3 className="mb-0">Number Details</h3>
         </div>
