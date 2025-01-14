@@ -201,3 +201,17 @@ $accordion-light-color: $light-primary,
 /**=====================
     2.1 According CSS Ends
 ==========================**/
+
+
+.animated-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+    opacity: 0;
+  }
+  
+  .animated-collapse.open {
+    max-height: 500px;
+    opacity: 1;
+  }
+  

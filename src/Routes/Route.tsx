@@ -7,7 +7,8 @@ import HideNavScrollContainer from "../Pages/PageLayout/HideNavScrollContainer/H
 import HistoricalData from "../Pages/MISCELLANEOUS/HistoricalData/HistoricalData";
 import HistoricalDataByNumber from "../Pages/MISCELLANEOUS/HistoricalData/HistoricalDataByNumber";
 import NumberPicker from "../Pages/MISCELLANEOUS/HistoricalData/NumberPicker";
-import Patterns from "../Pages/MISCELLANEOUS/HistoricalData/Patterns";
+import LotteryPatternsPage from "../Pages/MISCELLANEOUS/HistoricalData/Patterns";
+import LotteryMyPickPage from "../Pages/MISCELLANEOUS/HistoricalData/MyPick";
 
 const routes = [
   
@@ -21,9 +22,9 @@ const routes = [
      { path: `${process.env.PUBLIC_URL}/pages/HistoricalData`, Component:<HistoricalData />},
      { path: `${process.env.PUBLIC_URL}/pages/HistoricalDataByNumber`, Component:<HistoricalDataByNumber />},
      { path: `${process.env.PUBLIC_URL}/pages/NumberPicker`, Component:<NumberPicker />},
-     { path: `${process.env.PUBLIC_URL}/pages/Patterns`, Component:<NumberPicker />},
+     { path: `${process.env.PUBLIC_URL}/pages/Patterns`, Component:<LotteryPatternsPage />},
+     { path: `${process.env.PUBLIC_URL}/pages/MyPicks`, Component:<LotteryMyPickPage />},
     
-
     // Knowledgeable
     { path: `${process.env.PUBLIC_URL}/pages/knowledgebase`, Component:<Knowledgebase />},
      

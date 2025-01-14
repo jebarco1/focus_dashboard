@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardBody, Col, Badge } from "reactstrap";
 import { H5, LI, UL } from "../../../../AbstractElements";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
-
+import { Link } from 'react-router-dom';
 import RegularNumbers from "./NumberDetailsTabRegular";
 import PowerballNumbers from "./NumberDetailsTabPowerBall";
 
@@ -44,6 +44,8 @@ const PatternList = ({ patterns }: { patterns: Record<string, Pattern> }) => {
             <p>
               Found <strong>{pattern.count}</strong> times +{" "}
               <strong>{pattern.difference}</strong> [ {key} ]
+
+              <Link to={`../pages/Patterns?pattern=[5,10]`}>
               <button
                 className="btn btn-primary ms-3"
                 style={{
@@ -55,7 +57,7 @@ const PatternList = ({ patterns }: { patterns: Record<string, Pattern> }) => {
                 }}
               >
                 Details
-              </button>
+              </button></Link>
             </p>
           </div>
         ))
