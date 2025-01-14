@@ -5,8 +5,7 @@ import { HistoricalHeading } from "../../../utils/Constant";
 import React, {useEffect } from 'react';
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 
-import NumberPickerDetails from "./NumberPicker/NumberPickerDetails"
-import NumberPickDetail from "./NumberPicker/numberPickDetail";
+import NumberPickDetailDetail from "./NumberPicker/NumberPickDetailDetail";
 import PatternPredictor from "./NumberPicker/PatternPredictor";
 import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
@@ -43,7 +42,7 @@ const LotteryMyPickPage = () => {
                 <Col>
                     <Card >
                         <CardBody>
-                        <NumberPickDetail />
+                        <NumberPickDetailDetail />
                         </CardBody>
                     </Card>
                 </Col>
