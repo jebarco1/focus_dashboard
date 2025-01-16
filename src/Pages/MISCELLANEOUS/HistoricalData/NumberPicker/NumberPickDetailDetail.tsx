@@ -59,6 +59,22 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
     return pairs;
   };
 
+
+  const suggestHotNumber = () => {
+    alert(`Suggested Hot Number: ${numberPickHotCold[Math.floor(Math.random() * numberPickHotCold.length)].number}`);
+  };
+
+  const generateAINumber = () => {
+    alert(`AI-Generated Number: ${Math.floor(Math.random() * 69) + 1}`);
+  };
+
+  const generateFromPairs = () => {
+    const allPairs = numberPicks.flatMap(pick => generateNumberPairs(pick.rnumber.split(',')));
+    const randomPair = allPairs[Math.floor(Math.random() * allPairs.length)].pair;
+    alert(`Generated from Pairs: ${randomPair}`);
+  };
+
+
   const generateSimilarDrawings = () => {
     const mockData = [];
     for (let i = 0; i < 10; i++) {
@@ -152,17 +168,44 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
 
                     <TabPane tabId="1">
                     <div className="numberDetailTabContent">
-                        <p><strong>Regular Numbers:</strong> {pick.rnumber}</p>
-                        <p><strong>Powerball:</strong> {pick.pnumber}</p>
-                        <p><strong>Total Sum:</strong> {calculateSum(pick.rnumber.split(','))}</p>
-                        <p><strong>Odd to Even Ratio:</strong> {calculateOddEvenRatio(pick.rnumber.split(','))}</p>
-                        <p><strong>Hot/Cold Analysis:</strong></p>
-                        <ul>
-                          {pick.rnumber.split(',').map((num, idx) => (
-                            <li key={idx}>Number {num.trim()}: {hotColdStatus(parseInt(num.trim(), 10))}</li>
-                          ))}
-                        </ul>
-                        <p className="numberDetailTabContentNotes">Notes: This analysis provides insights into number distribution, sum, and hot/cold trends to help refine your strategy</p>
+                    <Table bordered>
+                          <thead>
+                            <tr>
+                              <th>Number</th>
+                              <th>Hot/Cold Status</th>
+                              <th>Odd/Even</th>
+                              <th>Total Sum</th>
+                              <th>Recommendation</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {pick.rnumber.split(',').map((num, idx) => (
+                              <tr key={idx}>
+                                <td>{num.trim()}</td>
+                                <td>{hotColdStatus(parseInt(num.trim(), 10))}</td>
+                                <td>{parseInt(num.trim(), 10) % 2 === 0 ? "Even" : "Odd"}</td>
+                                <td>{calculateSum(pick.rnumber.split(','))}</td>
+                                <td>
+                                    {hotColdStatus(parseInt(num.trim(), 10)) === 'Hot' ? (
+                                        'Good Pick'
+                                    ) : (
+                                        <div className="d-flex justify-content-center">
+                                            {hotColdStatus(parseInt(num.trim(), 10)) === 'Hot' ? 'Good Pick' : (
+                                            <>
+                                                <button className="btn btn-warning btn-sm me-2" onClick={suggestHotNumber}>Suggest Hot Number</button>
+                                                <button className="btn btn-success btn-sm ms-2" onClick={generateFromPairs}>Generate from Pairs</button>
+                                                <button className="btn btn-primary btn-sm ms-2" onClick={generateAINumber}>Generate from A.I</button>
+                                            
+                                            </>
+                                            )}
+                                        </div>
+                                    )}
+                                    </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                        <p className="numberDetailTabContentNotes">Notes: Detailed Analysis provides a breakdown of each number's Hot/Cold status, Odd/Even classification, total sum of selected numbers, and actionable recommendations for improving your picks</p>
                         </div>
                       </TabPane>
 
