@@ -125,7 +125,7 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                   </div>
                 </div>
                 {activeDetailIndex === index && (
-                  <div className={`moreDetails animate__animated animate__fadeInDown mt-2 p-2 border-top`}>
+                  <div className={`moreDetails animate__animated animate__fadeInDown animate__slower mt-2 p-2 border-top`}>
                     <Nav tabs>
                       <NavItem>
                         <NavLink className={classnames({ active: activeTab === '1' })} onClick={() => toggleTab('1')}>
@@ -151,7 +151,7 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                     <TabContent activeTab={activeTab}>
 
                     <TabPane tabId="1">
-                        <h5>Detailed Analysis</h5>
+                    <div className="numberDetailTabContent">
                         <p><strong>Regular Numbers:</strong> {pick.rnumber}</p>
                         <p><strong>Powerball:</strong> {pick.pnumber}</p>
                         <p><strong>Total Sum:</strong> {calculateSum(pick.rnumber.split(','))}</p>
@@ -162,10 +162,12 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                             <li key={idx}>Number {num.trim()}: {hotColdStatus(parseInt(num.trim(), 10))}</li>
                           ))}
                         </ul>
+                        <p className="numberDetailTabContentNotes">Notes: This analysis provides insights into number distribution, sum, and hot/cold trends to help refine your strategy</p>
+                        </div>
                       </TabPane>
 
                       <TabPane tabId="2">
-                        <h5>Associated Numbers</h5>
+                        <div className="numberDetailTabContent">
                         <Table bordered>
                           <thead>
                             <tr>
@@ -182,10 +184,12 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                             ))}
                           </tbody>
                         </Table>
+                        <p className="numberDetailTabContentNotes">Notes: Associated Numbers highlight commonly paired numbers that frequently appear together in past draws, offering insights for better number selection.</p>
+                        </div>
                       </TabPane>
 
                       <TabPane tabId="3">
-                        <h5>Number Pairs</h5>
+                      <div className="numberDetailTabContent">
                         <Table bordered>
                           <thead>
                             <tr>
@@ -202,10 +206,12 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                             ))}
                           </tbody>
                         </Table>
+                        <p className="numberDetailTabContentNotes">Notes: Number Pairs reveal commonly occurring number combinations, helping identify strong pairings for strategic picks.</p>
+                        </div>
                       </TabPane>
 
                       <TabPane tabId="4">
-                        <h5>Similar Drawings</h5>
+                      <div className="numberDetailTabContent">
                         <Table bordered>
                           <thead>
                             <tr>
@@ -226,6 +232,8 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                             ))}
                           </tbody>
                         </Table>
+                        <p className="numberDetailTabContentNotes">Notes: Similar Drawings display past results with number patterns closely matching your picks, highlighting potential trends for better forecasting.</p>
+                        </div>
                       </TabPane>
                     </TabContent>
                   </div>
