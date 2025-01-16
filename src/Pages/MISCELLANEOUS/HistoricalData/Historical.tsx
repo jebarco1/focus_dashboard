@@ -1,7 +1,6 @@
 
 import { Col, Row } from 'reactstrap'
-import FaqRightSidebar from './Questions/FaqRightSidebar'
-import HoverableRowsClass from "./Tables/HistoricalTables";
+import HoverableRowsClass from "./Tables/HistoricalSearchResultTable";
 const Historical = () => {
   return (
     <Col lg={12}>
@@ -10,9 +9,7 @@ const Historical = () => {
         <HoverableRowsClass />
 
           <Col xl={8} lg={6} md={7} className="box-col-60  xl-60">
-          <HoverableRowsClass />
           </Col>
-          <FaqRightSidebar />
         </Row>
     </Col>
   )

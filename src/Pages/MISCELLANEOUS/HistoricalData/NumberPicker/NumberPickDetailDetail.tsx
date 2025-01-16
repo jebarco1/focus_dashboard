@@ -1,13 +1,13 @@
-import { Card, CardBody, Progress, Nav, NavItem, NavLink, TabContent, TabPane, Table } from "reactstrap";
+import { Card, CardBody, Nav, NavItem, NavLink, TabContent, TabPane, Table } from "reactstrap";
 import { removeNumberPick } from '../../../../ReaduxToolkit/Reducer/numberPicks';
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 
 interface numberPickDetailProps {}
 
 const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
-  const [probabilities, setProbabilities] = useState<number[]>([]);
   const [activeDetailIndex, setActiveDetailIndex] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>('1');
   const dispatch = useAppDispatch();
@@ -21,6 +21,7 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
 
   const handleDetails = (index: number) => {
     setActiveDetailIndex(activeDetailIndex === index ? null : index);
+    toggleTab('1');
   };
 
   const toggleTab = (tab: string) => {
@@ -32,15 +33,7 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
     return hotCold ? hotCold.temp : "Neutral";
   };
 
-  const calculateSum = (numbers: string[]) => {
-    return numbers.reduce((sum, num) => sum + parseInt(num.trim(), 10), 0);
-  };
 
-  const calculateOddEvenRatio = (numbers: string[]) => {
-    const oddCount = numbers.filter(num => parseInt(num.trim(), 10) % 2 !== 0).length;
-    const evenCount = numbers.length - oddCount;
-    return `${oddCount}:${evenCount}`;
-  };
 
   const generateAssociatedNumbers = (numbers: string[]) => {
     return numbers.map(num => ({
@@ -75,6 +68,44 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
   };
 
 
+  const calculateHotColdProbability = (numbers: string[], powerball: number) => {
+    let hotCount = 0;
+    let coldCount = 0;
+    let neutralCount = 0;
+
+    numbers.forEach(num => {
+      const status = hotColdStatus(parseInt(num.trim(), 10));
+      if (status === 'Hot') hotCount++;
+      else if (status === 'Cold') coldCount++;
+      else neutralCount++;
+    });
+
+    const powerballStatus = hotColdStatus(powerball);
+    if (powerballStatus === 'Hot') hotCount++;
+    else if (powerballStatus === 'Cold') coldCount++;
+    else neutralCount++;
+
+    const totalNumbers = numbers.length + 1;
+    const probability = ((hotCount * 1.5 + neutralCount * 1) / (totalNumbers * 1.5)) * 100;
+
+    return probability.toFixed(2);
+  };
+
+
+  const determineOverallHotColdStatus = (numbers: string[], powerball: number) => {
+    const probability = parseFloat(calculateHotColdProbability(numbers, powerball));
+    
+    if (probability > 75) {
+      return 'Hot';
+    } else if (probability < 50) {
+      return 'Cold';
+    } else {
+      return 'Neutral';
+    }
+  };
+
+
+
   const generateSimilarDrawings = () => {
     const mockData = [];
     for (let i = 0; i < 10; i++) {
@@ -103,21 +134,21 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                     <div className="selectNumber">
                       {pick.rnumber.split(',').map((num, idx) => (
                         <button key={idx} className="btn btn-success me-1">
-                          {num.trim()} <span className={hotColdStatus(parseInt(num.trim(), 10))}></span>
+                          {num.trim()} <span className={'hotCold '+hotColdStatus(parseInt(num.trim(), 10))}></span>
                         </button>
                       ))}
                       <button className="btn btn-secondary me-1">
-                        {pick.pnumber} <span className={hotColdStatus(pick.pnumber)}></span>
+                        {pick.pnumber} <span className={'hotCold '+hotColdStatus(pick.pnumber)}></span>
                       </button>
                     </div>
                   </span>
                   <span className="numberListDetails">
                     <h5>Temperature</h5>
-                    <p>Hot </p>
+                    <p> {determineOverallHotColdStatus(pick.rnumber.split(','), pick.pnumber)}</p>
                   </span>
                   <span className="numberListDetails">
                     <h5>Probability</h5>
-                    <p>22.43%</p>
+                    <p>{calculateHotColdProbability(pick.rnumber.split(','), pick.pnumber)}%</p>
                   </span>
                   <span className="numberListDetails">
                     <h5>Patterns</h5>
@@ -160,9 +191,15 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                       </NavItem>
                       <NavItem>
                         <NavLink className={classnames({ active: activeTab === '4' })} onClick={() => toggleTab('4')}>
+                          Patterns
+                        </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink className={classnames({ active: activeTab === '5' })} onClick={() => toggleTab('5')}>
                           Similar Drawings
                         </NavLink>
                       </NavItem>
+                     
                     </Nav>
                     <TabContent activeTab={activeTab}>
 
@@ -174,7 +211,6 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                               <th>Number</th>
                               <th>Hot/Cold Status</th>
                               <th>Odd/Even</th>
-                              <th>Total Sum</th>
                               <th>Recommendation</th>
                             </tr>
                           </thead>
@@ -184,7 +220,6 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                                 <td>{num.trim()}</td>
                                 <td>{hotColdStatus(parseInt(num.trim(), 10))}</td>
                                 <td>{parseInt(num.trim(), 10) % 2 === 0 ? "Even" : "Odd"}</td>
-                                <td>{calculateSum(pick.rnumber.split(','))}</td>
                                 <td>
                                     {hotColdStatus(parseInt(num.trim(), 10)) === 'Hot' ? (
                                         'Good Pick'
@@ -252,8 +287,33 @@ const NumberPickDetail: React.FC<numberPickDetailProps> = ({}) => {
                         <p className="numberDetailTabContentNotes">Notes: Number Pairs reveal commonly occurring number combinations, helping identify strong pairings for strategic picks.</p>
                         </div>
                       </TabPane>
-
                       <TabPane tabId="4">
+                        <Table bordered>
+                          <thead>
+                            <tr>
+                              <th>Pattern</th>
+                              <th>Occurrences</th>  
+                              <th>Associated Numbers</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {pick.rnumber.split(',').map((num, idx) => (
+                              <tr key={idx}>
+                                <td>Pattern {idx + 1}</td>
+                                <td>{Math.floor(Math.random() * 10) + 1}</td>
+                                <td>{num.trim()}</td>
+                                <td><Link to={`../pages/Patterns?pattern=${num.trim()}`} >
+                                <button className="btn btn-info btn-sm" >Details
+                                </button> </Link>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </Table>
+                        <p className="numberDetailTabContentNotes">Notes: Patterns reveal recurring number sequences, their frequency of occurrence, and associated numbers, offering deeper insights for strategic number selection.</p>
+                      </TabPane>
+
+                      <TabPane tabId="5">
                       <div className="numberDetailTabContent">
                         <Table bordered>
                           <thead>
