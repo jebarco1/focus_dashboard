@@ -26,6 +26,9 @@ import numberDetailsTableReducer from './Reducer/numberDetailsTable';
 import getNumberByMonthReducer from './Reducer/getNumberByMonth';
 import lotterySelectReducer from './Reducer/lotterySelectSlice';
 import listenerMiddleware from "./listenerMiddleware";
+import LastesNewsReducer from "./Reducer/getLastestNew";
+import getPatternDetailReducer from "./Reducer/getPatternDetails"
+import HighlightPatternReducer from "./Reducer/HighlightPattern";
 
 
 const Store = configureStore({
@@ -55,7 +58,10 @@ reducer:{
     getPatternsBetween : getPatternsBetweenReducer,
     numberDetailsTable: numberDetailsTableReducer,
     getNumberByMonth : getNumberByMonthReducer,
-    lotterySelect : lotterySelectReducer
+    lotterySelect : lotterySelectReducer,
+    LastesNews : LastesNewsReducer,
+    getPatternDetail : getPatternDetailReducer,
+    HighlightPattern : HighlightPatternReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().prepend(listenerMiddleware.middleware),
@@ -63,5 +69,5 @@ reducer:{
 
 export default Store;
 
-export type RootState = ReturnType<typeof Store.getState>
-export type AppDispatch = typeof Store.dispatch
+export type RootState = ReturnType<typeof Store.getState>;
+export type AppDispatch = typeof Store.dispatch;

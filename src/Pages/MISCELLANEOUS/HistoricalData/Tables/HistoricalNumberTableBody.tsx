@@ -32,6 +32,7 @@ const HoverableRowsTableBody = () => {
     const result = numberDetails?.table || {};
     const resultEntries = Object.entries(result) as [string, Result][];
 
+
   return (
     <tbody>
       {resultEntries.length > 0 ? (

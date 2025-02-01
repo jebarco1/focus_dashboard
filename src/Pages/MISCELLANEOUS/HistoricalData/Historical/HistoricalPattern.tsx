@@ -1,10 +1,9 @@
 import React from "react";
-import { Col, Row } from "reactstrap";
-import FaqRightSidebar from "../Questions/PatternFaqRightSidebar";
-import HoverableRowsClass from "../Tables/HistoricalNumberTables";
+import { Col, Row, Card } from "reactstrap";
 import Pattern from "./pattern";
+import PatternHighlight from "./PatternHighlight";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
-
+import LotteryNewsList from './LotteryNewsList';
 
 const Historical = () => {
   const numberDetails = useAppSelector(
@@ -17,15 +16,23 @@ const Historical = () => {
         <Col xl={8} lg={6} md={7} className="box-col-60 xl-60">
           {numberDetails ? (
             <>
-                <Row><Pattern /></Row>
+   
+            <Card><Row><PatternHighlight /></Row></Card>
               
+            <Card><Row><Pattern /></Row></Card>
+             
             </>
           ) : (
             <p>Loading number details...</p>
           )}
         </Col>
-        <FaqRightSidebar />
-     
+
+    <Col xl={4}  lg={6} md={5} className=" xl-40 box-col-40">
+      <Row>
+        <LotteryNewsList />
+      </Row>
+    </Col>
+
       </Row>
     </Col>
   );

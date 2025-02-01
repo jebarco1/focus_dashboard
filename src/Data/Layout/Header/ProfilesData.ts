@@ -8,26 +8,26 @@ export const profilesMessage:profilesMessageType[] = [
     {
         name: "Account",
         icon:"User",
-        link: `${process.env.PUBLIC_URL}/users/usersprofile`
+        link: `./users/usersprofile`
     },
     {
         name: "Inbox",
         icon:"Mail",
-        link: `${process.env.PUBLIC_URL}/email/emailapp`
+        link: `./email/emailapp`
     },
     {
         name: "Taskboard",
         icon:"FileText",
-        link: `${process.env.PUBLIC_URL}/apps/task`
+        link: `./apps/task`
     },
     {
         name: "Settings",
         icon:"Settings",
-        link: `${process.env.PUBLIC_URL}/users/usersedit`
+        link: `./users/usersedit`
     },
     {
         name: "Log Out",
         icon:"LogOut",
-        link:`${process.env.PUBLIC_URL}/login`
+        link:`./login`
     },
 ];

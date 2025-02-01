@@ -19,7 +19,7 @@ export const getPatternsBetweenDrawingPatterns = createAsyncThunk(
   "getPatternsBetweenDrawing/fetchPatterns",
   async (payload: { numbers: number[]; powerball: number }, { rejectWithValue }) => {
     try {
-      const url = `http://localhost:8080/jankgo/metricController/getPatternsBetweenDrawing/${JSON.stringify(
+      const url = `https://focuslottery.com/api/jankgo/metricController/getPatternsBetweenDrawing/${JSON.stringify(
         payload
       )}`;
       const response = await axios.get(url);

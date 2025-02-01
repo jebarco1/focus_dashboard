@@ -22,7 +22,7 @@ export const fetchLast30Drawings = createAsyncThunk(
     try {
       const state = getState() as RootState; // Access the Redux state
       const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
-      const response = await axios.get(`http://localhost:8080/jankgo/metricController/get30DayDrawings/[%22${lotterySelect}%22]`); // Replace with your API URL
+      const response = await axios.get(`https://focuslottery.com/api/jankgo/metricController/get30DayDrawings/[%22${lotterySelect}%22]`); // Replace with your API URL
       return response.data; // Ensure the response matches the expected structure
     } catch (error: any) {
       return rejectWithValue(error.response?.data || 'Failed to fetch data');

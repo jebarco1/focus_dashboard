@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "reactstrap";
-import FaqRightSidebar from "../Questions/FaqRightSidebar";
+import NumberDetailSideBar from "./NumberDetailSideBar";
 import HoverableRowsClass from "../Tables/HistoricalNumberTables";
 import NumberDetailWidget from "../Widgets/NumberDetail";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
@@ -24,7 +24,7 @@ const Historical = () => {
             <p>Loading number details...</p>
           )}
         </Col>
-        <FaqRightSidebar />
+        <NumberDetailSideBar />
         <HoverableRowsClass />
         
       </Row>

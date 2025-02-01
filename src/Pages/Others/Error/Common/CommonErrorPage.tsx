@@ -27,7 +27,7 @@ const CommonErrorPage = ({ tittle, tittleClassName, BtnClassName}: ErrorPropsTyp
           <div>
             <Link
               className={`btn  ${BtnClassName} btn-lg`}
-              to={`${process.env.PUBLIC_URL}/dashboards/shoppingplace`}
+              to={`./dashboards/shoppingplace`}
             >
               {BackToHomePage}
             </Link>

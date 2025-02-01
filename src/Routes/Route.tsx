@@ -10,25 +10,21 @@ import NumberPicker from "../Pages/MISCELLANEOUS/HistoricalData/NumberPicker";
 import LotteryPatternsPage from "../Pages/MISCELLANEOUS/HistoricalData/Patterns";
 import LotteryMyPickPage from "../Pages/MISCELLANEOUS/HistoricalData/MyPick";
 
-const routes = [
-  
-  
-  { path: `${process.env.PUBLIC_URL}/pagelayout/hidenavscroll`, Component: <HideNavScrollContainer />},
-  { path: `${process.env.PUBLIC_URL}/pagelayout/footerdark`, Component: <FooterDark />},
-  { path: `${process.env.PUBLIC_URL}/pagelayout/footerfixed`, Component: <FooterFixed />},
-  
+const routes =[
+  { path: "pagelayout/hidenavscroll", Component: HideNavScrollContainer },
+  { path: "pagelayout/footerdark", Component: FooterDark },
+  { path: "pagelayout/footerfixed", Component: FooterFixed },
 
-     // HistoricalData
-     { path: `${process.env.PUBLIC_URL}/pages/HistoricalData`, Component:<HistoricalData />},
-     { path: `${process.env.PUBLIC_URL}/pages/HistoricalDataByNumber`, Component:<HistoricalDataByNumber />},
-     { path: `${process.env.PUBLIC_URL}/pages/NumberPicker`, Component:<NumberPicker />},
-     { path: `${process.env.PUBLIC_URL}/pages/Patterns`, Component:<LotteryPatternsPage />},
-     { path: `${process.env.PUBLIC_URL}/pages/MyPicks`, Component:<LotteryMyPickPage />},
-    
-    // Knowledgeable
-    { path: `${process.env.PUBLIC_URL}/pages/knowledgebase`, Component:<Knowledgebase />},
-     
-    
+  // Historical Data
+  { path: "pages/historicaldata", Component: HistoricalData },
+  { path: "pages/historicaldatabynumber", Component: HistoricalDataByNumber },
+  { path: "pages/numberpicker", Component: NumberPicker },
+  { path: "pages/patterns", Component: LotteryPatternsPage },
+  { path: "pages/mypicks", Component: LotteryMyPickPage },
 
+  // Knowledgebase
+  { path: "pages/knowledgebase", Component: Knowledgebase }
 ];
+
+
 export default routes;

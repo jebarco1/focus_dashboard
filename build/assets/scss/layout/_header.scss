@@ -1,0 +1,411 @@
+/**=====================
+  5.3 Header CSS Start
+==========================**/
+.left-header {
+  .d-flex {
+    align-items: center;
+  }
+  h6 {
+    line-height: 1.6;
+    @media (max-width: 1199px) {
+      width: 160px;
+      overflow: hidden;
+      -webkit-line-clamp: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    @media (max-width: 991px) {
+      width: 120px;
+    }
+    @media (max-width: 767px) {
+      width: 66px;
+    }
+  }
+  @media (max-width: 755px) {
+    display: none;
+  }
+  img {
+    margin-top: -12px;
+    height: 26px;
+  }
+  i {
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: -4px;
+  }
+}
+/*======= Page Header css ends  ======= */
+/**======Main Header css Start ======**/
+.offcanvas,
+.offcanvas-bookmark {
+  .page-wrapper {
+    .page-body-wrapper {
+      .page-body {
+        position: relative;
+        filter: blur(5px) grayscale(100%);
+      }
+    }
+  }
+}
+.offcanvas {
+  position: unset;
+  visibility: visible;
+  background: unset;
+  z-index: 2;
+}
+.toggle-sidebar {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+  svg {
+    width: $header-wrapper-nav-icon-size;
+    height: $header-wrapper-nav-icon-size;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    background-color: rgba($primary-color, 0.1);
+    border-radius: 100%;
+    left: -11px;
+    z-index: -2;
+    top: -8px;
+    transform: scale(0);
+    transition: all 0.3s ease;
+  }
+}
+.onhover-dropdown {
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    .onhover-show-div {
+      @extend %for-animated-hover-box;
+    }
+  }
+}
+.onhover-show-div {
+  top: 80px;
+  position: absolute;
+  z-index: 8;
+  background-color: $white;
+  transition: all linear 0.3s;
+  @extend %for-animated-hover;
+  li {
+    a {
+      svg {
+        margin-top: 0 !important;
+        path,
+        line {
+          color: $theme-body-font-color  !important;
+        }
+      }
+    }
+  }
+}
+/**======Main Header css Ends ======**/
+/*=======Mega menu css start=======*/
+.mega-menu {
+  .default-according {
+    .card {
+      .btn-link {
+        font-weight: 500;
+        color: gray;
+      }
+      .card-body {
+        font-size: 12px;
+      }
+    }
+  }
+  .onhover-show-div {
+    width: 1500px;
+  }
+  .card-body {
+    padding: 20px;
+  }
+  div {
+    >div {
+      a {
+        margin-bottom: 0px;
+        display: inline-block;
+        color: $theme-body-sub-title-color;
+      }
+    }
+  }
+  .list-unstyled {
+    div {
+      a {
+        padding: 8px 35px 8px 0;
+        transition: $sidebar-transition;
+        &:hover {
+          padding: 8px 35px 8px 10px;
+          transition: $sidebar-transition;
+        }
+      }
+    }
+  }
+}
+.page-wrapper {
+  .page-header {
+    .header-wrapper {
+      .search-full {
+        overflow: hidden;
+        color: $theme-font-color;
+        padding: 0;
+        .form-group {
+          background-color:#31322D;
+          width: 845px;
+          &.search-wrapper{
+            background-color: unset;
+          }
+          input {
+            color: $theme-font-color;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0.4px;
+            padding: 11px 0px 11px 25px;
+            width: 100% !important;
+            background-color: #F5F6F9;
+            &:focus-visible {
+              outline: none;
+            }
+            &:focus {
+              border: none;
+              box-shadow: none;
+            }
+            &::placeholder {
+              color: $theme-font-color;
+              [class="dark-only"] & {
+                color: $dark-all-font-color;
+              }
+            }
+            [class="dark-only"] & {
+              background-color: $sidebar-icon;
+              color: $dark-all-font-color;
+            }
+          }
+          .Typeahead-menu {
+            left: 6%;
+            width: 47%;
+            max-height: 315px;
+            overflow: auto;
+            p {
+              color: $dark-body-background;
+              border: 1px solid $dark-body-background;
+              padding: 6px;
+            }
+            .realname {
+              color: $theme-body-font-color;
+              font-weight: 700;
+              svg {
+                left: 15px;
+                height: 20px;
+                width: 20px;
+                stroke: $theme-body-font-color;
+              }
+            }
+          }
+          svg {
+            stroke: $theme-font-color;
+            width: 23px;
+            height: 23px;
+            right: 20px;
+            top: 25%;
+            position: absolute;
+            [dir="rtl"] & {
+              right: unset;
+              left: 20px;
+            }
+            [class="dark-only"] & {
+              stroke: $white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.page-wrapper {
+  &.compact-small {
+    .page-header {
+      .header-wrapper {
+        .header-logo-wrapper {
+          display: flex;
+          align-items: center;
+        }
+        .logo-wrapper {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+footer {
+  padding: 15px 35px 15px 35px !important;
+  p {
+    .footer-icon {
+      width: 22px;
+      height: 18px;
+      vertical-align: middle;
+    }
+  }
+}
+/*=======Mega menu css end=======*/
+/**=====================
+    5.3 Header CSS Ends
+==========================**/
+
+
+
+.dual-logo-toggle-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.select-one-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.horizontal-line {
+  position: absolute;
+  height: 2px;
+  background-color: white;
+  width: 100%;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.select-one {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #cac8c8;
+  color: #333;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.arrow {
+  font-size: 16px;
+  margin: 0 10px;
+  color: #666;
+}
+
+.separator {
+  width: 2px; /* Thickness of the separator line */
+  height: 60%; /* Adjust height as needed */
+  background-color: white; /* Separator color */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  opacity: 0.8; /* Slight transparency */
+}
+
+.dual-logo-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 55px;
+  width: 604px;
+  margin: auto;
+  cursor: pointer;
+  border-radius: 50px; /* Rounded corners */
+  background: darkgray; /* Default background */
+  transition: background 0.4s ease-in-out;
+  overflow: hidden;
+ border: 2px solid #b3b3b3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for better visibility */
+}
+
+.toggle-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #ff6666, #66b3ff); /* Default gradient background */
+  border-radius: 50px;
+  transition: transform 0.4s ease-in-out, background 0.4s ease-in-out;
+}
+
+.toggle-container.mega-active {
+  background: linear-gradient(to right, #0400f3, #cbe00c); /* Powerball active background */
+}
+
+.toggle-container.power-active {
+  background: linear-gradient(to right, #eb0707, #ffffff); /* MegaMillions active background */
+}
+
+.toggle-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 10px;
+}
+
+.logo {
+  height: 50px;
+  opacity: 0.15; /* Default opacity */
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  padding: 5px;
+}
+
+.logo.active {
+  opacity: 1; /* Full opacity when active */
+  transform: scale(1.2); /* Enlarged scale when active */
+  background: transparent; /* Remove background for active logos */
+}
+
+.logo.powerball {
+  position: absolute;
+  left: 10%; /* Positioning for Powerball logo */
+  height: 40px; /* Adjust height */
+}
+
+.logo.megamillions {
+  position: absolute;
+  right: 10%; /* Positioning for MegaMillions logo */
+  height: 93px; /* Adjust height */
+}
+
+@media (max-width: 768px) {
+  /* Responsive adjustments for smaller screens */
+  .dual-logo-toggle {
+    width: 90%; /* Adjust width */
+    height: 70px; /* Adjust height */
+  }
+
+  .separator {
+    height: 50%; /* Adjust separator height for smaller screens */
+  }
+
+  .logo {
+    height: 30px; /* Adjust logo size */
+  }
+
+  .logo.megamillions {
+    height: 60px; /* Adjust MegaMillions logo size */
+  }
+}
+
+
+
+.lottyerySelect button {width: 285px;height: 68px;}
+.lottyerySelect button img {height: 28px;}
+
+
+

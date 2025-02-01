@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Card, CardBody, Col } from "reactstrap";
 import CommonHeader from "../../../../Common/CommonHeader";
+import { useLocation } from "react-router-dom"; // Import useLocation
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 import { fetchgetNumberByMonth } from "../../../../ReaduxToolkit/Reducer/getNumberByMonth";
@@ -8,11 +9,19 @@ import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks"
 
 const BasicAreaChartClass: React.FC = () => {
   const dispatch = useAppDispatch();
+  const location = useLocation(); // Access the current location
+  const getQueryParam = (param: string): string | null => {
+    const queryParams = new URLSearchParams(location.search);
+    return queryParams.get(param);
+  };
 
-  // Fetch data on component mount
   useEffect(() => {
-    dispatch(fetchgetNumberByMonth());
-  }, [dispatch]);
+    const numberParam = getQueryParam("number"); // Get "number" from the query string
+    const parsedNumber = numberParam ? parseInt(numberParam, 10) : 1; // Default to 1 if numberParam is null
+    if (!isNaN(parsedNumber)) {
+      dispatch(fetchgetNumberByMonth(parsedNumber)); // Dispatch the thunk with the parsed number
+    }
+  }, [dispatch, location.search]);
 
   // Get data from Redux
   const getNumberByMonth = useAppSelector((state: any) => state.getNumberByMonth.value);

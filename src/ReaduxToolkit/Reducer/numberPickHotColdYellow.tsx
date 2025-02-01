@@ -23,7 +23,7 @@ export const fetchhotColdYellowData = createAsyncThunk(
       try {
         const state = getState() as RootState; // Access the Redux state
         const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
-      const response = await axios.get(`http://localhost:8080/jankgo/metricController/getHotColdYellow/[%22${lotterySelect}%22]`);
+      const response = await axios.get(`https://focuslottery.com/api/jankgo/metricController/getHotColdYellow/[%22${lotterySelect}%22]`);
       return response.data; // Ensure this matches your state structure
     } catch (error: any) {
       return rejectWithValue(error.response?.data || 'Failed to fetch data');

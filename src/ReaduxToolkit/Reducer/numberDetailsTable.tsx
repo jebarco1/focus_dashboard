@@ -46,7 +46,7 @@ export const fetchNumberDetailsTableData = createAsyncThunk(
             const state = getState() as RootState; // Access the Redux state
             const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       const response = await axios.get(
-        `http://localhost:8080/jankgo/metricController/getNumberDetailsTable/[${id},'${lotterySelect}']`
+        `https://focuslottery.com/api/jankgo/metricController/getNumberDetailsTable/[${id},'${lotterySelect}']`
       );
       return response.data; // Ensure this matches your state structure
     } catch (error: any) {

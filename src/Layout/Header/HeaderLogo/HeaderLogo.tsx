@@ -11,7 +11,7 @@ const HeaderLogo = () => {
   return (
     <>
       <div className="logo-wrapper">
-        <Link to={`${process.env.PUBLIC_URL}/dashboards/shoppingplace`}>
+        <Link to={`./dashboards/shoppingplace`}>
           <Image
             className="img-fluid"
             src={dynamicImage("logo/logo.png")}

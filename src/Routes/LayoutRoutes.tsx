@@ -5,13 +5,13 @@ import Layout from "../Layout/Layout";
 const LayoutRoutes = () => {
   return (
     <>
-      <Routes>
-        {routes.map(({ path, Component }, i) => (
-          <Route element={<Layout />} key={i}>
-            <Route path={path} element={Component} />
-          </Route>
-        ))}
-      </Routes>
+     <Routes>
+      {routes.map(({ path, Component }, i) => (
+        <Route key={i} element={<Layout />}>
+          <Route path={path} element={<Component />} />  {/* ✅ Wrap Component in JSX */}
+        </Route>
+      ))}
+    </Routes>
     </>
   );
 };

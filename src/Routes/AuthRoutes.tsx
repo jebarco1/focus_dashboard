@@ -18,27 +18,24 @@ import ComingWithBgVideo from "../Pages/Others/ComingSoon/ComingWithBgVideo/Comi
 
 
 export const authRoutes = [
+  // Coming Soon
+  { path: `pages/comingsoon/comingsimple`, Component: ComingSoonSimple },
+  { path: `pages/comingsoon/comingwithbgvideo`, Component: ComingWithBgVideo },
+  { path: `pages/comingsoon/comingwithbgimage`, Component: ComingSoonWithBgImage },
 
-
-//  ComingSoon
- { path: `${process.env.PUBLIC_URL}/pages/comingsoon/comingsimple`, Component: <ComingSoonSimple/> },
- { path: `${process.env.PUBLIC_URL}/pages/comingsoon/comingwithbgvideo`, Component: <ComingWithBgVideo/> },
- { path: `${process.env.PUBLIC_URL}/pages/comingsoon/comingwithbgimage`, Component: <ComingSoonWithBgImage/> },
- 
-
-//  // Auth Pages
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginsimple`, Component: <LoginSimple /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginwithbgimage`, Component: <LoginWithBackGroundImage /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginwithimagetwo`, Component: <LoginWithImageTwo /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginwithvalidation`, Component: <LoginWithValidation /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginwithtooltip`, Component: <LoginWithTooltip /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/loginwithsweetalert`, Component: <LoginWithSweetAlert /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/registersimple`, Component: <RegisterSimple /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/registerwithbgimage`, Component: <RegisterWithBgImage /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/registerwithimagetwo`, Component: <RegisterWithImageTwo /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/registerwizard`, Component: <RegisterWizard /> },
- { path: `${process.env.PUBLIC_URL}/pages/authentication/unlockuser`, Component:<UnlockUser />},
- { path: `${process.env.PUBLIC_URL}/pages/authentication/forgetpassword`, Component:<ForgetPassword />},
- { path: `${process.env.PUBLIC_URL}/pages/authentication/resetpassword`, Component: <ResetPassword />},
- { path: `${process.env.PUBLIC_URL}/pages/authentication/maintenance`, Component: <Maintenance />}
+  // Auth Pages
+  { path: `authentication/loginsimple`, Component: LoginSimple },
+  { path: `authentication/loginwithbgimage`, Component: LoginWithBackGroundImage },
+  { path: `authentication/loginwithimagetwo`, Component: LoginWithImageTwo },
+  { path: `authentication/loginwithvalidation`, Component: LoginWithValidation },
+  { path: `authentication/loginwithtooltip`, Component: LoginWithTooltip },
+  { path: `authentication/loginwithsweetalert`, Component: LoginWithSweetAlert },
+  { path: `authentication/registersimple`, Component: RegisterSimple },
+  { path: `authentication/registerwithbgimage`, Component: RegisterWithBgImage },
+  { path: `authentication/registerwithimagetwo`, Component: RegisterWithImageTwo },
+  { path: `authentication/registerwizard`, Component: RegisterWizard },
+  { path: `authentication/unlockuser`, Component: UnlockUser },
+  { path: `authentication/forgetpassword`, Component: ForgetPassword },
+  { path: `authentication/resetpassword`, Component: ResetPassword },
+  { path: `authentication/maintenance`, Component: Maintenance },
 ];

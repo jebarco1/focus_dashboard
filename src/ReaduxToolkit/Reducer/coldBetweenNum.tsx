@@ -26,7 +26,7 @@ export const coldBetweenNumPatterns = createAsyncThunk(
       const state = getState() as RootState; // Access the Redux state
       const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/coldBetweenNum/[%22${lotterySelect}%22]`;
+      const url = `https://focuslottery.com/api/jankgo/metricController/coldBetweenNum/[%22${lotterySelect}%22]`;
       const response = await axios.get(url);
       return response.data;
 

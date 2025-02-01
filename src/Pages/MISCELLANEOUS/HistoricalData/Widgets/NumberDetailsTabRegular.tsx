@@ -1,65 +1,71 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const RegularNumbers = () => {
+interface FrequencyMonth {
+  month: string;
+  frequency: number;
+}
+
+interface Pair {
+  pair: string;
+  count: number;
+}
+
+interface RegularNumbersProps {
+  frequencyMonth: FrequencyMonth[];
+  topPairs: Pair[];
+  positions: Record<string, number>; // Add this line
+}
+
+const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPairs, positions }) => {
   const [activeTab, setActiveTab] = useState(0);
 
+
   const tabs = [
-    {
-      title: "Main Number Details",
-      content: (
-        <>
-          <table className="table table-bordered" >
-            <thead>
-              <tr>
-                <th>Attribute</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Temperature</td>
-                <td>COLD</td>
-              </tr>
-              <tr>
-                <td>Frequency</td>
-                <td>171 of 2360 (7.25%)</td>
-              </tr>
-            </tbody>
-          </table>
-          <ul>
-            <li><strong>Notes:</strong> Indicates how frequently the number 12 appears in draws.</li>
-            <li><strong>Formula:</strong> Frequency = (Number of appearances / Total draws) × 100.</li>
-          </ul>
-        </>
-      ),
-    },
+    
     {
       title: "Pairings with Other Numbers",
       content: (
         <>
-          <table className="table table-bordered" >
-            <thead>
-              <tr>
-                <th>Number</th>
-                <th>Pairings</th>
+         <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>Number Pairs</th>
+            <th>Count</th>
+            <th>Number Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topPairs.length > 0 ? (
+            topPairs.map((pair, index) => (
+              <tr key={index}>
+                <td>{pair.pair}</td>
+                <td>{pair.count}</td>
+                <td> <Link to={`../pages/HistoricalDataByNumber?number=${pair.pair}`}>
+                                <button
+                                  className="btn btn-primary ms-3"
+                                  style={{
+                                    width: "100px",
+                                    margin: "8px auto",
+                                    border: "1px solid darkgray",
+                                    borderRadius: "8px",
+                                    padding: "8px",
+                                  }}
+                                >
+                                  Details
+                                </button>
+                      </Link>
+                 </td>
               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>21</td>
-                <td>12 times</td>
-              </tr>
-              <tr>
-                <td>45</td>
-                <td>10 times</td>
-              </tr>
-              <tr>
-                <td>23</td>
-                <td>8 times</td>
-              </tr>
-            </tbody>
-          </table>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={2}>No pairing data available</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
           <ul>
             <li><strong>Notes:</strong> Helps identify frequently paired numbers in historical draws.</li>
             <li><strong>Formula:</strong> Pairings = (Number of paired draws / Total draws).</li>
@@ -71,7 +77,7 @@ const RegularNumbers = () => {
       title: "Frequency in Specific Months",
       content: (
         <>
-          <table className="table table-bordered" >
+          <table className="table table-bordered">
             <thead>
               <tr>
                 <th>Month</th>
@@ -79,82 +85,57 @@ const RegularNumbers = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>December</td>
-                <td>15 times</td>
-              </tr>
-              <tr>
-                <td>July</td>
-                <td>10 times</td>
-              </tr>
+              {frequencyMonth.length > 0 ? (
+                frequencyMonth.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.month}</td>
+                    <td>{item.frequency} times</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={2}>No data available</td>
+                </tr>
+              )}
             </tbody>
           </table>
           <ul>
-            <li><strong>Notes:</strong> Reveals seasonal trends in the occurrence of the number 12.</li>
-            <li><strong>Formula:</strong> Monthly frequency = (Number of occurrences in a month / Total monthly draws).</li>
+            <li><strong>Notes:</strong> Reveals seasonal trends for the number.</li>
           </ul>
         </>
       ),
     },
-    {
-      title: "Repetitions",
+     {
+      title: "Positioning",
       content: (
         <>
-          <table className="table table-bordered" >
+          <table className="table table-bordered">
             <thead>
               <tr>
-                <th>Draw Dates</th>
-                <th>Occurrences</th>
+                <th>Position</th>
+                <th>Count</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>July 1, 2023, and July 5, 2023</td>
-                <td>2 consecutive draws</td>
-              </tr>
+              {Object.entries(positions).map(([position, count], index) => (
+                <tr key={index}>
+                  <td>{position}</td>
+                  <td>{count}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
           <ul>
-            <li><strong>Notes:</strong> Tracks consecutive occurrences of the number 12.</li>
-            <li><strong>Formula:</strong> Repetitions = Count of consecutive occurrences.</li>
+            <li><strong>Notes:</strong> Understanding frequent positions highlights patterns of number occurrences in specific slots, aiding strategic selection and improving chances by focusing on historically significant trends.</li>
           </ul>
         </>
       ),
     },
-    {
-        title: "Positioning",
-        content: (
-          <>
-            <table className="table table-bordered" >
-              <thead>
-                <tr>
-                  <th>Position</th>
-                  <th>Frequency</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>2nd Position</td>
-                  <td>35 times</td>
-                </tr>
-                <tr>
-                  <td>3rd Position</td>
-                  <td>25 times</td>
-                </tr>
-              </tbody>
-            </table>
-            <ul>
-              <li><strong>Notes:</strong> Regular number 12 is most commonly observed in the 2nd and 3rd positions in sorted sequences.</li>
-              <li><strong>Formula:</strong> Position = (Number of occurrences at a specific position / Total draws) × 100.</li>
-            </ul>
-          </>
-        ),
-    },
   ];
-
-  return (
+  
+   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Regular Numbers - Historical Patterns</h2>
+      <h2 className="text-center mb-4">Historical Trends and Number Details</h2>
       <ul className="nav nav-tabs">
         {tabs.map((tab, index) => (
           <li className="nav-item" key={index}>

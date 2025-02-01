@@ -23,7 +23,7 @@ const Login = () => {
             hideProgressBar: false,
             closeOnClick: true,
         });
-        navigate(`${process.env.PUBLIC_URL}/pages/NumberPicker`);
+        navigate(`../pages/HistoricalData`);
       } else {
         toast.error("Please Enter valid email or password...!");
       }
@@ -62,7 +62,7 @@ const Login = () => {
                       <Input id="checkbox1" type="checkbox" />
                       <Label className="text-muted" htmlFor="checkbox1">{RememberPassword}</Label>
                     </div>
-                    <Link className="link" to={`${process.env.PUBLIC_URL}/pages/authentication/forgetpassword`} >{ForgotPassword} </Link>
+                    <Link className="link" to={`../pages/authentication/forgetpassword`} >{ForgotPassword} </Link>
                     <div className="text-end mt-3">
                       <Button color="primary" className="btn-block w-100" type="submit" >{SignIn} </Button>
                     </div>
@@ -70,7 +70,7 @@ const Login = () => {
                   <H4 className="text-muted mt-4 or">{SignInWith}</H4>
                   <SocialApp />
                   <P className="mt-4 mb-0 text-center"> {DoNotAccount}
-                    <Link className="ms-2" to={`${process.env.PUBLIC_URL}/pages/authentication/registersimple`} >{CreateAccount}</Link>
+                    <Link className="ms-2" to={`../pages/authentication/registersimple`} >{CreateAccount}</Link>
                   </P>
                 </Form>
               </div>

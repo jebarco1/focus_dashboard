@@ -17,7 +17,7 @@ const HistoricalDataByNumber = () => {
     const number = queryParams.get("number"); // Get the "number" query parameter
     if (number) {
       try {
-        dispatch(fetchNumberDetailsTableData(parseInt(number))); // Use the number from the URL
+       dispatch(fetchNumberDetailsTableData(parseInt(number))); // Use the number from the URL
       } catch (error) {
         console.error("Error fetching number details table data:", error);
       }

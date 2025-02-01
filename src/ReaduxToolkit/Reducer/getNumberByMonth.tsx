@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState } from "../Store" // Import your RootState type
+import { RootState } from "../Store"; // Import your RootState type
 
 // Define the state interface
 interface getNumberByMonthState {
@@ -19,12 +19,13 @@ const initialState: getNumberByMonthState = {
 // Thunk to fetch data from the API
 export const fetchgetNumberByMonth = createAsyncThunk(
   'fetchgetNumberByMonth',
-  async (_, { getState, rejectWithValue  }) => {
+  async (number: number, { getState, rejectWithValue }) => {
     try {
-
       const state = getState() as RootState; // Access the Redux state
       const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
-      const response = await axios.get(`http://localhost:8080/jankgo/metricController/getNumberByMonth/[11,%22${lotterySelect}%22]`);
+      const response = await axios.get(
+        `https://focuslottery.com/api/jankgo/metricController/getNumberByMonth/[${number},"${lotterySelect}"]`
+      );
       return response.data; // Ensure this matches your state structure
     } catch (error: any) {
       return rejectWithValue(error.response?.data || 'Failed to fetch data');

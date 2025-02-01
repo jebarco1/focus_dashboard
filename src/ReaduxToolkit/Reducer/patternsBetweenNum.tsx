@@ -25,7 +25,7 @@ export const fetchPatterns = createAsyncThunk(
      const lotterySelect = state.lotterySelect.value; // Get the lotterySelect value
       
       const numbersString = payload.numbers.join(',');
-      const url = `http://localhost:8080/jankgo/metricController/patternsBetweenNum/[%22${lotterySelect}%22,`+numbersString+`,`+payload.power+`]`;
+      const url = `https://focuslottery.com/api/jankgo/metricController/patternsBetweenNum/[%22${lotterySelect}%22,`+numbersString+`,`+payload.power+`]`;
       const response = await axios.get(url);
       return response.data;
 

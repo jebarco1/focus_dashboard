@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import LayoutRoutes from "./LayoutRoutes";
 import { authRoutes } from "./AuthRoutes";
@@ -8,29 +8,24 @@ const Routers = () => {
   const login = localStorage.getItem("login");
 
   return (
-    <BrowserRouter basename={"/"}>
+    <HashRouter> 
       <Routes>
-        {login ? (
-          <>
-            <Route
-              path={`${process.env.PUBLIC_URL}` || '/'}
-              element={
-                <Navigate to={`./login`} />
-              }
-            />
-          </>
+        {!login ? (
+          <Route path="*" element={<Navigate to="login" replace />} /> 
         ) : (
-          ""
+          <>
+            <Route path="/" element={<Navigate to="pages/historicaldatabynumber" replace />} /> {/* ✅ Removed "./" */}
+            <Route path="/" element={<PrivateRoute />}>
+              <Route path="/*" element={<LayoutRoutes />} />
+            </Route>
+          </>
         )}
-        <Route path={"/"} element={<PrivateRoute />}>
-          <Route path={`/*`} element={<LayoutRoutes />} />
-        </Route>
         {authRoutes.map(({ path, Component }, i) => (
-          <Route path={path} element={Component} key={i} />
+          <Route path={path} element={<Component />} key={i} />
         ))}
-        <Route path={`${process.env.PUBLIC_URL}/login`} element={<Login />} />
+        <Route path="login" element={<Login />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
