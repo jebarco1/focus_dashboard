@@ -359,10 +359,33 @@
 .NumberBall p {color:#fff;margin:auto;font-size:31px;line-height: 2.7;}
 .selectNumber {margin-bottom:20px;}
 .selectNumber h3 {padding:20px;text-align:left;}
-.selectNumber button {width: 67px;height: 60px;border-radius: 50%;color: #fff;background-color: gray;position: relative;font-size: 27px;padding: 0px;}
-.selectNumber button .hotCold {width: 34px;height: 34px;border-radius: 23px;position: absolute;bottom: -14px;right: -10px;opacity: 65%;}
+.selectNumber button {background-color: gray;
+  border-radius: 50%;
+  color: #fff;
+  font-size: max(1.5vw, 22px);
+  height: 8vw;
+  padding: 0;
+  position: relative;
+  width: 8vw;
+  max-width: 67px;
+  max-height: 67px;
+  min-width: 50px;
+  min-height: 50px;}
+.selectNumber button .hotCold {border-radius: 23px;
+  bottom: -6px;
+  max-height: 34px;
+  opacity: 65%;
+  position: absolute;
+  right: -10px;
+  max-width: 34px;
+  width: 5vw;
+  height: 5vw;}
 .selectNumber button .Hot { background: url(../../images/hotCold.jpg) -2px 2px;background-size: 220% 205%;}
-.selectNumber button .Cold {background: url(../../images/hotCold.jpg) 37px 2px;background-size: 220% 205%;}
+.selectNumber button .Cold {background: url(../../images/hotCold.jpg) 1.20em 1px;
+  background-color: rgba(0, 0, 0, 0);
+  background-size: auto;
+background-size: 220% 205%;
+background-color: transparent;}
 .patternResults pre {padding: 20px;margin-top: 20px;}
 .list-group-item {position:relative}
 .list-group-item .numberSave {right: 14px;position: absolute;bottom: 3px;}

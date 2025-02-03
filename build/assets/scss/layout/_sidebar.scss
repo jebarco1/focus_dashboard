@@ -114,11 +114,12 @@
     box-shadow: $main-header-shadow-1;
     .header-wrapper {
       align-items: center;
-      padding: 30px 40px;
+      padding: 11px 40px;
       position: relative;
       margin-left: 0px;
+      height: 95px;
 
-      .navigationRightUser {position:absolute;right:30px;}
+      .navigationRightUser {width:20%;}
 
       .nav-right {
         justify-content: flex-end;
