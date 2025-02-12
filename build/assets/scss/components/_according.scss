@@ -59,43 +59,16 @@
         }
     }
 }
-.default-according.style-1 {
-    button {
-        width: 100%;
-        text-align: left;
 
-        &:before {
-            right: 20px;
-            position: absolute;
-            -webkit-transition: 0.4s;
-            transition: 0.4s;
-            font-size: 20px;
-            font-weight: 500;
-            top: 50%;
-            -webkit-transform: translateY(-50%);
-            transform: translateY(-50%);
 
-            @media (max-width: 575px) {
-                right: 15px;
-            }
-        }
 
-        &[aria-expanded="true"] {
-            &:before {
-                content: $according-open-icon;
-                font-family: $according-card-header-icon;
-            }
-        }
+.accordion-container .accordion-content {
+    transition: max-height 0.3s ease-in-out;
+    display:none;
+  }
 
-        &[aria-expanded="false"] {
-            &:before {
-                content: $according-close-icon;
-                font-family: $according-card-header-icon;
-            }
-        }
-    }
-}
-
+  
+.accordion-container .open {display:block;}
 .accordion-button {
     .svg-color {
         position: absolute;

@@ -15,57 +15,62 @@ interface Pair {
 interface RegularNumbersProps {
   frequencyMonth: FrequencyMonth[];
   topPairs: Pair[];
-  positions: Record<string, number>; // Add this line
+  positions: Record<string, number>;
 }
 
 const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPairs, positions }) => {
   const [activeTab, setActiveTab] = useState(0);
 
+  // Function to scroll to top smoothly
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const tabs = [
-    
     {
-      title: "Pairings with Other Numbers",
+      title: "Pairings",
       content: (
         <>
-         <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Number Pairs</th>
-            <th>Count</th>
-            <th>Number Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          {topPairs.length > 0 ? (
-            topPairs.map((pair, index) => (
-              <tr key={index}>
-                <td>{pair.pair}</td>
-                <td>{pair.count}</td>
-                <td> <Link to={`../pages/HistoricalDataByNumber?number=${pair.pair}`}>
-                                <button
-                                  className="btn btn-primary ms-3"
-                                  style={{
-                                    width: "100px",
-                                    margin: "8px auto",
-                                    border: "1px solid darkgray",
-                                    borderRadius: "8px",
-                                    padding: "8px",
-                                  }}
-                                >
-                                  Details
-                                </button>
-                      </Link>
-                 </td>
+          <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>Number Pairs</th>
+                <th>Count</th>
+                <th>Number Details</th>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={2}>No pairing data available</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {topPairs.length > 0 ? (
+                topPairs.map((pair, index) => (
+                  <tr key={index}>
+                    <td>{pair.pair}</td>
+                    <td>{pair.count}</td>
+                    <td>
+                      <Link to={`../pages/HistoricalDataByNumber?number=${pair.pair}`}>
+                        <button
+                          className="btn btn-primary ms-3"
+                          onClick={scrollToTop} // ✅ Scroll to top when button is clicked
+                          style={{
+                            width: "100px",
+                            margin: "8px auto",
+                            border: "1px solid darkgray",
+                            borderRadius: "8px",
+                            padding: "8px",
+                          }}
+                        >
+                          Details
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={3}>No pairing data available</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
           <ul>
             <li><strong>Notes:</strong> Helps identify frequently paired numbers in historical draws.</li>
             <li><strong>Formula:</strong> Pairings = (Number of paired draws / Total draws).</li>
@@ -74,7 +79,7 @@ const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPair
       ),
     },
     {
-      title: "Frequency in Specific Months",
+      title: "Months",
       content: (
         <>
           <table className="table table-bordered">
@@ -105,7 +110,7 @@ const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPair
         </>
       ),
     },
-     {
+    {
       title: "Positioning",
       content: (
         <>
@@ -132,10 +137,10 @@ const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPair
       ),
     },
   ];
-  
-   return (
+
+  return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Historical Trends and Number Details</h2>
+      <h2 className="text-center mb-4">Trends and Number Details</h2>
       <ul className="nav nav-tabs">
         {tabs.map((tab, index) => (
           <li className="nav-item" key={index}>

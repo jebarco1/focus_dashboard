@@ -8,6 +8,7 @@ import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 import NumberPickerDetails from "./NumberPicker/NumberPickerDetails"
 import NumberPickDetail from "./NumberPicker/numberPickDetail";
 import PatternPredictor from "./NumberPicker/PatternPredictor";
+import NumberPickerType from "./NumberPicker/NumberTypePicker";
 import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
 import { fetchhotColdYellowData } from "../../../ReaduxToolkit/Reducer/numberPickHotColdYellow";
@@ -39,20 +40,17 @@ const NumberPicker = () => {
      <Container fluid>
         <div>
           <Row className="product-page-main p-0">
-            <Col xxl="4" md="6" className="box-col-12">
+            <Col xxl="8" md="6" className="box-col-12">
                 <Col>
-                    <Card >
-                        <CardBody>
-                          <PowerballNumberSelector />
-                        </CardBody>
-                    </Card>
+                  <Card >
+                    <CardBody>
+                      <NumberPickerType />
+                    </CardBody>
+                  </Card>
                 </Col>
             </Col>
-            <Col xxl="5" className="box-col-6 order-xxl-0 order-1">
-              <NumberPickerDetails/>
-            </Col>
-            <Col xxl="3" md="6" className="box-col-6">
-              <NumberPickDetail />
+            <Col xxl="4" md="6" className="box-col-6">
+            <NumberPickDetail />
               <PatternPredictor/>
             </Col>
           </Row>

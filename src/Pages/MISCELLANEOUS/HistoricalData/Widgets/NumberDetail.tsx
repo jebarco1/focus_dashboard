@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardBody, Col, Badge } from "reactstrap";
 import { H5, LI, UL } from "../../../../AbstractElements";
 import { useAppDispatch, useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 import { Link } from "react-router-dom";
 import RegularNumbers from "./NumberDetailsTabRegular";
-import PowerballNumbers from "./NumberDetailsTabPowerBall";
+import NumberSelector from "../../HistoricalData/NumberPicker/numberSelector";
 
 import NumberDetailsCard from "./detailCard";
 
@@ -147,6 +147,8 @@ const PatternList = ({ patterns }: { patterns: Record<string, Pattern> }) => {
 
 const NumberDetailComponent: React.FC = () => {
  
+  const [isOpen, setIsOpen] = useState(false);
+
   const numberDetails = useAppSelector((state) => (state as any).numberDetailsTable.value) as Partial<NumberDetails>;
 
   const numberValue = numberDetails?.number?.number || " ";
@@ -159,7 +161,11 @@ const NumberDetailComponent: React.FC = () => {
   const topPairs = buildPairingArray(numberDetails?.regularTopPairs || {}, numberValue);
   const positions = determinePositions(Array.isArray(numberDetails?.table) ? numberDetails?.table : [], parseInt(numberValue, 10));
   return (
-    <Col className="number-details-col">
+    <Col className="numberDetails number-details-col">
+
+
+        <NumberSelector />
+   
       <Card className="number-details-box height-equal-2" style={{ marginBottom: "20px", paddingTop: "20px" }}>
         <div className="pb-0 card-header text-center">
           <h3 className="mb-0">Number Details</h3>

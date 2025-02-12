@@ -25,8 +25,7 @@ const Historical = () => {
           )}
         </Col>
         <NumberDetailSideBar />
-        <HoverableRowsClass />
-        
+
       </Row>
     </Col>
   );

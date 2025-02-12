@@ -23,7 +23,8 @@ const Login = () => {
             hideProgressBar: false,
             closeOnClick: true,
         });
-        navigate(`../pages/HistoricalData`);
+        navigate(`../pages/HistoricalDataByNumber`);
+        window.location.reload();
       } else {
         toast.error("Please Enter valid email or password...!");
       }
