@@ -27,44 +27,53 @@ import getNumberByMonthReducer from './Reducer/getNumberByMonth';
 import lotterySelectReducer from './Reducer/lotterySelectSlice';
 import listenerMiddleware from "./listenerMiddleware";
 import LastesNewsReducer from "./Reducer/getLastestNew";
-import getPatternDetailReducer from "./Reducer/getPatternDetails"
+import getPatternDetailReducer from "./Reducer/getPatternDetails";
 import HighlightPatternReducer from "./Reducer/HighlightPattern";
+import authSlice from "./Reducer/loginUser";  // Correct import for the default export
+import loginHash from "./Reducer/loginHash";
+import passwordReset from "./Reducer/passwordReset";
+import updatePassword from "./Reducer/updatePassword";
+
 
 
 const Store = configureStore({
-reducer:{
-    layout:LayoutSlice,
-    bookmarkTab:BookmarkTabSlice,
+  reducer: {
+    layout: LayoutSlice,
+    bookmarkTab: BookmarkTabSlice,
     themeCustomizer: ThemeCustomizerSlice,
     filterData: FilterSlice,
     product: ProductSlice,
     cartData: CartSlice,
-    todo:ToDoSlice,
-    project:ProjectSlice,
-    tasks:TasksSlice,
+    todo: ToDoSlice,
+    project: ProjectSlice,
+    tasks: TasksSlice,
     chatData: ChatSlice,
-    contact:ContactSlice,
+    contact: ContactSlice,
     bookmark: BookmarkSlice,
-    hotCold : hotColdSlice,
-    hotColdYellow : hotColdYellowSlice,
-    last30Drawings : last30DrawingsSlice,
+    hotCold: hotColdSlice,
+    hotColdYellow: hotColdYellowSlice,
+    last30Drawings: last30DrawingsSlice,
     numberPicks: numberPicksSlice,
     selectedRegularNumbers: selectedRegularNumbersReducer,
     selectedPowerball: selectedPowerballReducer,
     patternsBetweenNum: patternsBetweenNumReducer,
-    hotBetweenNum : hotBetweenNumReducer,
-    coldBetweenNum : coldBetweenNumReducer,
-    last30dayDrawing : last30dayDrawingReducer,
-    getPatternsBetween : getPatternsBetweenReducer,
+    hotBetweenNum: hotBetweenNumReducer,
+    coldBetweenNum: coldBetweenNumReducer,
+    last30dayDrawing: last30dayDrawingReducer,
+    getPatternsBetween: getPatternsBetweenReducer,
     numberDetailsTable: numberDetailsTableReducer,
-    getNumberByMonth : getNumberByMonthReducer,
-    lotterySelect : lotterySelectReducer,
-    LastesNews : LastesNewsReducer,
-    getPatternDetail : getPatternDetailReducer,
-    HighlightPattern : HighlightPatternReducer
-    },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().prepend(listenerMiddleware.middleware),
+    getNumberByMonth: getNumberByMonthReducer,
+    lotterySelect: lotterySelectReducer,
+    LastesNews: LastesNewsReducer,
+    getPatternDetail: getPatternDetailReducer,
+    HighlightPattern: HighlightPatternReducer,
+    auth: authSlice.reducer,
+    loginHash: loginHash,
+    passwordReset: passwordReset,
+    updatePassword: updatePassword
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().prepend(listenerMiddleware.middleware),
 });
 
 export default Store;

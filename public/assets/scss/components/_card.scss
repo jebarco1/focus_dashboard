@@ -369,8 +369,8 @@
   width: 8vw;
   max-width: 67px;
   max-height: 67px;
-  min-width: 58px;
-  min-height: 58px;}
+  min-width: 47px;
+  min-height: 47px;}
 .selectNumber button .hotCold {border-radius: 23px;
   bottom: -6px;
   max-height: 34px;
@@ -380,22 +380,33 @@
   max-width: 34px;
   width: 5vw;
   height: 5vw;}
+
+.selectNumberButton {height: 54px;}
 .selectNumber button .Hot { background: url(../../images/hotCold.jpg) -2px 2px;background-size: 220% 205%;}
-.selectNumber button .Cold {background: url(../../images/hotCold.jpg) 1.20em 1px;
+.selectNumber button .Cold {background: url(../../images/hotCold.jpg) 37px 1.2px;;
+  background-color: rgba(0, 0, 0, 0);
+  background-size: auto;
+background-size: 220% 205%;
+background-color: transparent;
+@media (max-width: 650px) {background: url(../../images/hotCold.jpg) 5.4vw 1px;
   background-color: rgba(0, 0, 0, 0);
   background-size: auto;
 background-size: 220% 205%;
 background-color: transparent;}
+}
+
 .patternResults pre {padding: 20px;margin-top: 20px;}
 .list-group-item {position:relative}
 .list-group-item .numberSave {right: 14px;position: absolute;bottom: 3px;}
 .numberPickerActions {width:48%;}
-.numberPickerActions button {display: inline-block;  width: 85px;padding: 3px;}
+.numberPickerActions button {display: inline-block;  min-width: 63px;padding: 3px;}
 .ballSelectorText {margin-bottom: 20px;}
 .page-title {padding: 52px 30px;margin: 0px -27px 0px !important;}
 .topNavigation {position:inline-block;}
 .ballSelectorTitle {margin-bottom:28px;}
 .listGeneratedNumbers li {font-size:0.8 em;font-weight:200;}
+
+.numberSelectorTemp .saveSelection {min-width:85px;}
 /**=====================
     2.10 Card CSS End
 ==========================**/

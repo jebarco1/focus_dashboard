@@ -1,8 +1,11 @@
 import { useState } from 'react'
 import CommonLogo from './CommonLogo';
-import { H3, H6, P } from '../../../../AbstractElements';
+import { H3, H6, P,Image  } from '../../../../AbstractElements';
+import { dynamicImage } from '../../../../Service';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { EmailAddress, FacebookHeading, ForgotPassword, Password, RememberPassword, SignIn, SignInAccount, SignInWith, TwitterHeading, LinkedInHeading, CreateAccount } from '../../../../utils/Constant';
+
+
+import { EmailAddress, FacebookHeading, Href, ForgotPassword, Password, RememberPassword, SignIn, SignInAccount, SignInWith, TwitterHeading, LinkedInHeading, CreateAccount } from '../../../../utils/Constant';
 import { Link } from 'react-router-dom';
 import { Facebook, Linkedin, Twitter } from 'react-feather';
 
@@ -15,7 +18,10 @@ const CommonForm = ({ alignLogo }: CommonFormPropsType) => {
     <div className="login-card login-dark">
       <div>
         <div>
-          <CommonLogo alignLogo={alignLogo} />
+        <Link className="logo text-center" to={Href}>
+                    <Image className="loginLogo img-fluid for-light" src={dynamicImage("logo/fulllogo_transparent_nobuffer.png")} alt="looginpage" />
+                    <Image className="loginLogo img-fluid for-dark" src={dynamicImage("logo/fulllogo_transparent_nobuffer.png")} alt="looginpage" />
+                </Link>
         </div>
         <div className="login-main">
           <Form className="theme-form" onSubmit={(event) => event.preventDefault()}>
@@ -44,20 +50,7 @@ const CommonForm = ({ alignLogo }: CommonFormPropsType) => {
                 <Button color="primary" className="btn-block w-100">{SignIn}</Button>
               </div>
             </FormGroup>
-            <H6 className="text-muted mt-4 or">{SignInWith}</H6>
-            <div className="social mt-4">
-              <div className="btn-showcase">
-                <Link className="btn btn-light" to="https://www.linkedin.com/login" target="_blank" rel="noreferrer">
-                  <Linkedin className="txt-linkedin" />{LinkedInHeading}
-                </Link>
-                <Link className="btn btn-light" to="https://twitter.com/login?lang=en" target="_blank" rel="noreferrer">
-                  <Twitter className="txt-twitter" />{TwitterHeading}
-                </Link>
-                <Link className="btn btn-light" to="https://www.facebook.com/" target="_blank" rel="noreferrer">
-                  <Facebook className="txt-fb" />{FacebookHeading}
-                </Link>
-              </div>
-            </div>
+           
             <P className="mt-4 mb-0 text-center">
               {"Don't have account?"}<Link className="ms-2" to={`${process.env.PUBLIC_URL}/pages/authentication/registersimple`}>{CreateAccount}</Link>
             </P>

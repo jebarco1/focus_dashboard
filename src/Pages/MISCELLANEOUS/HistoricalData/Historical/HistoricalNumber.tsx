@@ -1,7 +1,6 @@
-import React from "react";
+
 import { Col, Row } from "reactstrap";
 import NumberDetailSideBar from "./NumberDetailSideBar";
-import HoverableRowsClass from "../Tables/HistoricalNumberTables";
 import NumberDetailWidget from "../Widgets/NumberDetail";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 

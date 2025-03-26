@@ -109,7 +109,7 @@ const HighlightPatternDashboard = () => {
   const temperature = "Hot" || "No Data Available";
   const classData = "danger" || "No Data Available";
   const amountData = "33 of 2300" || "No Data Available";
-  const badgeData = "7.74%" || "No Data Available";
+  const precentage = "7.74%" || "No Data Available";
 
 
   return (
@@ -128,7 +128,7 @@ const HighlightPatternDashboard = () => {
                         temperature={temperature}
                         classData={classData}
                         amountData={amountData}
-                        badgeData={badgeData}
+                        precentage={precentage}
                     />           
                     </CardBody>
                 </Card>

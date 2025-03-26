@@ -7,8 +7,6 @@ const PatternHighlights = ({ selectedPattern }: { selectedPattern: any }) => {
     className="number-details-profile text-center"
     style={{
       flex: "0 0 31%",
-      maxWidth: "31%",
-      minWidth: "560px",
       margin: "10px",
       border: "1px solid #646464",
       borderRadius: "8px",

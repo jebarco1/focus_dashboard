@@ -1,23 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
+import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
+import { addNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
+import NumberSetDisplay from "./NumberSetDisplay";
 
-interface RandomNumbersProps {
-  setSelectedNumbers: (numbers: number[]) => void;
-}
+const RandomNumbers: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [generatedSets, setGeneratedSets] = useState<number[][]>([]);
 
-const RandomNumbers: React.FC<RandomNumbersProps> = ({ setSelectedNumbers }) => {
-  const generateNumbers = () => {
-    const numbers = Array.from({ length: 5 }, () => Math.floor(Math.random() * 70) + 1);
-    setSelectedNumbers(numbers);
+  const generateUniqueNumbers = () => {
+    const generateSet = (): number[] => {
+      let numbers: number[] = [];
+      while (numbers.length < 5) {
+        let num = Math.floor(Math.random() * 69) + 1;
+        if (!numbers.includes(num)) {
+          numbers.push(num);
+        }
+      }
+      return numbers.sort((a, b) => a - b);
+    };
+
+    const newSets = Array.from({ length: 10 }, () => [
+      ...generateSet(),
+      Math.floor(Math.random() * 26) + 1
+    ]);
+    setGeneratedSets(newSets);
   };
 
-
   useEffect(() => {
-    generateNumbers();
+    generateUniqueNumbers();
   }, []);
 
   return (
     <div>
+      <h5>Randomly Generated Numbers</h5>
+      <NumberSetDisplay generatedSets={generatedSets} />
+
     </div>
   );
 };

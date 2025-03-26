@@ -1,12 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Card, CardBody, Col, Badge } from "reactstrap";
-import { H5, LI, UL } from "../../../../AbstractElements";
-import { useAppDispatch, useAppSelector } from "../../../../ReaduxToolkit/Hooks";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Card, CardBody, Col } from "reactstrap";
+import {  useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+import { useLocation,Link } from "react-router-dom";
 import RegularNumbers from "./NumberDetailsTabRegular";
 import NumberSelector from "../../HistoricalData/NumberPicker/numberSelector";
 
 import NumberDetailsCard from "./detailCard";
+
+
+interface HotColdNumber {
+  number: number;
+  temp: string;
+  frequency: string;
+}
+
 
 interface Pattern {
   count: number;
@@ -48,6 +55,24 @@ interface NumberDetails {
 }
 
 
+const calculateFrequencyPercentage = (frequency: string): string => {
+  if (!frequency) return "No Data Available";
+
+  // Extract numbers from the string (e.g., "339 of 1743")
+  const match = frequency.match(/(\d+)\sof\s(\d+)/);
+  
+  if (!match) return "Invalid Data";
+
+  const count = Number(match[1]); // Extract 339
+  const total = Number(match[2]); // Extract 1743
+
+  if (total === 0) return "0%"; // Prevent division by zero
+
+  // Calculate percentage
+  const percentage = ((count / total) * 100).toFixed(2); // Keep two decimal places
+
+  return `${percentage}%`;
+};
 
 // Utility Function
 const buildPairingArray = (regularTopPairs: Record<string, number>, selectedNumber: string): Pair[] => {
@@ -146,16 +171,42 @@ const PatternList = ({ patterns }: { patterns: Record<string, Pattern> }) => {
 
 
 const NumberDetailComponent: React.FC = () => {
+
+
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+  
+  const query = useQuery();
+  const selectedNumber = query.get("number") || "1";
+  
+  
+  
+  const hotColdNumbers = useAppSelector((state) => state.hotCold.value) as HotColdNumber[];
+    const numberDetails = useAppSelector((state) => (state as any).numberDetailsTable.value) as Partial<NumberDetails>;
+  
+    // ✅ Convert `selectedNumber` to a valid number
+    const selectedNum = selectedNumber && !isNaN(Number(selectedNumber)) ? Number(selectedNumber) : null;
+  
+  
+    // ✅ Ensure valid number before searching
+    if (selectedNum !== null && hotColdNumbers.length > 0) {
+      console.log("Searching for:", selectedNum);
+    }
+  
+    // ✅ Find the number in the dataset
+    const foundNumber = selectedNum !== null ? hotColdNumbers.find((num) => num.number === selectedNum) : undefined;
+  
+  
  
   const [isOpen, setIsOpen] = useState(false);
 
-  const numberDetails = useAppSelector((state) => (state as any).numberDetailsTable.value) as Partial<NumberDetails>;
 
-  const numberValue = numberDetails?.number?.number || " ";
-  const temperature = numberDetails?.number?.temp || "No Data Available";
+  const numberValue = foundNumber?.number?.toString() || "";
+  const temperature = foundNumber?.temp || "No Data Available";
+  const amountData = foundNumber?.frequency || "No Data Available";
   const classData = numberDetails?.number?.class || "No Data Available";
-  const amountData = numberDetails?.number?.amount || "No Data Available";
-  const badgeData = numberDetails?.number?.badge || "No Data Available";
+  const precentage = calculateFrequencyPercentage(amountData) || "No Data Available";
   const patterns = numberDetails?.patterns || {};
   const frequencyByMonth = Object.values(numberDetails?.frequencyMonths || {});
   const topPairs = buildPairingArray(numberDetails?.regularTopPairs || {}, numberValue);
@@ -178,7 +229,7 @@ const NumberDetailComponent: React.FC = () => {
             temperature={temperature}
             classData={classData}
             amountData={amountData}
-            badgeData={badgeData}
+            precentage={precentage}
           />
           <NumberDetailsCard
             title="Powerball Number"
@@ -187,7 +238,7 @@ const NumberDetailComponent: React.FC = () => {
             temperature={temperature}
             classData={classData}
             amountData={amountData}
-            badgeData={badgeData}
+            precentage={precentage}
           />
           <PatternList patterns={patterns} />
         </CardBody>

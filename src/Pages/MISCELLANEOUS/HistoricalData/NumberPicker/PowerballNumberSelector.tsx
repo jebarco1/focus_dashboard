@@ -1,87 +1,68 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Button } from "reactstrap";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
-import { addNumber, removeNumber } from "../../../../ReaduxToolkit/Reducer/selectedRegularNumbers";
-import { setSelectedPowerball } from "../../../../ReaduxToolkit/Reducer/selectedPowerball";
+import { addNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
+import NumberSetDisplay from "./NumberSetDisplay";
 
-const PowerballNumberSelector: React.FC = () => {
+const RandomNumbers: React.FC = () => {
   const dispatch = useAppDispatch();
-  const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
-  const numberPickHotColdYellow = useAppSelector((state) => state.hotColdYellow.value);
-  const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
-  const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
 
-  const handleRegularNumberClick = (number: number) => {
-    if (selectedRegularNumbers.includes(number)) {
-      dispatch(removeNumber(number));
-    } else {
-      dispatch(addNumber(number));
+  // Get hot regular numbers
+  const hotNumbers = useAppSelector((state) => 
+    state.hotCold.value.filter(({ temp }) => temp.toLowerCase() === "hot").map(({ number }) => number)
+  );
+
+  // Get hot powerball numbers
+  const hotPowerballNumbers = useAppSelector((state) => {
+    console.log("Powerball Data:", state.hotColdYellow.value); // Debugging log
+    return state.hotColdYellow.value
+      .filter(({ temp }) => temp.toLowerCase() === "hot")
+      .map(({ number }) => number);
+  });
+
+  const [generatedSets, setGeneratedSets] = useState<number[][]>([]);
+
+  const generateHotNumbers = () => {
+    if (hotNumbers.length < 5 || hotPowerballNumbers.length === 0) {
+      console.warn("Not enough hot numbers available!");
+      return; // Ensure enough numbers exist
     }
+
+    const generateSet = (): number[] => {
+      let numbers = new Set<number>();
+      while (numbers.size < 5) {
+        numbers.add(hotNumbers[Math.floor(Math.random() * hotNumbers.length)]);
+      }
+      return Array.from(numbers).sort((a, b) => a - b);
+    };
+
+    const newSets = Array.from({ length: 10 }, () => [
+      ...generateSet(),
+      hotPowerballNumbers.length > 0
+        ? hotPowerballNumbers[Math.floor(Math.random() * hotPowerballNumbers.length)]
+        : Math.floor(Math.random() * 26) + 1 // Fallback if no hot powerball numbers exist
+    ]);
+
+    setGeneratedSets((prevSets) =>
+      JSON.stringify(prevSets) !== JSON.stringify(newSets) ? newSets : prevSets
+    );
   };
 
-  const handlePowerballNumberClick = (number: number) => {
-    dispatch(setSelectedPowerball(number));
-  };
-
-  const hotColdStatus = (inputNumber: number) => {
-    const hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
-    if (hotCold) {
-      return `hotCold ${hotCold.temp}`;
+  useEffect(() => {
+    if (hotNumbers.length >= 5 && hotPowerballNumbers.length > 0) {
+      generateHotNumbers();
     }
-    return "";
-  };
-
-  const hotColdYellowStatus = (inputNumber: number) => {
-    const hotCold =   numberPickHotColdYellow.find(({ number }) => number === inputNumber);
-    if (hotCold) {
-      return `hotCold ${hotCold.temp}`;
-    }
-    return "";
-  };
-
+  }, [hotNumbers, hotPowerballNumbers]);
 
   return (
-    <div className="container">
-      <h3 className="ballSelectorTitle">Powerball Number Selector</h3>
-      <div className="row">
-        <div className="col">
-          <h4 className="ballSelectorText">Select Regular Numbers (5 total):</h4>
-          <div className="d-flex flex-wrap selectNumber">
-            {Array.from({ length: 69 }, (_, i) => i + 1).map((number) => (
-              <button
-                key={number}
-                className={`btn btn-sm ${
-                  selectedRegularNumbers.includes(number) ? "btn-success" : ""
-                } m-1`}
-                onClick={() => handleRegularNumberClick(number)}
-              >
-                {number}
-                <span className={hotColdStatus(number)}></span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <h4 className="ballSelectorText">Select Powerball Number (1 total):</h4>
-          <div className="d-flex flex-wrap selectNumber">
-            {Array.from({ length: 26 }, (_, i) => i + 1).map((number) => (
-              <button
-                key={number}
-                className={`btn ${
-                  selectedPowerball === number ? "btn-secondary" : "btn-danger1"
-                } m-1`}
-                onClick={() => handlePowerballNumberClick(number)}
-              >
-                {number}
-                <span className={hotColdYellowStatus(number)}></span>
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
+    <div>
+      <h5>Randomly Generated Hot Numbers</h5>
+      <NumberSetDisplay generatedSets={generatedSets} />
+      <Button color="primary" className="mt-3" onClick={generateHotNumbers}>
+        Generate New Hot Numbers
+      </Button>
     </div>
   );
 };
 
-export default PowerballNumberSelector;
+export default RandomNumbers;

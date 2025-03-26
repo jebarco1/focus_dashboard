@@ -11,7 +11,7 @@ const RegisterWithImageTwo = () => {
           <Image className="bg-img-cover bg-center w-100 vh-100" src={dynamicImage("login/1.jpg")} alt="looginpage" />
         </Col>
         <Col xl={5} className="p-0">
-          <CommonRegisterForm alignLogo="text-start" />
+          <CommonRegisterForm  />
         </Col>
       </Row>
     </Container>

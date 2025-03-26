@@ -1,50 +1,31 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { Button } from "reactstrap";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
-import { addNumber, removeNumber } from "../../../../ReaduxToolkit/Reducer/selectedRegularNumbers";
-import { setSelectedPowerball } from "../../../../ReaduxToolkit/Reducer/selectedPowerball";
+import { addNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
 
-interface NumberPickerProps {
-  setSelectedNumbers: React.Dispatch<React.SetStateAction<number[]>>;
+interface PreviousDrawingProps {
+  setSelectedNumbers: (numbers: number[]) => void;
 }
 
-const PowerballNumberSelector: React.FC<NumberPickerProps> = ({ setSelectedNumbers }) => {
-  const dispatch = useAppDispatch();
+const PreviousDrawing: React.FC<PreviousDrawingProps> = ({ setSelectedNumbers }) => {
+  const [regularNumbers, setRegularNumbers] = useState<number[]>([]);
+  const [powerballNumber, setPowerballNumber] = useState<number | null>(null);
   const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
   const numberPickHotColdYellow = useAppSelector((state) => state.hotColdYellow.value);
-  const selectedRegularNumbers = useAppSelector((state) => state.selectedRegularNumbers.value);
-  const selectedPowerball = useAppSelector((state) => state.selectedPowerball.value);
+  const dispatch = useAppDispatch();
 
-  const [localRegularNumbers, setLocalRegularNumbers] = useState<number[]>(selectedRegularNumbers);
-  const [localPowerball, setLocalPowerball] = useState<number | null>(selectedPowerball);
-
-  // Function to handle Regular Number Selection
-  const handleRegularNumberClick = (number: number) => {
-    let updatedNumbers: number[];
-    
-    if (localRegularNumbers.includes(number)) {
-      updatedNumbers = localRegularNumbers.filter((num) => num !== number);
-      dispatch(removeNumber(number));
-    } else {
-      if (localRegularNumbers.length < 5) {
-        updatedNumbers = [...localRegularNumbers, number];
-        dispatch(addNumber(number));
-      } else {
-        return; // Prevent selecting more than 5 numbers
-      }
+   const handleAddNumberPick = () => {
+    if (regularNumbers.length === 5 && powerballNumber !== null) {
+      const rnumber = regularNumbers.join(","); // Convert array to string
+      const pnumber = powerballNumber || 0;
+      dispatch(addNumberPick({ rnumber, pnumber })); // Dispatch the Redux action
+      
+      // Reset selections after saving
+      setRegularNumbers([]);
+      setPowerballNumber(null);
     }
-
-    setLocalRegularNumbers(updatedNumbers);
-    setSelectedNumbers(updatedNumbers);
   };
 
-  // Function to handle Powerball Selection
-  const handlePowerballNumberClick = (number: number) => {
-    setLocalPowerball(number);
-    dispatch(setSelectedPowerball(number));
-    setSelectedNumbers([...localRegularNumbers, number]); // Update parent state with Powerball
-  };
-
-  // Highlight hot/cold numbers for Regular selection
   const hotColdStatus = (inputNumber: number) => {
     const hotCold = numberPickHotCold.find(({ number }) => number === inputNumber);
     return hotCold ? `hotCold ${hotCold.temp}` : "";
@@ -56,54 +37,53 @@ const PowerballNumberSelector: React.FC<NumberPickerProps> = ({ setSelectedNumbe
     return hotCold ? `hotCold ${hotCold.temp}` : "";
   };
 
-  // Ensure local state is updated when Redux state changes
-  useEffect(() => {
-    setLocalRegularNumbers(selectedRegularNumbers);
-    setLocalPowerball(selectedPowerball);
-  }, [selectedRegularNumbers, selectedPowerball]);
-
   return (
-    <div className="container">
-
-      {/* Regular Numbers Section */}
-      <div className="row">
-        <div className="col">
-          <h4 className="ballSelectorText">Select Regular Numbers (5 total):</h4>
-          <div className="d-flex flex-wrap selectNumber">
-            {Array.from({ length: 69 }, (_, i) => i + 1).map((number) => (
-              <button
-                key={number}
-                className={`btn btn-sm ${localRegularNumbers.includes(number) ? "btn-success" : ""} m-1`}
-                onClick={() => handleRegularNumberClick(number)}
-              >
-                {number}
-                <span className={hotColdStatus(number)}></span>
-              </button>
-            ))}
-          </div>
-        </div>
+    <div className="numberSelectorTemp">
+      {/* Regular Numbers Selection */}
+      <h6>Select 5 Regular Numbers:</h6>
+      <div className="d-flex flex-wrap selectNumber">
+        {Array.from({ length: 69 }, (_, i) => i + 1).map((number) => (
+          <button
+            key={number}
+            className={`btn btn-sm ${regularNumbers.includes(number) ? "btn-success" : ""} m-1`}
+            onClick={() => 
+              setRegularNumbers((prev) =>
+                prev.includes(number)
+                  ? prev.filter((num) => num !== number)
+                  : prev.length < 5
+                  ? [...prev, number]
+                  : prev
+              )
+            }
+            disabled={regularNumbers.length >= 5 && !regularNumbers.includes(number)}
+          >
+             <span className={hotColdStatus(number)}></span>
+            {number}
+          </button>
+        ))}
       </div>
-
-      {/* Powerball Number Section */}
-      <div className="row mt-3">
-        <div className="col">
-          <h4 className="ballSelectorText">Select Powerball Number (1 total):</h4>
-          <div className="d-flex flex-wrap selectNumber">
-            {Array.from({ length: 26 }, (_, i) => i + 1).map((number) => (
-              <button
-                key={number}
-                className={`btn ${localPowerball === number ? "btn-secondary" : "btn-danger"} m-1`}
-                onClick={() => handlePowerballNumberClick(number)}
-              >
-                {number}
-                <span className={hotColdYellowStatus(number)}></span>
-              </button>
-            ))}
-          </div>
-        </div>
+      
+      {/* Powerball Number Selection */}
+      <h6 className="mt-3">Select 1 Powerball Number:</h6>
+      <div className="d-flex flex-wrap selectNumber">
+        {Array.from({ length: 26 }, (_, i) => i + 1).map((number) => (
+          <button
+            key={number}
+            className={`btn ${powerballNumber === number ? "btn-secondary" : "btn-danger"} m-1`}
+            onClick={() => setPowerballNumber(number)}
+            disabled={regularNumbers.length < 5} // Disable Powerball selection until 5 regular numbers are chosen
+          >
+            {number}
+            <span className={hotColdYellowStatus(number)}></span>
+          </button>
+        ))}
       </div>
+      
+      <Button color="primary saveSelection" className="mt-3" onClick={handleAddNumberPick} disabled={regularNumbers.length < 5 || powerballNumber === null}>
+        Save
+      </Button>
     </div>
   );
 };
 
-export default PowerballNumberSelector;
+export default PreviousDrawing;

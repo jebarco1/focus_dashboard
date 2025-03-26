@@ -1,24 +1,55 @@
-import React, { useEffect } from "react";
-import { Button } from "reactstrap";
+import React, { useEffect, useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
+import NumberSetDisplay from "./NumberSetDisplay";
 
-interface HotNumbersProps {
-  setSelectedNumbers: (numbers: number[]) => void;
-}
+const RandomNumbers: React.FC = () => {
+  const hotNumbers = useAppSelector((state) => 
+    state.hotCold.value.filter(({ temp, number }) => temp === "Cold" && number >= 1 && number <= 69)
+  .map(({ number }) => number)
+);
+  const hotPowerballNumbers = useAppSelector((state) =>
+    state.hotColdYellow.value
+      .filter(({ temp, number }) => temp === "Cold" && number >= 1 && number <= 29)
+      .map(({ number }) => number)
+  );
+   const [generatedSets, setGeneratedSets] = useState<number[][]>([]);
 
-const HotNumbers: React.FC<HotNumbersProps> = ({ setSelectedNumbers }) => {
-  const hotNumbers = [3, 15, 27, 42, 55]; // Mocked hot numbers
+  const generateHotNumbers = () => {
+    if (hotNumbers.length < 5 || hotPowerballNumbers.length === 0) return; // Ensure enough numbers exist
 
+    const generateSet = (): number[] => {
+      let numbers = new Set<number>();
+      while (numbers.size < 5) {
+        const num = hotNumbers[Math.floor(Math.random() * hotNumbers.length)];
+        numbers.add(num);
+      }
+      return Array.from(numbers).sort((a, b) => a - b);
+    };
 
+    const newSets = Array.from({ length: 10 }, () => {
+      const regularNumbers = generateSet();
+      const powerballNumber = hotPowerballNumbers.length > 0
+        ? hotPowerballNumbers[Math.floor(Math.random() * hotPowerballNumbers.length)]
+        : Math.floor(Math.random() * 26) + 1; // Fallback in case no hot powerball numbers exist
+      return [...regularNumbers, powerballNumber];
+    });
 
-    useEffect(() => {
-      setSelectedNumbers(hotNumbers)
-    }, []);
-    
+    setGeneratedSets(newSets);
+  };
+
+  useEffect(() => {
+    if (generatedSets.length === 0) {
+      generateHotNumbers();
+    }
+  }, []);
+
   return (
     <div>
-     
+      <h5>Randomly Generated Hot Numbers</h5>
+      <NumberSetDisplay generatedSets={generatedSets} />
+ 
     </div>
   );
 };
 
-export default HotNumbers;
+export default RandomNumbers;

@@ -6,8 +6,7 @@ import React, {useEffect } from 'react';
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 
 import NumberPickDetailDetail from "./NumberPicker/NumberPickDetailDetail";
-import PatternPredictor from "./NumberPicker/PatternPredictor";
-import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
+import LotteryNewsList from '../HistoricalData/Historical/LotteryNewsList';
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
 import { fetchhotColdYellowData } from "../../../ReaduxToolkit/Reducer/numberPickHotColdYellow";
 import { fetchLast30Drawings } from '../../../ReaduxToolkit/Reducer/last30Drawings';
@@ -48,7 +47,7 @@ const LotteryMyPickPage = () => {
                 </Col>
             </Col>
             <Col xxl="3" md="6" className="box-col-6">
-              <PatternPredictor/>
+            <LotteryNewsList />
             </Col>
           </Row>
         </div>

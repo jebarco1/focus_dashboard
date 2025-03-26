@@ -5,16 +5,13 @@ import { HistoricalHeading } from "../../../utils/Constant";
 import React, {useEffect } from 'react';
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 
-import NumberPickerDetails from "./NumberPicker/NumberPickerDetails"
 import NumberPickDetail from "./NumberPicker/numberPickDetail";
-import PatternPredictor from "./NumberPicker/PatternPredictor";
 import NumberPickerType from "./NumberPicker/NumberTypePicker";
-import PowerballNumberSelector from "./NumberPicker/PowerballNumberSelector";
 import { fetchHotColdData } from "../../../ReaduxToolkit/Reducer/numberPickHotCold";
 import { fetchhotColdYellowData } from "../../../ReaduxToolkit/Reducer/numberPickHotColdYellow";
 import { fetchLast30Drawings } from '../../../ReaduxToolkit/Reducer/last30Drawings';
 import { useAppSelector} from "../../../ReaduxToolkit/Hooks";
-
+import LotteryNewsList from '../HistoricalData/Historical/LotteryNewsList';
 const NumberPicker = () => {
 
   const dispatch = useAppDispatch();
@@ -37,21 +34,16 @@ const NumberPicker = () => {
         parent={historicalheading}
         title={historicalheading}
       />
+
      <Container fluid>
         <div>
           <Row className="product-page-main p-0">
             <Col xxl="8" md="6" className="box-col-12">
-                <Col>
-                  <Card >
-                    <CardBody>
-                      <NumberPickerType />
-                    </CardBody>
-                  </Card>
-                </Col>
+                  <NumberPickerType />
             </Col>
             <Col xxl="4" md="6" className="box-col-6">
             <NumberPickDetail />
-              <PatternPredictor/>
+            <LotteryNewsList />
             </Col>
           </Row>
         </div>

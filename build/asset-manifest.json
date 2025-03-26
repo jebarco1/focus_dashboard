@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/portal/static/css/main.540fc465.css",
-    "main.js": "/portal/static/js/main.d3af3a7b.js",
+    "main.css": "/portal/static/css/main.fd4a9ce6.css",
+    "main.js": "/portal/static/js/main.07caa94a.js",
     "static/js/453.968ce68f.chunk.js": "/portal/static/js/453.968ce68f.chunk.js",
     "static/media/online-shopping.gif": "/portal/static/media/online-shopping.2f3c20ff3dc344438757.gif",
     "static/media/icofont.svg?v=1.0.0-beta": "/portal/static/media/icofont.9999a483fca7c18fdec0.svg",
@@ -402,12 +402,12 @@
     "static/media/de.svg": "/portal/static/media/de.6435bf24d148ca7248e7.svg",
     "static/media/bd.svg": "/portal/static/media/bd.0ad8c443ef4d47ea0497.svg",
     "static/media/square.svg": "/portal/static/media/square.1687f93bac221a9de214.svg",
-    "main.540fc465.css.map": "/portal/static/css/main.540fc465.css.map",
-    "main.d3af3a7b.js.map": "/portal/static/js/main.d3af3a7b.js.map",
+    "main.fd4a9ce6.css.map": "/portal/static/css/main.fd4a9ce6.css.map",
+    "main.07caa94a.js.map": "/portal/static/js/main.07caa94a.js.map",
     "453.968ce68f.chunk.js.map": "/portal/static/js/453.968ce68f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.540fc465.css",
-    "static/js/main.d3af3a7b.js"
+    "static/css/main.fd4a9ce6.css",
+    "static/js/main.07caa94a.js"
   ]
 }

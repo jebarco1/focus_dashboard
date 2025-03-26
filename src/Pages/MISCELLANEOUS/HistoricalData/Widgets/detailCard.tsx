@@ -8,7 +8,7 @@ const NumberDetailsCard = ({
   temperature,
   classData,
   amountData,
-  badgeData,
+  precentage,
 }: {
   title: string;
   number: string;
@@ -16,7 +16,7 @@ const NumberDetailsCard = ({
   temperature: string;
   classData: string;
   amountData: string;
-  badgeData: string;
+  precentage: string;
 }) => (
   <div
     className="number-details-profile text-center"
@@ -57,7 +57,7 @@ const NumberDetailsCard = ({
                 className={`badge-light-${classData}`}
                 color="transparent"
               >
-                {badgeData}
+                {precentage}
               </Badge>
             </div>
           </div>
