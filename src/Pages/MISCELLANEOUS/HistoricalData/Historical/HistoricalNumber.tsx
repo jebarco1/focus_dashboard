@@ -3,12 +3,17 @@ import { Col, Row } from "reactstrap";
 import NumberDetailSideBar from "./NumberDetailSideBar";
 import NumberDetailWidget from "../Widgets/NumberDetail";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
-
+import {useEffect } from 'react';
 
 const Historical = () => {
   const numberDetails = useAppSelector(
     (state: { numberDetailsTable: { value: any } }) => state.numberDetailsTable.value
   );
+
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
+  
 
   return (
     <Col lg={12}>

@@ -9,6 +9,12 @@ import HistoricalDataByNumber from "../Pages/MISCELLANEOUS/HistoricalData/Histor
 import NumberPicker from "../Pages/MISCELLANEOUS/HistoricalData/NumberPicker";
 import LotteryPatternsPage from "../Pages/MISCELLANEOUS/HistoricalData/Patterns";
 import LotteryMyPickPage from "../Pages/MISCELLANEOUS/HistoricalData/MyPick";
+import ProductPricing from "../Pages/Apps/Ecommerce/Pricing/ProductPricing";
+import Checkout from "../Pages/Apps/Ecommerce/Checkout/Checkout";
+import Invoice from "../Pages/Apps/Ecommerce/Invoice/Invoice";
+import PaymentDetails from "../Pages/Apps/Ecommerce/PaymentDetails/PaymentDetails";
+import UserEdit from "../Pages/Apps/User/UserEdit/UserEdit";
+import Dashboard from "../Pages/MISCELLANEOUS/Dashboard/Dashboard";
 
 const routes =[
   { path: "pagelayout/hidenavscroll", Component: HideNavScrollContainer },
@@ -22,8 +28,19 @@ const routes =[
   { path: "pages/patterns", Component: LotteryPatternsPage },
   { path: "pages/mypicks", Component: LotteryMyPickPage },
 
+  { path: "pages/Dashboard", Component: Dashboard },
+
   // Knowledgebase
-  { path: "pages/knowledgebase", Component: Knowledgebase }
+  { path: "pages/knowledgebase", Component: Knowledgebase },
+
+  { path: "pages/ecommerce/pricing", Component: ProductPricing },
+  { path: "pages/ecommerce/checkout", Component: Checkout },
+  { path: "pages/ecommerce/paymentdetails", Component: PaymentDetails },
+
+    //  User
+    { path: "/users/usersprofile", Component: Invoice },
+     { path: "/users/usersedit", Component: UserEdit },
+
 ];
 
 

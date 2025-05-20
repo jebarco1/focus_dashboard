@@ -33,8 +33,12 @@ import authSlice from "./Reducer/loginUser";  // Correct import for the default 
 import loginHash from "./Reducer/loginHash";
 import passwordReset from "./Reducer/passwordReset";
 import updatePassword from "./Reducer/updatePassword";
-
-
+import fetchMessages from "./Reducer/fetchMessages";
+import lastDrawings from "./Reducer/lastDrawings";
+import userDetailsUpdate from "./Reducer/userDetailsUpdate";
+import userAccessUpdate from "./Reducer/userAccessUpdate";
+import getTop10NumberStatics from "./Reducer/getTop10NumberStatics";
+import lotterySeaarchResults from "./Reducer/lotterySeaarchResults";
 
 const Store = configureStore({
   reducer: {
@@ -70,7 +74,13 @@ const Store = configureStore({
     auth: authSlice.reducer,
     loginHash: loginHash,
     passwordReset: passwordReset,
-    updatePassword: updatePassword
+    updatePassword: updatePassword,
+    fetchMessages: fetchMessages,
+    lastDrawings: lastDrawings,
+    userDetailsUpdate : userDetailsUpdate,
+    userAccessUpdate : userAccessUpdate,
+    getTop10NumberStatics : getTop10NumberStatics,
+    lotterySeaarchResults : lotterySeaarchResults
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),

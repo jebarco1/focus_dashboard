@@ -773,7 +773,7 @@
     margin-top: 70px;
     .page-body {
       min-height: calc(100vh - #{$header-size});
-      margin-top: $header-size;
+      margin-top: 95px;
       padding: $page-body-padding;
       position: relative;
       transition: 0.5s;

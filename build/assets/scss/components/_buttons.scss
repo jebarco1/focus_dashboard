@@ -69,6 +69,21 @@
   min-width: 53px;
 }
 
+.mobile-Breadcrumb {
+  padding: 1em;
+  text-align: center; 
+  display: none !important;
+  }
+
+.mobile-Breadcrumb .container {  width:100%;
+  align-items: center;
+  justify-content: center;
+  border:#1f2f3e 1px solid;
+  border-radius: 8px;
+}
+
+.mobile-Breadcrumb .container button {width:140px;margin: 10px;}
+
 /* Mobile Optimization */
 @media (max-width: 768px) {
   .common-flex {
@@ -86,25 +101,29 @@
     border-radius: 50%;
   }
 
-  .icon {
-    font-size: 5vw; /* Larger for mobile */
-  }
+    .icon {
+      font-size: 5vw; /* Larger for mobile */
+    }
 
-  .button-label {
-    display: none; /* Hide text on mobile */
-  }
+    .button-label {
+      display: none; /* Hide text on mobile */
+    }
 
-  .topNavigation {
-    width: 100% !important;
-  }
+    .topNavigation {
+      width: 100% !important;
+    }
 
-  .navigationRightUser,
-  .dual-logo-toggle-wrapper,
-  .page-title {
-    display: none !important;
-  }
+    .mobile-Breadcrumb {
+      display: block !important;
+    }
+
+    .page-title {display: none !important;}
+
+   
 
 }
+
+
 
 /**=====================
   2.9 Buttons CSS end

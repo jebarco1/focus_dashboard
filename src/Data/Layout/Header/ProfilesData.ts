@@ -11,16 +11,6 @@ export const profilesMessage:profilesMessageType[] = [
         link: `./users/usersprofile`
     },
     {
-        name: "Inbox",
-        icon:"Mail",
-        link: `./email/emailapp`
-    },
-    {
-        name: "Taskboard",
-        icon:"FileText",
-        link: `./apps/task`
-    },
-    {
         name: "Settings",
         icon:"Settings",
         link: `./users/usersedit`

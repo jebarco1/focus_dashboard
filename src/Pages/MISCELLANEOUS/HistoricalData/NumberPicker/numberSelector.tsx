@@ -11,7 +11,16 @@ const PowerballNumberSelector: React.FC = () => {
   const selectedlotteryRaw = useAppSelector((state) => state.lotterySelect.value);
 
   // ✅ Fix: Declare totalNumbers before the if-else block
-  let totalNumbers = selectedlotteryRaw === "mega" ? 70 : 69;
+
+  const config = JSON.parse(localStorage.getItem("lotteryConfig") || "{}");
+
+  // ✅ Fallback in case localStorage is empty
+  const megaRegular = config?.mega || { regular: 55 };
+  const powerballRegular = config?.powerball || { regular: 69 };
+
+  // ✅ Use the config to determine total numbers
+  const totalNumbers = selectedlotteryRaw === "mega" ? megaRegular.regular : powerballRegular.regular;
+
 
   // ✅ Extract number from URL dynamically
   const getNumberFromURL = () => {

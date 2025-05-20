@@ -35,7 +35,7 @@ const RandomNumbers: React.FC = () => {
       generateHotNumbers();
     }
   }, []);
-
+  console.log(generatedSets);
   return (
     <div>
       <h5>Randomly Generated Hot Numbers</h5>

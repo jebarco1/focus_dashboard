@@ -1,5 +1,4 @@
-import { Image, LI, P } from "../../../AbstractElements";
-import { dynamicImage } from "../../../Service";
+import {LI, P } from "../../../AbstractElements";
 import { Admin } from "../../../utils/Constant";
 import ProfileBox from "./ProfileBox";
 
@@ -14,7 +13,7 @@ const UserProfile: React.FC<RightHeaderProps> = ({ userData }) => {
   return (
     <LI className="profile-nav onhover-dropdown pe-0 py-0">
       <div className="d-flex align-items-center profile-media">
-        <Image className="b-r-25" src={dynamicImage("dashboard/profile.png")} alt="" />
+      
         <div className="flex-grow-1 user">
           {/* Check if user exists before displaying the user information */}
           {userData ? (
@@ -24,7 +23,7 @@ const UserProfile: React.FC<RightHeaderProps> = ({ userData }) => {
           )}
            <P className="mb-0 font-nunito">
             {/* Conditionally display {Admin} based on access_level */}
-            {userData && userData.level_of_access === 0 ? Admin : ''}
+            {userData && userData.level_of_access === 10 ? Admin : ''}
             <i className="middle fa fa-angle-down"></i>
           </P>
         </div>

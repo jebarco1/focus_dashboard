@@ -4,8 +4,10 @@ interface lotterySelectState {
   value: string;
 }
 
-const initialState: lotterySelectState= {
-  value: 'Powerball', // Default value
+// Step 1: Try to get saved lottery from localStorage, else use 'Powerball'
+const savedLottery = localStorage.getItem('selectedLottery');
+const initialState: lotterySelectState = {
+  value: savedLottery || 'Powerball',
 };
 
 const lotterySelectSlice = createSlice({
@@ -14,9 +16,11 @@ const lotterySelectSlice = createSlice({
   reducers: {
     setSelectedlotterySelect: (state, action: PayloadAction<string>) => {
       state.value = action.payload;
+      localStorage.setItem('selectedLottery', action.payload); // Save to localStorage
     },
     resetSelectedlotterySelect: (state) => {
-      state.value = 'Powerball'; // Reset to default value
+      state.value = 'Powerball';
+      localStorage.setItem('selectedLottery', 'Powerball'); // Reset in localStorage
     },
   },
 });

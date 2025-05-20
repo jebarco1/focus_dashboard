@@ -8,6 +8,7 @@ import Registered from "../Pages/Others/Authentication/RegisterSimple/Registered
 import ResetPassword from "../Pages/Others/Authentication/ResetPassword/ResetPassword";
 import RegisterWizard from "../Pages/Others/Authentication/RegisterWizard/RegisterWizard";
 import ResetPasswordSet from "../Pages/Others/Authentication/ResetPassword/ResetPasswordSet";
+import ResetPasswordSetComplete from "../Pages/Others/Authentication/ResetPassword/ResetPasswordSetComplete";
 
 const Routers = () => {
   const login = localStorage.getItem("login");
@@ -22,6 +23,7 @@ const Routers = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register-wizard" element={<RegisterWizard/>} />
         <Route path="/resetPassword" element={<ResetPasswordSet/>} />
+        <Route path="/ResetPasswordSetComplete" element={<ResetPasswordSetComplete/>} />
 
         {login ? (
           <>

@@ -7,7 +7,11 @@ interface User {
   email: string;
   firstName: string;
   lastName: string;
-  level_of_access: number; // Assuming you want to track the level of access
+  address: string | null;
+  city: string | null;
+  zip: string | null;
+  about: string | null;
+  level_of_access: number;
 }
 
 interface AuthState {
@@ -15,13 +19,14 @@ interface AuthState {
   token: string | null;
   loading: boolean;
   error: string | null;
+  expertMode: boolean; // ✅ NEW
 }
 
 // Async thunk for user login
 export const loginUser = createAsyncThunk<
-  { user: User; token: string }, // Success type (contains both user and token)
-  { username: string; password: string }, // Argument type
-  { rejectValue: string } // Reject value type (error message string)
+  { user: User; token: string },
+  { username: string; password: string },
+  { rejectValue: string }
 >(
   "auth/loginUser",
   async ({ username, password }, { rejectWithValue }) => {
@@ -30,55 +35,57 @@ export const loginUser = createAsyncThunk<
         "https://focuslottery.com/api/jankgo/AuthController/login",
         { username, password }
       );
-      
-      return response.data; // Assuming this is the user data
+      return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;
-      // Ensure the error message is always a string
       const errorMessage = axiosError.response?.data
         ? typeof axiosError.response.data === "string"
           ? axiosError.response.data
-          : JSON.stringify(axiosError.response.data) // Stringify if it's not already a string
+          : JSON.stringify(axiosError.response.data)
         : "Login failed";
       return rejectWithValue(errorMessage);
     }
   }
 );
 
-// Auth slice
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    user: null, // Initially no user is logged in
-    token: null, // Initially no token
+    user: null,
+    token: null,
     loading: false,
     error: null,
+    expertMode: true, // ✅ Default mode
   } as AuthState,
   reducers: {
     logout: (state) => {
-      state.user = null; // Clear user on logout
-      state.token = null; // Clear token on logout
-      state.error = null; // Clear any errors
+      state.user = null;
+      state.token = null;
+      state.error = null;
+    },
+    setExpertMode: (state, action) => {
+      state.expertMode = action.payload;
+      localStorage.setItem("expertMode", String(action.payload)); // Optional: persist
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
         state.loading = true;
-        state.error = null; // Reset any previous error when login is initiated
+        state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user; // Store the user data
-        state.token = action.payload.token; // Store the token
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || null; // Store the error message on failure
+        state.error = action.payload || null;
       });
   },
 });
 
-// Export authSlice actions
-export const { logout } = authSlice.actions;
+// ✅ Export everything
+export const { logout, setExpertMode } = authSlice.actions;
 export default authSlice;

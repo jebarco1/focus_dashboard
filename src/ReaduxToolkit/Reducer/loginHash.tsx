@@ -1,8 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// Define the shape of user data
+interface UserInfo {
+  username: string;
+  email: string;
+  firstName: string;
+  address: string | null;
+  city: string | null;
+  zip: string | null;
+  about: string | null;
+  level_of_access: number;
+}
+
+// Define the shape of the state
 interface LoginHashState {
-  user: any;
+  user: UserInfo | null;
+  token: string | null;
   loading: boolean;
   error: string | null;
 }
@@ -10,6 +24,7 @@ interface LoginHashState {
 // Initial state
 const initialState: LoginHashState = {
   user: null,
+  token: null,
   loading: false,
   error: null,
 };
@@ -23,7 +38,7 @@ export const loginHash = createAsyncThunk(
         login: loginParam,
       });
 
-      return response.data; // Return the API response
+      return response.data; // Returns { user: {...}, token: "..." }
     } catch (error: any) {
       return rejectWithValue(error.response ? error.response.data : "An error occurred");
     }
@@ -43,7 +58,8 @@ const loginHashSlice = createSlice({
       })
       .addCase(loginHash.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
       })
       .addCase(loginHash.rejected, (state, action) => {
         state.loading = false;

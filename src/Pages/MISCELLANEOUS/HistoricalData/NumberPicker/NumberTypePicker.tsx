@@ -4,7 +4,7 @@ import NumberSelectorTemp from "../NumberPicker/numberSelectorTemp";
 import PreviousDrawing from "../NumberPicker/PreviousDrawing";
 import RandomNumbers from "../NumberPicker/RandomNumbers"
 import HotNumbers from "../NumberPicker/HotNumbers";
-import CoolNumbers from "../NumberPicker/CoolNumbers";
+import Confidence from "../NumberPicker/Confidence";
 import AiPrediction from "../NumberPicker/AiPrediction";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
@@ -24,7 +24,7 @@ const selectionDescriptions: Record<string, string> = {
     manual: "Pick your numbers manually based on your preference. You have full control over your selections.",
     random: "Generate random numbers using a simple algorithm. This is a quick way to get a set of numbers without bias.",
     hot: "Select numbers that have appeared frequently in the past 30 days. These numbers are currently trending.",
-    cool: "Select numbers that have appeared the least in the past 30 days. These numbers are due for a potential hit.",
+    confidence: "Confidence Level Reflects how likely a number is to repeat, based on trends, gaps, hits, and draw frequency.",
     ai: "The AI predicts numbers by analyzing the last 30 draws, selecting 50% from high-frequency picks, 40% from hot numbers, and 10% from cold numbers. Powerball is chosen from hot numbers or randomly, ensuring an optimized mix of trends and statistical probability.",
     previous: "The AI analyzes the last 30 draws, prioritizing high-frequency numbers (60%) and hot numbers (40%) to generate the next predicted set. Powerball is chosen from hot numbers or adjusted within the valid range."
  };
@@ -46,8 +46,8 @@ export default function NumberPickerContainer() {
         return <RandomNumbers />;
       case "hot":
         return <HotNumbers />;
-      case "cool":
-        return <CoolNumbers />;
+      case "confidence":
+        return <Confidence />;
       case "ai":
         return <AiPrediction/>;
       case "previous":
@@ -75,7 +75,7 @@ export default function NumberPickerContainer() {
                 <option value="manual">Manual Selection</option>
                 <option value="random">Generate Random Numbers</option>
                 <option value="hot">Hot Numbers (Frequent in 30 Days)</option>
-                <option value="cool">Cool Numbers (Rare in 30 Days)</option>
+                <option value="confidence">High Confidence Numbers (Last 20 drawings)</option>
                 <option value="ai">AI-Based Prediction</option>
                 <option value="previous">Generate from Previous Drawing</option>
               </Input>

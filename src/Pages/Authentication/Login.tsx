@@ -14,8 +14,8 @@ import { loginHash } from "../../ReaduxToolkit/Reducer/loginHash";
 
 const Login = () => {
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("test123@gmail.com");
-  const [password, setPassword] = useState("Test@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>(); // Type dispatch with AppDispatch
   const { user, loading, error } = useSelector((state: RootState) => state.auth as { 
@@ -44,6 +44,7 @@ useEffect(() => {
 
           // Store user and login state in localStorage
           localStorage.setItem("user", JSON.stringify(response.user));
+          localStorage.setItem("token", JSON.stringify(response.token));
           localStorage.setItem("login", JSON.stringify(true));
 
           // Navigate to the Historical Data page
@@ -79,6 +80,7 @@ const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
 
            // Store user and token in localStorage
         localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("token", JSON.stringify(response.token));
         localStorage.setItem("login", JSON.stringify(true));
         // You can navigate or refresh the page as needed here
         navigate(`../pages/HistoricalDataByNumber`);
@@ -112,12 +114,12 @@ const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
                   {error && <P className="text-danger">{error}</P>}
                   <FormGroup>
                     <Label className="col-form-label">{EmailAddress}</Label>
-                    <Input type="email" required placeholder="Test@gmail.com" value={email} name="email" onChange={(event) => setEmail(event.target.value)} />
+                    <Input type="email" required placeholder="" value={email} name="" onChange={(event) => setEmail(event.target.value)} />
                   </FormGroup>
                   <FormGroup>
                     <Label className="col-form-label">{Password}</Label>
                     <div className="form-input position-relative">
-                      <Input type={show ? "text" : "password"} placeholder="*********" onChange={(event) => setPassword(event.target.value)} value={password} name="password" />
+                      <Input type={show ? "text" : "password"} placeholder="" onChange={(event) => setPassword(event.target.value)} value={password} name="password" />
                       <div className="show-hide" onClick={() => setShow(!show)}>
                         <span className="show"> </span>
                       </div>

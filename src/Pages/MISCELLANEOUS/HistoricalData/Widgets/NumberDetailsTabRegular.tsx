@@ -109,33 +109,7 @@ const RegularNumbers: React.FC<RegularNumbersProps> = ({ frequencyMonth, topPair
           </ul>
         </>
       ),
-    },
-    {
-      title: "Positioning",
-      content: (
-        <>
-          <table className="table table-bordered">
-            <thead>
-              <tr>
-                <th>Position</th>
-                <th>Count</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.entries(positions).map(([position, count], index) => (
-                <tr key={index}>
-                  <td>{position}</td>
-                  <td>{count}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <ul>
-            <li><strong>Notes:</strong> Understanding frequent positions highlights patterns of number occurrences in specific slots, aiding strategic selection and improving chances by focusing on historically significant trends.</li>
-          </ul>
-        </>
-      ),
-    },
+    }
   ];
 
   return (

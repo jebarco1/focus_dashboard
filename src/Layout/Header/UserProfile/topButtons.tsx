@@ -29,36 +29,38 @@ const TopButtons: React.FC<TopButtonsProps> = ({ userData }) => {
             <FaDice className="icon" /> <span className="button-label">Picker</span>
           </button>
         </Link>
-
+{/*  
         <Link to="./pages/Patterns">
-          <button className="btn" disabled={isPatternsDisabled}>
+          <button className="btn">
             <FaTh className="icon" /> <span className="button-label">Patterns</span>
           </button>
         </Link>
-
+        */}
         <Link to="./pages/MyPicks">
-          <button className="btn" disabled={isPicksDisabled}>
+          <button className="btn">
             <FaStar className="icon" /> <span className="button-label">Picks</span>
           </button>
         </Link>
 
         <Link to="./pages/HistoricalData">
-          <button className="btn" disabled={isHistoricalDisabled}>
+          <button className="btn">
             <FaHistory className="icon" /> <span className="button-label">Historical</span>
           </button>
         </Link>
 
-        <Link to="">
+        <Link to="./pages/Dashboard">
           <button className="btn">
             <FaTachometerAlt className="icon" /> <span className="button-label">Dashboard</span>
           </button>
         </Link>
-
+{/* 
         <Link to="./pages/knowledgebase">
           <button className="btn">
             <FaBook className="icon" /> <span className="button-label">Knowledgebase</span>
           </button>
         </Link>
+
+         */}
       </div>
     </div>
   );

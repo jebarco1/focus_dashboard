@@ -6,7 +6,6 @@ import { HistoricalHeading } from "../../../utils/Constant";
 import Historical from "./Historical/HistoricalNumber";
 import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
 import { fetchNumberDetailsTableData } from "../../../ReaduxToolkit/Reducer/numberDetailsTable";
-import { useAppSelector} from "../../../ReaduxToolkit/Hooks";
 
 const HistoricalDataByNumber = () => {
   const dispatch = useAppDispatch();
@@ -27,18 +26,13 @@ const HistoricalDataByNumber = () => {
   }, [dispatch, location]);
 
 
-  const selectedlotteryRaw = useAppSelector((state) => state.lotterySelect.value);
-    const selectedlottery =
-      selectedlotteryRaw === "mega" ? "Mega Millions" : selectedlotteryRaw;
-    
-    const historicalheading = HistoricalHeading + " - " + selectedlottery;
 
   return (
     <>
       <Breadcrumbs
-        mainTitle={historicalheading}
-        parent={historicalheading}
-        title={historicalheading}
+        mainTitle={HistoricalHeading}
+        parent={HistoricalHeading}
+        title={HistoricalHeading}
       />
       <Container fluid>
         <div className="faq-wrap">

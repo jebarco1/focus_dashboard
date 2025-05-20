@@ -22,7 +22,7 @@ export const sendResetEmail = createAsyncThunk<
         body: JSON.stringify({ email }),
       });
       const data = await response.json();
-      window.location.href = 'https://focuslottery.com/portal/#/resetPassword';
+      window.location.href = 'https://focuslottery.com/portal/#ResetPasswordSetComplete';
      
       return data;
     } catch (error: any) {

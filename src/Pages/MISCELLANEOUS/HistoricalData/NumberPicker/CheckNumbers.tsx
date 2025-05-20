@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Input, Card, CardBody, CardTitle, Button } from "reactstrap";
 import NumberSelectorCheck from "../NumberPicker/NumberSelectorCheck";
-import PreviousDrawing from "../NumberPicker/PreviousDrawing";
-import RandomNumbers from "../NumberPicker/RandomNumbers"
-import HotNumbers from "../NumberPicker/HotNumbers";
-import CoolNumbers from "../NumberPicker/CoolNumbers";
-import AiPrediction from "../NumberPicker/AiPrediction";
+import CheckMyPicks from "../NumberPicker/checkMyPicks"
+import DrawingNumberCheck  from "../NumberPicker/drawingNumberCheck" ;
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
 // Function to check Hot/Cold status
@@ -22,8 +19,8 @@ const hotColdStatus = (inputNumber: number, numberPickHotCold: any[], numberPick
 // Selection Method Descriptions
 const selectionDescriptions: Record<string, string> = {
     manual: "Pick your numbers manually based on your preference. You have full control over your selections.",
-    myPicks: "Generate random numbers using a simple algorithm. This is a quick way to get a set of numbers without bias.",
-    drawResults: "Select numbers that have appeared frequently in the past 30 days. These numbers are currently trending.",
+    myPicks: "Check my number picks with historical lottery numbers",
+    drawResults: "Show lottery Number history",
 };
 
 export default function NumberPickerContainer() {
@@ -40,11 +37,11 @@ export default function NumberPickerContainer() {
       case "manual":
         return <NumberSelectorCheck />;
       case "myPicks":
-        return <RandomNumbers />;
+        return <CheckMyPicks />;
       case "drawResults":
-        return <HotNumbers />;
+        return <DrawingNumberCheck  />;
       default:
-        return <NumberSelectorCheck />;
+        return <DrawingNumberCheck />;
     }
   };
 

@@ -1,41 +1,60 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
+import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
+import { fetchLotteryResultsSearch } from "../../../../ReaduxToolkit/Reducer/lotterySeaarchResults";
 
 const PreviousDrawing: React.FC = () => {
-  // Local state for number inputs
+  const dispatch = useAppDispatch();
+  const { data, loading, error } = useAppSelector((state) => state.lotterySeaarchResults);
   const [numbers, setNumbers] = useState<(number | "")[]>(["", "", "", "", "", ""]);
-
-  // Local state for selected date range
   const [selectedRange, setSelectedRange] = useState<number>(30);
+  const selectedlotteryRaw = useAppSelector((state) => state.lotterySelect.value);
 
-  // Handler to update state on number input change
+  // ✅ These must be declared at the top level
+  const [lotteryType] = useState(selectedlotteryRaw);
+  const [userType] = useState("numbers");
+  const [token] = useState(() => {
+    const raw = localStorage.getItem('token');
+    try {
+      return raw ? JSON.parse(raw) : ""; // removes extra quotes if JSON.stringify was used
+    } catch {
+      return raw ?? "";
+    }
+  });
+
   const handleInputChange = (index: number, value: string) => {
-    if (/^\d*$/.test(value)) { // Allows only numbers
+    if (/^\d*$/.test(value)) {
       const updatedNumbers = [...numbers];
-      updatedNumbers[index] = value ? parseInt(value, 10) : ""; // Convert input to number or keep empty
+      updatedNumbers[index] = value ? parseInt(value, 10) : "";
       setNumbers(updatedNumbers);
     }
   };
 
-  // Handler to update date range selection
   const handleDateRangeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedRange(parseInt(event.target.value, 10));
   };
 
-  // Handler for search action
   const handleSearch = () => {
-    console.log("Searching for:", numbers, "within last", selectedRange, "days");
-    // Implement search logic here (e.g., API call)
+    const filteredNumbers = numbers.filter((num): num is number => typeof num === "number");
+    if (filteredNumbers.length === 0) return alert("Enter at least one number");
+
+    dispatch(
+      fetchLotteryResultsSearch({
+        lotteryType,
+        limit: selectedRange,
+        token,
+        userType,
+        numberList: filteredNumbers,
+      })
+    );
   };
 
-  // Handler for clearing inputs
   const handleClear = () => {
     setNumbers(["", "", "", "", "", ""]);
   };
 
   return (
     <div className="numberSelectorContainer">
-      {/* ✅ Regular Numbers Selection */}
       <div className="numberInputs selectNumber">
         {numbers.map((num, index) => (
           <button key={index} className={`btn btn-sm ${index < 5 ? "btn-success" : "btn-secondary"}`}>
@@ -43,15 +62,13 @@ const PreviousDrawing: React.FC = () => {
               type="text"
               value={num}
               onChange={(e) => handleInputChange(index, e.target.value)}
-              maxLength={2} // Restrict input length to 2 digits
+              maxLength={2}
               className="number-input"
             />
           </button>
         ))}
       </div>
 
-      {/* ✅ Date Range Dropdown */}
- <span className="selectNumber"></span>
       <select className="dateRangeSelect" value={selectedRange} onChange={handleDateRangeChange}>
         <option value="30">Last 30 Days</option>
         <option value="60">Last 60 Days</option>
@@ -62,17 +79,17 @@ const PreviousDrawing: React.FC = () => {
         <option value="1827">Last 5 Years</option>
       </select>
 
-      {/* ✅ Search & Clear Buttons */}
       <div className="actionButtons">
         <Button color="primary" onClick={handleSearch}>
-          Search
+          {loading ? "Searching..." : "Search"}
         </Button>
         <Button color="danger" onClick={handleClear}>
           Clear
         </Button>
       </div>
 
-      {/* ✅ Inline Styles for Input, Dropdown & Buttons */}
+
+     
       <style>
         {`
           .numberSelectorContainer {
