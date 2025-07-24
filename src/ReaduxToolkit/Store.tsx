@@ -39,6 +39,7 @@ import userDetailsUpdate from "./Reducer/userDetailsUpdate";
 import userAccessUpdate from "./Reducer/userAccessUpdate";
 import getTop10NumberStatics from "./Reducer/getTop10NumberStatics";
 import lotterySeaarchResults from "./Reducer/lotterySeaarchResults";
+import subscriptionReducer from "./Reducer/subscriptionSlice";
 
 const Store = configureStore({
   reducer: {
@@ -80,7 +81,8 @@ const Store = configureStore({
     userDetailsUpdate : userDetailsUpdate,
     userAccessUpdate : userAccessUpdate,
     getTop10NumberStatics : getTop10NumberStatics,
-    lotterySeaarchResults : lotterySeaarchResults
+    lotterySeaarchResults : lotterySeaarchResults,
+    subscription: subscriptionReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),

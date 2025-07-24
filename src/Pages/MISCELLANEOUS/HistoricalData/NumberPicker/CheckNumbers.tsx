@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input, Card, CardBody, CardTitle, Button } from "reactstrap";
 import NumberSelectorCheck from "../NumberPicker/NumberSelectorCheck";
 import CheckMyPicks from "../NumberPicker/checkMyPicks"
+import NumberPickerDetails from "./NumberPickDetailDrawingResultDynamic";
 import DrawingNumberCheck  from "../NumberPicker/drawingNumberCheck" ;
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
@@ -79,6 +80,10 @@ export default function NumberPickerContainer() {
             <div className="mt-4">{renderComponent()}</div>
 
           </div>
+
+          <div className="container">
+              <NumberPickerDetails/>
+              </div>
 
       </Card>
     </div>

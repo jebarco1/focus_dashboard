@@ -11,8 +11,12 @@ import SocialApp from "./SocialApp";
 import { RootState, AppDispatch } from "../../ReaduxToolkit/Store"; // Adjust path
 import { useEffect } from "react";
 import { loginHash } from "../../ReaduxToolkit/Reducer/loginHash";
+import { setSubscription } from '../../ReaduxToolkit/Reducer/subscriptionSlice';
+import { constantOtherSymbol } from "ace-builds/src-noconflict/mode-ruby_highlight_rules";
 
 const Login = () => {
+
+  
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,8 +33,6 @@ const location = useLocation();
 const searchParams = new URLSearchParams(location.search);
 const loginParam = searchParams.get("login");
 
-console.log("Login Parameter:", loginParam);
-
 
 useEffect(() => {
   if (loginParam) {
@@ -40,15 +42,19 @@ useEffect(() => {
       .unwrap()
       .then((response) => {
         if (response.token) {
-          console.log("Login Successful:", response);
+          toast.success("Login Success...!", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+          });
 
           // Store user and login state in localStorage
           localStorage.setItem("user", JSON.stringify(response.user));
           localStorage.setItem("token", JSON.stringify(response.token));
           localStorage.setItem("login", JSON.stringify(true));
 
-          // Navigate to the Historical Data page
-          navigate(`../pages/HistoricalDataByNumber`);
+          navigate(`../pages/Dashboard`);
           window.location.reload();
         } else {
           console.error("Login Failed: No token received");
@@ -78,12 +84,14 @@ const handleLogin = (event: React.FormEvent<HTMLFormElement>) => {
           closeOnClick: true,
         });
 
+ 
            // Store user and token in localStorage
         localStorage.setItem("user", JSON.stringify(response.user));
         localStorage.setItem("token", JSON.stringify(response.token));
         localStorage.setItem("login", JSON.stringify(true));
+          
         // You can navigate or refresh the page as needed here
-        navigate(`../pages/HistoricalDataByNumber`);
+        navigate(`../pages/Dashboard`);
         window.location.reload();
       } else {
         toast.error("Login failed, no token received!");
