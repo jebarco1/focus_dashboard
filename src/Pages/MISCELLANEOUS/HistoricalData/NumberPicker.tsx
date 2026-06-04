@@ -1,10 +1,6 @@
 import { Container, Row, Col,Card, CardBody } from "reactstrap";
 import Breadcrumbs from "../../../CommonElements/Breadcrumbs/Breadcrumbs";
 import { HistoricalHeading } from "../../../utils/Constant";
-
-import {useEffect } from 'react';
-import { useAppDispatch } from "../../../ReaduxToolkit/Hooks";
-
 import NumberPickDetail from "./NumberPicker/numberPickDetail";
 import NumberPickerType from "./NumberPicker/NumberTypePicker";
 import LotteryNewsList from '../HistoricalData/Historical/LotteryNewsList';

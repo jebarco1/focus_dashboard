@@ -10,7 +10,7 @@ import {
   Table,
 } from "reactstrap";
 import { removeNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
-import PowerBallResults from "./PowerBallResults";
+import PrizeResults from "./prizeResults";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 import classnames from "classnames";
 
@@ -49,7 +49,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
 
   return (
     <Card>
-      <CardBody>
+ <CardBody>
         <div className="filter-block">
           <h3>My Number Picks</h3>
           <div>
@@ -69,7 +69,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
                         return (
                           <button
                             key={idx}
-                            className={`btn m-1 ${isMatch ? "btn-warning" : "btn-success"}`}
+                            className={`btn ${isMatch ? "btn-warning" : "btn-success"}`}
                           >
                             {num}{" "}
                             <span
@@ -80,7 +80,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
                       })}
 
                       <button
-                        className={`btn m-1 ${
+                        className={`btn ${
                           matchedPowerBall ? "btn-warning" : "btn-secondary"
                         }`}
                       >
@@ -96,7 +96,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
                  
                   </div>
 
-                  <PowerBallResults 
+                  <PrizeResults
                           matchedWhiteBalls={matchedWhiteBalls}
                           matchedPowerBall={matchedPowerBall}
                           powerPlay={5} // Replace with dynamic value if available
@@ -206,7 +206,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
             })}
           </div>
         </div>
-      </CardBody>
+ 
 
       <style>
         {`
@@ -222,6 +222,17 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
             margin-bottom: 10px;
             position:relative;
           }
+
+          
+        @media (max-width: 480px) {
+        .filter-block h3 {
+          margin-left: auto;
+          margin-right: auto;
+          text-align: center;
+        }
+
+    }
+
 
           .actions {
             display: flex;
@@ -243,6 +254,7 @@ const NumberPickDetail: React.FC<NumberPickDetailProps> = ({
           }
         `}
       </style>
+      </CardBody>
     </Card>
   );
 };

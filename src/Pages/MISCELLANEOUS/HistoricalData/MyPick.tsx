@@ -27,19 +27,20 @@ const LotteryMyPickPage = () => {
         parent={HistoricalHeading}
         title={HistoricalHeading}
       />
+
+
+
+
+
      <Container fluid>
         <div>
           <Row className="product-page-main p-0">
-            <Col xxl="9" md="6" className="box-col-12">
+            <Col xxl="8" md="6" className="box-col-12">
                 <Col>
-                    <Card >
-                        <CardBody>
                         <NumberPickDetailDetail />
-                        </CardBody>
-                    </Card>
-                </Col>
+                 </Col>
             </Col>
-            <Col xxl="3" md="6" className="box-col-6">
+           <Col xxl="4" md="6" className="box-col-6">
             <LotteryNewsList />
             </Col>
           </Row>

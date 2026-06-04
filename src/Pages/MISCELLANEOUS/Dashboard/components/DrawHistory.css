@@ -1,0 +1,67 @@
+.draw-history-container {
+  padding: 15px;
+}
+
+.draw-date {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.lottery-ball {
+  background-color: #333;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lotteryTypeBlock span {text-align:center;width:100%;}
+
+.lottery-ball:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.special-ball {
+  background-color: #dc3545;
+}
+
+.jackpot-info {
+  font-size: 1.2rem;
+}
+
+.drawingWinningBalls {
+
+    padding: 30px 0 30px;
+}
+.prize-table thead {
+  background-color: #ffe08a;
+}
+
+.loading-msg {
+  text-align: center;
+  padding: 20px;
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .jackpot-info {
+    font-size: 1rem;
+  }
+  .prize-table {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .draw-history-container {
+    flex-direction: column;
+  }
+  .lottery-ball {
+    font-size: 0.9rem !important;
+  }
+}

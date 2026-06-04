@@ -1,128 +1,175 @@
-import React from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
+import "./DrawHistory.css"; // ✅ New custom responsive styles
 
 type LotteryType = "mega" | "powerball";
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return isMobile;
+};
+
+const formatLongDate = (dateStr?: string): string => {
+  if (!dateStr) return "Date not available";
+  const [year, month, day] = dateStr.split(" ")[0].split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+};
+
 const DrawHistory = () => {
-  // Select the active lottery type and assert it is one of the valid keys
-  const selectedLotteryRaw = useAppSelector((state) => state.lotterySelect.value).toLowerCase() as LotteryType;
+  const isMobile = useIsMobile();
 
-  // Dynamically pull either Mega or Powerball from Redux store
-  const drawDataLast = useAppSelector((state) => state.lastDrawings[selectedLotteryRaw]);
+  const styles = useMemo(
+    () => ({
+      ball: {
+        width: isMobile ? "40px" : "70px",
+        height: isMobile ? "40px" : "70px",
+        fontSize: isMobile ? "1rem" : "1.8rem",
+      },
+    }),
+    [isMobile]
+  );
 
-  const lotterySelectBall = selectedLotteryRaw === "mega" ? "Mega Ball" : "Powerball";
+  const selectedLotteryRaw =
+    (useAppSelector((state) => state.lotterySelect.value)?.toLowerCase() as LotteryType) || "mega";
 
-  if (!drawDataLast) return <div>Loading...</div>;
+  const { mega, powerball } = useAppSelector((state) => state.lastDrawings);
+  const drawDataLast = useAppSelector(
+    (state) => state.lastDrawings[selectedLotteryRaw]
+  );
 
-  const allNumbers = drawDataLast.numbers.split(",").map((n: string) => parseInt(n));
+  const nextDrawingDate =
+    selectedLotteryRaw === "mega" ? mega?.nextdrawing : powerball?.nextdrawing;
+
+  const lotterySelectBall =
+    selectedLotteryRaw === "mega" ? "Mega Ball" : "Powerball";
+
+  const isNextDrawingPast = useMemo(() => {
+    if (!nextDrawingDate) return false;
+    const [y, m, d] = nextDrawingDate.split(" ")[0].split("-").map(Number);
+    const drawingDate = new Date(y, m - 1, d);
+    const today = new Date();
+    drawingDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+    return drawingDate < today;
+  }, [nextDrawingDate]);
+
+  if (!drawDataLast) return <div className="loading-msg">Loading results...</div>;
+
+  const allNumbers = drawDataLast.numbers.split(",").map((n: string) => parseInt(n, 10));
   const mainNumbers = allNumbers.slice(0, 5);
   const specialBall = allNumbers[5];
+  const jackpotValue = Number(drawDataLast.jackpot);
+
+  const prizeList =
+    selectedLotteryRaw === "mega"
+      ? [
+          { match: "5 + MB (Jackpot)", amount: "Jackpot" },
+          { match: "5", amount: "$1,000,000" },
+          { match: "4 + MB", amount: "$10,000" },
+          { match: "4", amount: "$500" },
+          { match: "3 + MB", amount: "$200" },
+          { match: "3", amount: "$10" },
+          { match: "2 + MB", amount: "$10" },
+          { match: "1 + MB", amount: "$7" },
+          { match: "0 + MB", amount: "$5" },
+        ]
+      : [
+          { match: "5 + PB (Jackpot)", amount: "Jackpot" },
+          { match: "5", amount: "$1,000,000" },
+          { match: "4 + PB", amount: "$50,000" },
+          { match: "4", amount: "$100" },
+          { match: "3 + PB", amount: "$100" },
+          { match: "3", amount: "$7" },
+          { match: "2 + PB", amount: "$7" },
+          { match: "1 + PB", amount: "$4" },
+          { match: "0 + PB", amount: "$4" },
+        ];
 
   return (
-    <div className="row gap-4">
-      {/* Winning Numbers Card */}
-      <div className="col">
-        <div className="card h-100">
-          <div className="card-body px-5">
-            <h4 className="card-title mx-auto mb-3 text-center title-main py-2 px-3 rounded-3">
-              Winning Numbers
-            </h4>
-
-            <div style={{ margin: "40px 0px" }}>
-              <h5 className="card-title mx-auto mb-3 text-center title-date">{drawDataLast.date}</h5>
-
-              <div className="row col-auto gap-3 mx-0 mb-3 align-items-center game-ball-group g-0 flex-column">
-                <div className="d-flex col-auto flex-nowrap game-ball-group mx-auto">
-                  {mainNumbers.map((num: number, i: number) => (
-                    <div key={i}>
-                      <div
-                        className="btn btn-sm m-1"
-                        style={{
-                          width: "70px",
-                          height: "70px",
-                          borderRadius: "50%",
-                          backgroundColor: "#333",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "1.8rem",
-                          fontWeight: 600,
-                          margin: "0 auto 10px",
-                          color: "#fff",
-                        }}
-                      >
-                        {num}
-                      </div>
-                    </div>
-                  ))}
-
-                  <div>
-                    <div
-                      className="btn btn-danger m-1"
-                      style={{
-                        width: "70px",
-                        height: "70px",
-                        borderRadius: "50%",
-                        backgroundColor: "#333",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "1.8rem",
-                        fontWeight: 600,
-                        margin: "0 auto 10px",
-                        color: "#fff",
-                      }}
-                    >
-                      {specialBall}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-sm-12 col-md-6 col-lg-6 mx-auto">
-                  <span className="power-play item-power-play form-control badge rounded-pill col mx-auto text-center">
-                    {lotterySelectBall}
-                  </span>
-                </div>
-              </div>
-
-              <div className="row mb-3">
+    <div className="draw-history-container row gap-4">
+      {/* Winning Numbers */}
+      <div className="col-12 col-md">
+        <div className="card h-100 shadow-sm">
+          <div className="card-body">
+            <h4 className="card-title text-center py-2">Last Winning Numbers</h4>
+            <h5 className="text-center draw-date">{formatLongDate(drawDataLast.date)}</h5>
+            <div className="drawingWinningBalls d-flex flex-wrap justify-content-center gap-2 mb-3">
+              {mainNumbers.map((num, i) => (
                 <div
-                  className="col-12 gap-3 my-2 align-items-center text-center estimated-jackpot"
-                  style={{ borderRadius: "12px" }}
+                  key={i}
+                  className="lottery-ball"
+                  style={styles.ball}
                 >
-                  <span className="prize-label">Estimated Jackpot:</span>{" "}
-                  <span>
-                    ${parseInt(drawDataLast.jackpot).toLocaleString()} Million
-                  </span>
+                  {num}
                 </div>
+              ))}
+              <div
+                className="lottery-ball special-ball"
+                style={styles.ball}
+              >
+                {specialBall}
               </div>
+            </div>
+            <div className="lotteryTypeBlock"><span className="badge bg-dark text-white">{lotterySelectBall}</span></div>
+            <div className="jackpot-info mt-3 text-center">
+              <span className="fw-bold">Estimated Jackpot: </span>
+              ${jackpotValue.toLocaleString()} Million
             </div>
           </div>
         </div>
       </div>
 
-      {/* Next Drawing Card */}
-      <div className="col" id="next-drawing">
-        <div className="card h-100 next-card scheduled">
-          <div className="card-body px-5">
-            <h4 className="card-title mx-auto mb-3 text-center title-main py-2 px-3 rounded-3">
-              Next Drawing
-            </h4>
-            <h5 className="card-title mx-auto mb-3 text-center title-date" style={{ margin: "40px" }}>
-              {drawDataLast.nextdrawing}
-            </h5>
-
-            <div className="row game-detail-group mb-3">
-              <span
-                className="game-title text-uppercase bg-dark text-yellow lh-1 text-center mx-auto mb-2 py-1 px-3"
-                style={{ margin: "20px", borderRadius: "12px" }}
-              >
-                Estimated Jackpot
-              </span>
-              <span className="game-jackpot-number text-xxxl lh-1 text-center">
-                ${parseInt(drawDataLast.jackpot).toLocaleString()} Million
-              </span>
-            </div>
+      {/* Next Drawing / Prize List */}
+      <div className="col-12 col-md">
+        <div className="card shadow-sm">
+          <div className="card-body">
+            {isNextDrawingPast ? (
+              <>
+                <h4 className="text-center text-warning fw-bold">
+                  Results being verified for {formatLongDate(nextDrawingDate)}
+                </h4>
+                <p className="text-center">Check the official prize breakdown below.</p>
+                <table className="table table-sm table-bordered text-center prize-table">
+                  <thead>
+                    <tr>
+                      <th>Match</th>
+                      <th>Prize Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {prizeList.map((tier, index) => (
+                      <tr key={index}>
+                        <td>{tier.match}</td>
+                        <td>{tier.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </>
+            ) : (
+              <>
+                <h4 className="text-center">Next Drawing</h4>
+                <h5 className="text-center">{formatLongDate(nextDrawingDate)}</h5>
+                <div className="text-center">
+                  <span className="badge bg-dark text-warning mb-2">Estimated Jackpot</span>
+                  <div className="fs-3">${jackpotValue.toLocaleString()} Million</div>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

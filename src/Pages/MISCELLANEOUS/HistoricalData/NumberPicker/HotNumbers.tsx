@@ -38,8 +38,8 @@ const RandomNumbers: React.FC = () => {
   console.log(generatedSets);
   return (
     <div>
-      <h5>Randomly Generated Hot Numbers</h5>
-      <NumberSetDisplay generatedSets={generatedSets} />
+
+      <NumberSetDisplay generatedSets={generatedSets} title={"Randomly Generated Hot Numbers"} />
  
     </div>
   );

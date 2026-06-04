@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AppDispatch, RootState } from '../Store'; // adjust if needed
+import CommonProductSlide from '../../Pages/Apps/Ecommerce/Product/ProductFeatures/Common/CommonProductSlide';
+import { current } from 'immer';
 
 interface NumberPick {
   rnumber: string;
@@ -96,8 +98,28 @@ const numberPicksSlice = createSlice({
     },
 
     removeNumberPick: (state, action: PayloadAction<number>) => {
-      state.value.splice(action.payload, 1);
-    },
+        const index = action.payload;
+
+        // 1. Update the array first
+        state.value.splice(index, 1);
+
+        // 2. Log the REAL updated array (avoid Proxy logs)
+        const updatedArray = current(state.value);
+   
+        // 3. Send updated array to API
+        const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+
+
+        if (token && lottery) {
+          updateNumbersToApiFn({
+            token,
+            lottery,
+            numbers: updatedArray, // use real array, not proxy
+          }).catch((err) => console.error('Sync error:', err));
+        } else {
+          console.warn('Missing token or lottery — skipping sync.');
+        }
+      },
   },
 });
 

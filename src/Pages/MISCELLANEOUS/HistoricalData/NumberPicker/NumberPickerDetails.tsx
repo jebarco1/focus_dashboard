@@ -217,7 +217,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         <div className="product-price">
           <div className="selectNumber ">
             {selectedRegularNumbers.map((number, index) => (
-              <button className="btn btn-sm btn-success m-1" key={index}>
+              <button className="btn btn-sm btn-success" key={index}>
                 {number}
                 <span className={hotColdStatus(number)}></span>
               </button>
@@ -225,13 +225,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
             {Array.isArray(selectedPowerball)
               ? selectedPowerball.map((number, index) => (
-                  <button className="btn btn-secondary m-1" key={index}>
+                  <button className="btn btn-secondary" key={index}>
                     {number}
                     <span className={hotColdStatus(number)}></span>
                   </button>
                 ))
               : selectedPowerball !== 0 && (
-                  <button className="btn btn-secondary m-1">
+                  <button className="btn btn-secondary">
                     {selectedPowerball}
                     <span className={hotColdYellowStatus(selectedPowerball)}></span>
                   </button>

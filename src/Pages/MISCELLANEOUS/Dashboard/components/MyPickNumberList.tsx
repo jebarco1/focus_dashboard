@@ -22,7 +22,7 @@ const DrawResultsList: React.FC = () => {
 
 
   return (
-    <div className="container">
+    <div>
      <NumberPickDetail
   currentDrawNumbers={mainNumbers}  // from Redux or prop
   currentPowerNumber={specialBall}

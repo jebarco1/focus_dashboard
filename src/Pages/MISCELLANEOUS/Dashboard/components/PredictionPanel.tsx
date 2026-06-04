@@ -120,7 +120,7 @@ console.log(useAppSelector(
     console.log(whiteStats);
 
   return (
-    <div className="p-4 rounded-2xl shadow text-black">
+    <div className="p-4 rounded-2xl ">
       <h2 className="text-xl font-bold">Today’s Smart Pick</h2>
 
       <div className="mt-4">

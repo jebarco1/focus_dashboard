@@ -67,15 +67,13 @@ const PowerballWinningResult: React.FC<PowerballWinningResultProps> = ({
 
       <style>
         {`
-        .prizeCard {
-          background-color:#272727;
-          border-radius: 6px;
-          max-width:200px;
-          margin:10px;
-          padding:10px;
-          right: 10px;
-          position: absolute;
-        }
+          .prizeCard {
+            background-color: #272727;
+            border-radius: 6px;
+            max-width: 200px;
+            margin: 10px auto; /* auto horizontally centers it */
+            padding: 10px;
+          }
 
           .lotto-ball {
               width: 20px;

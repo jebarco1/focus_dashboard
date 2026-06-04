@@ -1,27 +1,63 @@
 import React, { useState } from "react";
 import {
   Card,
-  CardBody,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-  Table,
+  CardTitle,
 } from "reactstrap";
+
 import { removeNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
-import classnames from "classnames";
-import { Link } from "react-router-dom";
+import NumberPickCard from "./NumberPickCard"; // make sure path is correct
 
 const NumberPickDetail: React.FC = () => {
-  const [activeDetailIndex, setActiveDetailIndex] = useState<number | null>(
-    null
-  );
+  const [activeDetailIndex, setActiveDetailIndex] = useState<number | null>(null);
   const [activeTab, setActiveTab] = useState<string>("1");
   const dispatch = useAppDispatch();
   const numberPicks = useAppSelector((state) => state.numberPicks.value);
   const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
+
+  const getHotColdStatus = (inputNumber: number) => {
+    const found = numberPickHotCold.find(({ number }) => number === inputNumber);
+    return found ? found.temp : "Neutral";
+  };
+
+  const calculateHotColdProbability = (numbers: number[], powerball: number) => {
+    let hotCount = 0;
+    let coldCount = 0;
+    let neutralCount = 0;
+
+    numbers.forEach((num) => {
+      const status = getHotColdStatus(num);
+      if (status === "Hot") hotCount++;
+      else if (status === "Cold") coldCount++;
+      else neutralCount++;
+    });
+
+    const powerballStatus = getHotColdStatus(powerball);
+    if (powerballStatus === "Hot") hotCount++;
+    else if (powerballStatus === "Cold") coldCount++;
+    else neutralCount++;
+
+    const totalNumbers = numbers.length + 1;
+    const probability = ((hotCount * 1.5 + neutralCount * 1) / (totalNumbers * 1.5)) * 100;
+
+    return probability.toFixed(2);
+  };
+
+  const determineOverallHotColdStatus = (numbers: number[], powerball: number): string => {
+    const probability = parseFloat(calculateHotColdProbability(numbers, powerball));
+    return probability > 75 ? "Hot" : probability < 50 ? "Cold" : "Neutral";
+  };
+
+  const mapToTempCategory = (status: string): "Hot" | "Moderate" | "Cool" => {
+    switch (status.toLowerCase()) {
+      case "hot":
+        return "Hot";
+      case "cold":
+        return "Cool";
+      default:
+        return "Moderate";
+    }
+  };
 
   const handleRemove = (index: number) => {
     dispatch(removeNumberPick(index));
@@ -42,177 +78,46 @@ const NumberPickDetail: React.FC = () => {
   };
 
   return (
-    <Card>
-      <CardBody>
-        <div className="filter-block">
-          <h3>My Number Picks</h3>
-          <div>
-            {numberPicks.map((pick, index) => (
-              <div key={index} className="random-number-box">
-                {/* ✅ Left Side: Numbers */}
-                <div className="numberContainer">
-                  <div className="selectNumber">
-                    {pick.rnumber.split(",").map((num, idx) => (
-                      <button key={idx} className="btn btn-success m-1">
-                        {num.trim()}{" "}
-                        <span
-                          className={"hotCold " + hotColdStatus(parseInt(num.trim(), 10))}
-                        ></span>
-                      </button>
-                    ))}
-                    <button className="btn btn-secondary m-1">
-                      {pick.pnumber}{" "}
-                      <span className={"hotCold " + hotColdStatus(pick.pnumber)}></span>
-                    </button>
-                  </div>
-                </div>
+    <div className="container">
+      <Card className="p-3">
+        <div className="row">
+          <div className="col-md-6">
+            <CardTitle tag="h4">My Number Picks</CardTitle>
+          </div>
 
-                {/* ✅ Right Side: Details */}
-                <div className="numberDetailDetail">
-                  <span className="numberListDetails">
-                    <h5>Temperature</h5>
-                    <p>{hotColdStatus(parseInt(pick.rnumber.split(",")[0], 10))}</p>
-                  </span>
-                  <span className="numberListDetails">
-                    <h5>Probability</h5>
-                    <p>75.4%</p>
-                  </span>
-                  <span className="numberListDetails">
-                    <h5>Patterns</h5>
-                    <p>4 Found</p>
-                  </span>
+          <div className="mt-4 w-100">
+            <div className="filter-block">
 
-                  {/* ✅ Action Buttons */}
-                  <div className="numberPickerActions">
-                    <button
-                      onClick={() => handleDetails(index)}
-                      className="btn btn-sm btn-info me-2"
-                      title="View Details"
-                    >
-                      {activeDetailIndex === index ? "Hide Details" : "Details"}
-                    </button>
-                    <button
-                      onClick={() => handleRemove(index)}
-                      className="btn btn-sm btn-danger"
-                      title="Remove"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-
-                {/* ✅ Details Section (Only Visible When Expanded) */}
-                {activeDetailIndex === index && (
-                  <div className="moreDetails animate__animated animate__fadeInDown animate__slower mt-2 p-2 border-top">
-                    <Nav tabs>
-                      <NavItem>
-                        <NavLink
-                          className={classnames({ active: activeTab === "1" })}
-                          onClick={() => toggleTab("1")}
-                        >
-                          Analysis
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames({ active: activeTab === "2" })}
-                          onClick={() => toggleTab("2")}
-                        >
-                         Pairs
-                        </NavLink>
-                      </NavItem>
-                      <NavItem>
-                        <NavLink
-                          className={classnames({ active: activeTab === "3" })}
-                          onClick={() => toggleTab("3")}
-                        >
-                          Drawings
-                        </NavLink>
-                      </NavItem>
-                    </Nav>
-
-                    <TabContent activeTab={activeTab}>
-                      {/* ✅ Detailed Analysis */}
-                      <TabPane tabId="1">
-                        <div className="table-responsive">
-                          <Table bordered>
-                            <thead>
-                              <tr>
-                                <th>Number</th>
-                                <th>Hot/Cold Status</th>
-                                <th>Odd/Even</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {pick.rnumber.split(",").map((num, idx) => (
-                                <tr key={idx}>
-                                  <td>{num.trim()}</td>
-                                  <td>{hotColdStatus(parseInt(num.trim(), 10))}</td>
-                                  <td>{parseInt(num.trim(), 10) % 2 === 0 ? "Even" : "Odd"}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </div>
-                      </TabPane>
-
-                      {/* ✅ Number Pairs */}
-                      <TabPane tabId="2">
-                        <div className="table-responsive">
-                          <Table bordered>
-                            <thead>
-                              <tr>
-                                <th>Pair</th>
-                                <th>Frequency</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {pick.rnumber.split(",").map((num, idx) => (
-                                <tr key={idx}>
-                                  <td>{`${num.trim()} & ${pick.pnumber}`}</td>
-                                  <td>{Math.floor(Math.random() * 10) + 1}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </div>
-                      </TabPane>
-
-                      {/* ✅ Similar Drawings */}
-                      <TabPane tabId="3">
-                        <div className="table-responsive">
-                          <Table bordered>
-                            <thead>
-                              <tr>
-                                <th>Date</th>
-                                <th>Numbers</th>
-                                <th>Powerball</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {[...Array(5)].map((_, idx) => (
-                                <tr key={idx}>
-                                  <td>{`2023-12-${idx + 1}`}</td>
-                                  <td>{pick.rnumber}</td>
-                                  <td>{pick.pnumber}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </div>
-                      </TabPane>
-                    </TabContent>
-                  </div>
-                )}
+              <div>
+               {numberPicks.map((pick, index) => (
+                    <NumberPickCard
+                      key={index}
+                      pick={pick}
+                      index={index}
+                      isActive={activeDetailIndex === index}
+                      activeTab={activeTab}
+                      onRemove={handleRemove}
+                      onDetails={handleDetails}
+                      onTabToggle={toggleTab}
+                      hotColdStatus={hotColdStatus}
+                      calculateHotColdProbability={calculateHotColdProbability}
+                      determineOverallHotColdStatus={determineOverallHotColdStatus}
+                      mapToTempCategory={mapToTempCategory}
+                    />
+                  ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
-      </CardBody>
+      </Card>
 
-      {/* ✅ Responsive Design */}
+      {/* Custom Style */}
       <style>
         {`
+    
+
+    
+
           .random-number-box {
             border: 1px solid #374558;
             padding: 15px;
@@ -242,7 +147,7 @@ const NumberPickDetail: React.FC = () => {
           }
         `}
       </style>
-    </Card>
+    </div>
   );
 };
 

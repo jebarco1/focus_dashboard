@@ -26,6 +26,8 @@ const BasicAreaChartClass: React.FC = () => {
   // Get data from Redux
   const getNumberByMonth = useAppSelector((state: any) => state.getNumberByMonth.value);
 
+  console.log(getNumberByMonth);
+
   // Prepare series and labels for the chart
   const series = [
     {

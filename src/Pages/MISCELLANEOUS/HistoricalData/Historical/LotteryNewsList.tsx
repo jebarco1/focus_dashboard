@@ -63,7 +63,11 @@ const LatestUpdate: React.FC = () => {
                 </div>
                 <div className="flex-grow-1 updates-bottom-time">
                   <P>{item.message}</P>
-                  <P>{new Date(item.date).toLocaleString()}</P>
+                  <P>{new Date(item.date).toLocaleDateString("en-US", {
+                        month: "numeric",
+                        day: "numeric",
+                        year: "numeric",
+                      })}</P>
                 </div>
               </div>
             );

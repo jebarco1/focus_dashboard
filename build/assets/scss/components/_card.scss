@@ -357,7 +357,7 @@
 .numberDetailsCol h3 {padding:20px;text-align:left}
 .NumberBall {background-color:gray;border-radius:50%;width:90px;height:90px;margin:auto;padding-bottom:10px;}
 .NumberBall p {color:#fff;margin:auto;font-size:31px;line-height: 2.7;}
-.selectNumber {margin-bottom:20px;}
+.selectNumber {margin-bottom:20px}
 .selectNumber h3 {padding:20px;text-align:left;}
 .selectNumber button {background-color: gray;
   border-radius: 50%;
@@ -370,7 +370,18 @@
   max-width: 67px;
   max-height: 67px;
   min-width: 47px;
-  min-height: 47px;}
+  min-height: 47px;
+ @media (max-width: 480px) {
+         font-size: max(1.5vw, 15px) !important;
+          min-width: 40px;
+         min-height: 40px;
+      }
+  
+
+}
+
+
+
 .selectNumber button .hotCold {border-radius: 23px;
   bottom: -6px;
   max-height: 34px;

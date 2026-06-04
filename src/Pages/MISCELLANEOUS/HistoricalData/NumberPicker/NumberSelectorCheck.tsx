@@ -57,7 +57,7 @@ const PreviousDrawing: React.FC = () => {
     <div className="numberSelectorContainer">
       <div className="numberInputs selectNumber">
         {numbers.map((num, index) => (
-          <button key={index} className={`btn btn-sm ${index < 5 ? "btn-success" : "btn-secondary"}`}>
+          <button key={index} className={`btn m1 btn-sm ${index < 5 ? "btn-success" : "btn-secondary"}`}>
             <input
               type="text"
               value={num}
@@ -92,11 +92,28 @@ const PreviousDrawing: React.FC = () => {
      
       <style>
         {`
+
+
+.selectNumber button input {
+  border-radius: 50%;
+  color: #fff;
+  font-size: max(1.5vw, 22px);
+  height: 8vw;
+  padding: 0;
+  position: relative;
+  width: 8vw;
+  max-width: 67px;
+  max-height: 67px;
+  min-width: 47px;
+  min-height: 47px;
+        }
+
           .numberSelectorContainer {
             display: flex;
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
+            padding: 0 20px 0 20px;
           }
 
           .numberInputs {
@@ -118,13 +135,7 @@ const PreviousDrawing: React.FC = () => {
             outline: none;
           }
 
-          .btn-success .number-input {
-            color: white;
-          }
-
-          .btn-secondary .number-input {
-            color: black;
-          }
+       
 
           .dateRangeSelect {
             padding: 6px;
@@ -136,12 +147,19 @@ const PreviousDrawing: React.FC = () => {
           .actionButtons {
             display: flex;
             gap: 10px;
+    
           }
+
+          .actionButtons button {
+            width:110px;
+          }
+
 
           @media (max-width: 720px) {
             .numberSelectorContainer {
               flex-wrap: wrap;
               justify-content: center;
+                padding-bottom:20px;
             }
 
             .numberInputs {

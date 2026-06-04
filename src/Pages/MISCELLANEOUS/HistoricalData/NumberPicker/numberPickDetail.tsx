@@ -33,7 +33,7 @@ interface numberPickDetailProps {}
             </span>
             <div className="numberPickerActions">
               <button
-                onClick={() => handleDetails(pick)}
+                onClick={() => (window.location.href = "/portal#/pages/MyPicks")}
                 className="btn btn-sm btn-info me-2"
                 title="View Details"
               >

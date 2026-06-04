@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Card, CardBody, Button } from "reactstrap";
 import { useAppSelector, useAppDispatch } from "../../ReaduxToolkit/Hooks";
 import { setSelectedlotterySelect } from "../../ReaduxToolkit/Reducer/lotterySelectSlice";
+import { fetchLatestNews } from "../../ReaduxToolkit/Reducer/getLastestNew";
 import { dynamicImage } from "../../Service";
 
 // Card Props
@@ -56,6 +57,8 @@ const SelectLottery = () => {
   const { mega, powerball } = useAppSelector((state) => state.lastDrawings);
   const [loading, setLoading] = useState(false);
 
+  console.log(useAppSelector((state) => state.lastDrawings));
+
   const handleSelect = (target: string) => {
     dispatch(setSelectedlotterySelect(target));
   };
@@ -66,6 +69,7 @@ const SelectLottery = () => {
     setLoading(true);
     try {
       await dispatch(setSelectedlotterySelect(selectedLottery));
+      await dispatch(fetchLatestNews());
       window.location.reload();
     } catch (error) {
       console.error("Error selecting lottery:", error);

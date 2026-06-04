@@ -59,8 +59,7 @@ const PreviousDrawing: React.FC = () => {
 
   return (
     <div>
-      <h5>Previous Drawing Based Numbers</h5>
-      <NumberSetDisplay generatedSets={generatedSets} />
+      <NumberSetDisplay generatedSets={generatedSets} title={"Previous Drawing Based Numbers"}/>
     </div>
   );
 };

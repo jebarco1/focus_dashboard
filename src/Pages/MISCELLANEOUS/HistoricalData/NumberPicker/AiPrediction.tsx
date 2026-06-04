@@ -59,8 +59,7 @@ const AiGeneratedNumbers: React.FC = () => {
 
   return (
     <div>
-      <h5>AI Generated Numbers</h5>
-      <NumberSetDisplay generatedSets={generatedSets} />
+      <NumberSetDisplay generatedSets={generatedSets} title={"AI Generated Numbers"} />
     </div>
   );
 };

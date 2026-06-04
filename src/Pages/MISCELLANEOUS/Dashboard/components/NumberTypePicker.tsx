@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Input, Card, CardBody, CardTitle, Button } from "reactstrap";
-import NumberSelectorTemp from "../NumberPicker/numberSelectorTemp";
-import PreviousDrawing from "../NumberPicker/PreviousDrawing";
-import RandomNumbers from "../NumberPicker/RandomNumbers"
-import HotNumbers from "../NumberPicker/HotNumbers";
-import Confidence from "../NumberPicker/Confidence";
-import AiPrediction from "../NumberPicker/AiPrediction";
+import NumberSelectorTemp from "../../HistoricalData/NumberPicker/numberSelectorTemp";
+import PreviousDrawing from "../../HistoricalData/NumberPicker/PreviousDrawing";
+import RandomNumbers from "../../HistoricalData/NumberPicker/RandomNumbers"
+import HotNumbers from "../../HistoricalData/NumberPicker/HotNumbers";
+import Confidence from "../../HistoricalData/NumberPicker/Confidence";
+import AiPrediction from "../../HistoricalData/NumberPicker/AiPrediction";
 import { useAppSelector } from "../../../../ReaduxToolkit/Hooks";
 
 // Function to check Hot/Cold status
@@ -68,7 +68,7 @@ export default function NumberPickerContainer() {
 
             {/* Number Selection - Display on Right */}
             <div className="col-md-6">
-              <CardTitle tag="h4">Select a Method</CardTitle>
+              <CardTitle tag="h4">lotteryselect</CardTitle>
 
               {/* Dropdown for Selection */}
               <Input style={{ marginTop: "35px" }}  type="select" value={method} onChange={(e) => setMethod(e.target.value)}>

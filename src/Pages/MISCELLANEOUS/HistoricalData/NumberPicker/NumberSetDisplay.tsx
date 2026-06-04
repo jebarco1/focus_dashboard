@@ -1,9 +1,13 @@
 import React from "react";
-import { Button } from "reactstrap";
 import { useAppSelector, useAppDispatch } from "../../../../ReaduxToolkit/Hooks";
 import { addNumberPick } from "../../../../ReaduxToolkit/Reducer/numberPicks";
+import NumberPickCard from "./NumberPickCard"; // Make sure path is correct
+import {
+  Card,
+  CardTitle,
+} from "reactstrap";
 
-const NumberSetDisplay: React.FC<{ generatedSets: number[][] }> = ({ generatedSets }) => {
+const NumberSetDisplay: React.FC<{ generatedSets: number[][]; title?: string }> = ({ generatedSets, title }) => {
   const numberPickHotCold = useAppSelector((state) => state.hotCold.value);
   const numberPickHotColdYellow = useAppSelector((state) => state.hotColdYellow.value);
   const savedNumberPicks = useAppSelector((state) => state.numberPicks.value);
@@ -61,89 +65,88 @@ const NumberSetDisplay: React.FC<{ generatedSets: number[][] }> = ({ generatedSe
     return probability > 75 ? "Hot" : probability < 50 ? "Cold" : "Neutral";
   };
 
+  const mapToTempCategory = (status: string): "Hot" | "Moderate" | "Cool" => {
+    switch (status.toLowerCase()) {
+      case "hot":
+        return "Hot";
+      case "cold":
+        return "Cool";
+      case "neutral":
+      default:
+        return "Moderate";
+    }
+  };
+
   return (
-    <>
-      {generatedSets.map((set, index) => (
-        <div key={index} className="numberDetailDetail d-flex flex-column mb-2 random-number-box">
-          {/* ✅ Select Numbers in One Row */}
-          <div className="">
-            {set.slice(0, 5).map((num, i) => (
-              <span className="selectNumber" key={i}>
-                <button className="btn btn-sm btn-success m-1">
-                  {num}
-                  <span className={`hotCold ${getHotColdStatus(num)}`}></span>
-                </button>
-              </span>
-            ))}
-
-            {/* ✅ Powerball */}
-            <span className="selectNumber">
-              <button className="btn btn-sm btn-danger m-1">
-                {set[5]}
-                <span className={`hotCold ${getHotColdYellowStatus(set[5])}`}></span>
-              </button>
-            </span>
-          </div>
-
-          
-          {/* ✅ Save Button */}
-          <div className="text-center mt-2">
-            <Button color="primary" className="numberSave save-button" onClick={() => handleAddNumberPick(set)}>
-              Save
-            </Button>
-          </div>
-
-          {/* ✅ CSS for Mobile-Friendliness */}
-          <style>
-            {`
-              .random-number-box {
-                border: 1px solid #374558 !important;
-                padding: 15px;
-                border-radius: 13px;
-                width: 100%;
-              }
-
-              .save-button {
-                margin-top: 10px;
-                width: auto;
-              }
-
-              /* ✅ Hide H5 and make pills below 540px */
-              @media (max-width: 540px) {
-                .numberListDetails h5 {
-                  display: none;
-                }
-
-                .numberListDetails {
-                  color: #fff;
-                  border-radius: 20px;
-                  padding: 5px 12px;
-                  margin: 5px;
-                  font-size: 14px;
-                }
-
-                .numberListDetailsContainer {
-                  display: inline-block;
-                  flex-wrap: wrap;
-                  justify-content: center;
-                }
-
-                .selectNumber {
-                   display: inline-block;
-                  flex-wrap: nowrap;
-                  justify-content: center;
-                }
-
-                .save-button {
-                  width: 100%;
-                }
-              }
-            `}
-          </style>
+      <div className="row">
+        <div className="col-md-6">
+          <CardTitle tag="h4">{title}</CardTitle>
         </div>
-      ))}
-    </>
-  );
+
+        <div className="mt-4 w-100">
+          <div className="filter-block">
+            {generatedSets.map((set, index) => (
+              <NumberPickCard
+                key={index}
+                pick={{ rnumber: set.slice(0, 5).join(","), pnumber: set[5] }}
+                index={index}
+                isActive={false}
+                activeTab={"1"}
+                onRemove={() => {}} // No delete for generated
+                onDetails={() => {}} // No toggle needed
+                onTabToggle={() => {}} // No tab interaction needed
+                hotColdStatus={getHotColdStatus}
+                calculateHotColdProbability={calculateHotColdProbability}
+                determineOverallHotColdStatus={determineOverallHotColdStatus}
+                mapToTempCategory={mapToTempCategory}
+                allowSave={true}
+                onSave={() => handleAddNumberPick(set)}
+                hotColdYellowStatus={getHotColdYellowStatus}
+              />
+            ))}
+          </div>
+        </div>
+
+         <style>
+        {`
+    
+
+    
+
+          .random-number-box {
+            border: 1px solid #374558;
+            padding: 15px;
+            border-radius: 13px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+          }
+
+          .table-responsive {
+            overflow-x: auto;
+          }
+
+          @media (max-width: 767px) {
+            .random-number-box {
+              flex-direction: column;
+              align-items: center;
+            }
+
+            .table-responsive {
+              max-width: 100%;
+              overflow-x: scroll;
+            }
+          }
+        `}
+      </style>
+      </div>
+ 
+
+     
+);
 };
 
 export default NumberSetDisplay;

@@ -5,7 +5,8 @@ import axios from 'axios';
 export const fetchLotteryResultsSearch = createAsyncThunk(
   'lottery/fetchResults',
   async ({ lotteryType, limit, token, userType, numberList }: any) => {
-    const url = `http://localhost:8080/jankgo/metricController/lotteryResultsSearch/['${lotteryType}','${limit}','${token}','${userType}','[${numberList.join(',')}]']`;
+    const lowerType = lotteryType.toLowerCase(); // convert to lowercase
+    const url = `https://focuslottery.com/api/jankgo/metricController/lotteryResultsSearch/['${lowerType}','${limit}','${token}','${userType}','[${numberList.join(',')}]']`;
     const response = await axios.get(url);
     return response.data;
   }
